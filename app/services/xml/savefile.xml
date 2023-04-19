@@ -1,0 +1,11 @@
+<string id="savefile_progress_description">Player statistics and game progression.</string>
+<string id="savefile_game_title">PAYDAY 2</string>
+<string id="savefile_autosave">$TEXT_WITH_DATE; - AUTO SAVE</string>
+<string id="savefile_removing">Removing...</string>
+<string id="savefile_loading">Loading...</string>
+<string id="savefile">$TEXT; - $DATE;</string>
+<string id="savefile_empty">[New Save File]</string>
+<string id="savefile_setting_description">User specific game settings.</string>
+<string id="savefile_progress">Player progression: Version $VERSION; or higher is required.</string>
+<string id="savefile_setting">Game settings: Version $VERSION; or higher is required.</string>
+<string id="savefile_saving">Saving...</string>

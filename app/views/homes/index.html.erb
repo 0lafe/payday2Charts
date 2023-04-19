@@ -1,0 +1,325 @@
+<div class="page">
+<div style="display:flex;flex-direction:column;align-items:center">
+  <div class="filtering">
+    <div class="statistic-choice">
+      <p>Choose Statistic</p>
+      <%= select_tag('statistic_choice', options_for_select(@options)) %>
+    </div>
+    <div class="navigation-container">
+      <nav class="pagination-container">
+        <button class="pagination-button" id="skip-start" title="First page" aria-label="First page">
+          &lt;&lt;&lt;
+        </button>
+        <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
+          &lt;
+        </button>
+        
+        <div id="pagination-numbers"></div>
+        
+        <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+          &gt;
+        </button>
+        <button class="pagination-button" id="skip-end" title="Last Page" aria-label="Last Page">
+          &gt;&gt;&gt;
+        </button>
+      </nav>
+    </div>
+    <div class="search-container">
+      <p>Search<p>
+      <input type="text" class='search-field' id="search_field"/>
+    </div>
+  </div>
+
+  <div class="container" id="chart_holder"></div>
+
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const renderChart = (name, labels, values) => {
+    const ctx = document.getElementById(`${name}_chart`);
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: name,
+          data: values,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: Math.max(...values),
+            min: 0
+          },
+          x: {
+            
+          }
+        }
+      }
+    });
+  }
+</script>
+
+<script>
+  const searchField = document.getElementById('search_field')
+  var timeout = null
+
+  const filter = (v) => {
+    filtered = []
+    statisticData[type].data.forEach((i) => {
+      if (i.localized_name.toUpperCase().includes(v.toUpperCase())) {
+        filtered.push(i)
+      }
+    })
+    listItems = filtered
+    handleDataChange()
+  }
+
+  const inputHandler = (e) => {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(filter, 50, e.target.value)
+  }
+
+  searchField.addEventListener('input', inputHandler);
+</script>
+
+<script>
+  let type = 'mask_use'
+  const paginationNumbers = document.getElementById("pagination-numbers");
+  let listItems = [];
+  const nextButton = document.getElementById("next-button");
+  const prevButton = document.getElementById("prev-button");
+  const firstPageSkip = document.getElementById("skip-start");
+  const lastPageSkip = document.getElementById("skip-end");
+  const paginationLimit = 6;
+  const pageLimit = 5
+  let pageCount
+  let currentPage = 1
+
+  const initializePagination = () => {
+    pageCount = Math.ceil(listItems.length / paginationLimit);
+  }
+
+  const appendPageNumber = (index) => {
+    const pageNumber = document.createElement("button");
+    pageNumber.className = "pagination-number";
+    pageNumber.innerHTML = index;
+    pageNumber.setAttribute("page-index", index);
+    pageNumber.setAttribute("aria-label", "Page " + index);
+    paginationNumbers.appendChild(pageNumber);
+  };
+
+  const getPaginationNumbers = () => {
+    removeChildren(paginationNumbers);
+
+    for (let i = 0;i < pageLimit && i < pageCount; i++) {
+      const range = (pageLimit - 1)/2
+      let val = currentPage - range + i
+      let shift = 0
+      if (currentPage <= range) {
+        shift += (range - currentPage) + 1
+      } else if (pageCount - currentPage <= range) {
+        shift -= (currentPage - pageCount + range)
+      }
+      appendPageNumber(val + shift);
+    }
+
+    document.querySelectorAll(".pagination-number").forEach((button) => {
+      const pageIndex = Number(button.getAttribute("page-index"));
+      if (pageIndex) {
+        button.addEventListener("click", () => {
+          currentPage = pageIndex
+          getPaginationNumbers();
+          setCurrentPage(pageIndex);
+        });
+      }
+    });
+  };
+
+  const handleSwitchDataSet = () => {
+    if (!statisticData[type]) {
+      removeChildren(document.getElementById('chart_holder'))
+      getData(type).then(() => {
+        currentPage = 1
+        listItems = statisticData[type].data
+        handleDataChange()
+      })
+    } else {
+      currentPage = 1
+      listItems = statisticData[type].data
+      handleDataChange()
+    }
+  }
+
+  window.addEventListener("load", () => {
+    prevButton.addEventListener("click", () => {
+      currentPage = currentPage - 1
+      getPaginationNumbers();
+      setCurrentPage(currentPage);
+    });
+    nextButton.addEventListener("click", () => {
+      currentPage = currentPage + 1
+      getPaginationNumbers();
+      setCurrentPage(currentPage);
+    });
+    firstPageSkip.addEventListener("click", () => {
+      if (currentPage != 1) {
+        currentPage = 1
+        getPaginationNumbers();
+        setCurrentPage(currentPage);
+      }
+    });
+    lastPageSkip.addEventListener("click", () => {
+      if (currentPage != pageCount) {
+        currentPage = pageCount
+        getPaginationNumbers();
+        setCurrentPage(currentPage);
+      }
+    });
+    handleSwitchDataSet()
+  });
+
+  const handleDataChange = () => {
+    initializePagination();
+
+    getPaginationNumbers();
+
+    setCurrentPage(1)
+  }
+
+  const generateChart = (name, labels, values, localizedName, url) => {
+    const div = document.createElement('div')
+    div.classList.add('data-table')
+    div.id = name
+
+    const title = document.createElement('span')
+    title.innerText = localizedName
+
+    const image = document.createElement('img')
+    image.src = url
+    image.classList.add('chart-image')
+    const imageDiv = document.createElement('div')
+    imageDiv.classList.add('chart-image-container')
+    imageDiv.appendChild(image)
+
+    let position = 0
+    statisticData[type].data.forEach((i, index) => {
+      if (i.name === name) {
+        position = index + 1
+      }
+    })
+    const positionLabel = document.createElement('span')
+    positionLabel.innerText = `#${position} Overall`
+
+    const total = document.createElement('span')
+    total.innerText = `Total: ${values.reduce((sum, i) => {return sum + parseInt(i)}, 0).toLocaleString('en-US')}`
+
+    const canvas = document.createElement('canvas')
+    canvas.id = `${name}_chart`
+
+    const titleContainer = document.createElement('div')
+    titleContainer.classList.add('chart-title')
+
+    const chartDescription = document.createElement('div')
+    chartDescription.classList.add('chart-description')
+
+    chartDescription.appendChild(title)
+    chartDescription.appendChild(positionLabel)
+    chartDescription.appendChild(total)
+    titleContainer.appendChild(chartDescription)
+    titleContainer.appendChild(imageDiv)
+    div.appendChild(titleContainer)
+    div.appendChild(canvas)
+
+    return div
+  }
+
+  const disableButton = (button) => {
+    button.classList.add("disabled");
+    button.setAttribute("disabled", true);
+  };
+  
+  const enableButton = (button) => {
+    button.classList.remove("disabled");
+    button.removeAttribute("disabled");
+  };
+
+  const handlePageButtonsStatus = () => {
+    if (currentPage === 1) {
+      disableButton(prevButton);
+      disableButton(firstPageSkip);
+    } else {
+      enableButton(prevButton);
+      enableButton(firstPageSkip);
+    }
+    if (pageCount === currentPage) {
+      disableButton(nextButton);
+      disableButton(lastPageSkip);
+    } else {
+      enableButton(nextButton);
+      enableButton(lastPageSkip);
+    }
+  };
+
+  const setCurrentPage = (pageNum) => {
+    currentPage = pageNum;
+
+    handleActivePageNumber();
+    handlePageButtonsStatus();
+    
+    const prevRange = (pageNum - 1) * paginationLimit;
+    const currRange = pageNum * paginationLimit;
+
+    removeChildren(document.getElementById('chart_holder'))
+
+    listItems.forEach((item, index) => {
+      if (index >= prevRange && index < currRange) {
+        const element = generateChart(item['name'], item['labels'], item['value'], item['localized_name'], item['img_url'])
+        document.getElementById('chart_holder').appendChild(element)
+        renderChart(item['name'], item['labels'], item['value'])
+      }
+    });
+  };
+
+  const handleActivePageNumber = () => {
+    document.querySelectorAll(".pagination-number").forEach((button) => {
+      button.classList.remove("active");
+      
+      const pageIndex = Number(button.getAttribute("page-index"));
+      if (pageIndex == currentPage) {
+        button.classList.add("active");
+      }
+  });
+};
+</script>
+
+<script>
+  type = 'melee_kills'
+  const statisticData = {}
+
+  const getData = async (name) => {
+    const response = await fetch(`/stats/${type}`)
+    console.log('bing')
+    const data = await response.json()
+    statisticData[name] = data
+  }
+
+  const removeChildren = (node) => {
+    while (node.firstChild) {
+      node.removeChild(node.lastChild);
+    }
+  }
+
+  document.getElementById('statistic_choice').addEventListener('change', (e) => {type = e.target.value;handleSwitchDataSet()});
+
+</script>
