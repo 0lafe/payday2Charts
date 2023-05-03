@@ -1,0 +1,13 @@
+  <%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name) %>
+
+<script>
+  $(document).ready(function() { $("#statistic_choice").select2(); });
+
+  $('#statistic_choice').on('select2:select', function (e) {
+    if (window.location.pathname === '/leaderboards') {
+      window.location.href = `leaderboards/${e.target.value}`
+    } else {
+      window.location.href = `${e.target.value}`
+    }
+  });
+</script>

@@ -14,8 +14,9 @@ class Localizer
     'gloves_used_': 'Usage for ',
     'suit_used_': 'Usage for ',
     'character_used_': 'Usage for ',
-    'enemy_kills_': '',
-    'armor_used_': 'Usage for '
+    'enemy_kills_': 'Kills on ',
+    'armor_used_': 'Usage for ',
+    'contract_': ''
   }
 
   @overkill_goofs = {
@@ -90,16 +91,22 @@ class Localizer
   end
 
   def self.localize_from_statistic(statistic)
+    suffix = ''
+
     name = if statistic.include?('melee_')
       'bm_melee_'
     elsif statistic.include?('weapon_')
       'bm_w_'
     elsif statistic.include?('mask_')
-      'bm_msk_'
+      if statistic.include?('mask_used_cop_kawaii') || statistic.include?('mask_used_cop_skull') || statistic.include?('mask_used_cop_plague_doctor')
+        'bm_'
+      else
+        'bm_msk_'
+      end
     elsif statistic.include?('gadget_')
       'bm_equipment_'
     elsif statistic.include?('grenade_')
-      if statistic.include?('_wpn_') || statistic.include?('_concussion')
+      if statistic.include?('_wpn_') || statistic.include?('_concussion') || statistic.include?('_dynamite')
         'bm_'
       else
         'bm_grenade_'
@@ -111,13 +118,26 @@ class Localizer
     elsif statistic.include?('difficulty_')
       'menu_'
     elsif statistic.include?('character_used')
+      suffix = ' (Character)'
       'menu_'
     elsif statistic.include?('armor_used')
       'bm_armor_'
+    elsif statistic.include?('contract_')
+      if statistic.include?('_win_dropin')
+        suffix = ' Win (drop in)'
+        statistic = statistic.gsub('_win_dropin', '')
+      elsif statistic.include?('_win')
+        suffix = ' Win'
+        statistic = statistic.gsub('_win', '')
+      elsif statistic.include?('_fail')
+        suffix = ' Lose'
+        statistic = statistic.gsub('_fail', '')
+      end
+      'heist_'
     end
 
     name = '' unless name
-    
+
     uuid = statistic
     descriptor = ''
     @stats.keys.each do |stat|
@@ -129,7 +149,7 @@ class Localizer
     rescue
       byebug
     end
-    descriptor + localize(name + uuid)
+    descriptor + localize(name + uuid) + suffix
   end
 
   def self.localize(name)

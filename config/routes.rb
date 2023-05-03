@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :stats, only: ['show']
+  resources :leaderboards, only: ['index', 'show']
+  resources :users, only: ['create']
 
   root "homes#index"
 end

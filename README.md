@@ -1,24 +1,17 @@
-# README
+# Payday 2 Charts
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Available at https://payday-2-charts.herokuapp.com/
 
-Things you may want to cover:
+A website for viewing payday 2 stats from the steam web api
 
-* Ruby version
+# TODO
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Finish localizations
+  charms
+  colors
+  outfits
+  gloves
+  enemies
+  skills
+  heists
+  masks

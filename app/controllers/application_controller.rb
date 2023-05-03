@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     stats = get_schema['game']['availableGameStats']['stats']
     # getMissingStats(stats)
     stats = stats.filter {|stat| stat['name'].index(stat_type) == 0 }.map {|stat| stat['name'] }
-    stats.filter {|stat| !black_list.include?(stat) }
+    stats = stats.filter {|stat| !black_list.include?(stat) }
   end
 
   def generate_url(type)

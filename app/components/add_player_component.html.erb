@@ -1,0 +1,8 @@
+<div class='new-user-container'>
+  <p class='add-user-form'>Notice someone is missing? Add them by supplying their steam ID</p>
+  <p>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
+  <%= simple_form_for(User.new) do |f| %>
+    <%= f.input :steam_id, label: 'Steam 64 ID', input_html: {class: 'add-user-form'} %>
+    <%= f.button :submit, 'Add Player To Leaderboard', input_html: {class: 'add-user-form submit-button'} %>
+  <% end %>
+</div>

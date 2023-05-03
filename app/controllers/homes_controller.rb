@@ -19,7 +19,7 @@ class HomesController < ApplicationController
       ['Outfit Usage', 'suit_used'],
       ['Difficulties Played', 'difficulty'],
       ['Heister Used ', 'character_used'],
-      ['Enemieis Killed ', 'enemy_kills'],
+      ['Enemies Killed ', 'enemy_kills'],
       ['Player Info ', 'info_playing'],
       ['Player Ranks ', 'player_rank'],
       ['Player Time ', 'player_time'],
@@ -27,7 +27,7 @@ class HomesController < ApplicationController
       ['Player Cash ', 'player_cash'],
       ['Player Coins ', 'player_coins'],
       ['Skills ', 'skill_'],
-      ['Heist Data ', 'heist'],
+      ['Heist Data ', 'contract'],
       ['Kick Method ', 'option_decide']
     ]
   end

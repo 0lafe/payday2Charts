@@ -1,0 +1,13 @@
+<div class="background-image"></div>
+<div class="page">
+  <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
+    <h1 style="color:white">
+      Leader Board
+    </h1>
+    <%= render(AddPlayerComponent.new) %>
+    <div class="statistic-choice" id="stat-choice">
+      <p>Choose Statistic</p>
+      <%= render(StatSearchComponent.new) %>
+    </div>
+  </div>
+</div>

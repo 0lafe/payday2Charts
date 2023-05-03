@@ -1,0 +1,38 @@
+.nav-bar-container {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.nav-element {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+.nav-element a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-element a:hover {
+  background-color: #fff;
+  color: black;
+}
+
+.active-nav {
+  background-color: #0085b6;
+}
+
+.nav-input-title {
+  display: block;
+  padding: 12px 16px;
+}
+
+.small-search {
+  width: 20rem;
+}

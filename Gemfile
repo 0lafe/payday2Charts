@@ -77,3 +77,5 @@ gem "view_component"
 gem "pagy"
 gem "nokogiri"
 gem 'dotenv-rails', groups: [:development, :test]
+gem "select2-rails"
+gem 'simple_form'

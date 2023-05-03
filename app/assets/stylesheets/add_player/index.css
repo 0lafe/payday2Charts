@@ -1,0 +1,24 @@
+.add-user-form {
+  margin: 1rem;
+}
+
+.new_user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.new-user-container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 2rem;
+  border-radius: 0.5rem;
+  align-items: center;
+}
+
+.submit-button {
+  
+}
