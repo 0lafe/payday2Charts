@@ -19,14 +19,13 @@
   margin: 0;
 }
 .page {
-  /* background-image: url(/assets/menu.png); */
   display: flex;
   flex-flow: column;
   height: 100%;
 }
 .background-image {
   z-index: -1;
-  background-image: url('assets/menu.png');
+  background-image: url('https://fbi-files.s3.amazonaws.com/menu.png');
   background-repeat: repeat-y;
   background-position-x: center;
   background-size: contain;
