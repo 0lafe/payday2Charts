@@ -1,5 +1,5 @@
 <ul class="nav-bar-container">
-  <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 100)">General Stats</a></li>
+  <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a></li>
   <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>"><a href="/leaderboards">Leaderboards</a></li>
   <li class="nav-element"><a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a></li>
   

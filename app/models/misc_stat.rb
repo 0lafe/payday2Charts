@@ -12,13 +12,17 @@ class MiscStat < ApplicationRecord
       }
     end
   end
-
   
   def self.user_in_top_10?(user)
     this_id = user.id
-    column_names.filter do |column|
-      MiscStat.where.not({column => nil}).order("#{column} DESC").limit(100).pluck(:user_id).index(this_id)
+    stats = []
+    column_names.each do |column|
+      pos = MiscStat.where.not({column => nil}).order("#{column} DESC").limit(100).pluck(:user_id).index(this_id)
+      if pos
+        stats << "#{Localizer.localize_from_statistic(column)} #{user.misc_stat[column]} #{pos + 1}"
+      end
     end
+    stats
   end
 
   def total_heists

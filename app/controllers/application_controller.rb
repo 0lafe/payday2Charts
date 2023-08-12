@@ -84,10 +84,43 @@ class ApplicationController < ActionController::Base
       begin
         out['response']['globalstats'] = out['response']['globalstats'].merge(item['response']['globalstats'])
       rescue
-        byebug
+        return false
       end
     end
     out
+  end
+
+  def get_historical_stats(urls, stat)
+    data = []
+    urls.each do |base_url|
+      data << HTTParty.get(base_url)
+    end
+
+    # out = {'response' => {'globalstats' => {}}}
+
+    history = []
+
+    data.each do |item|
+      begin
+        history << item['response']['globalstats'][stat]['history']
+        # out['response']['globalstats'] = out['response']['globalstats'].merge(item['response']['globalstats'])
+      rescue
+        return false
+      end
+    end
+    history
+  end
+
+  def long_historical_data(stat)
+    base_url = "https://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v1/?key=#{ENV['STEAM_KEY']}&appid=218620&count=1&name[0]=#{stat}"
+    urls = []
+    30.times do |i|
+      origin = (Date.today - (59 * i).days)
+      time_1 = (origin - 59.days).to_time.to_i
+      time_2 = (origin).to_time.to_i
+      urls << base_url + "&startdate=#{time_1}&enddate=#{time_2}"
+    end
+    get_historical_stats(urls, stat)
   end
 
   def getMissingStats(stats)

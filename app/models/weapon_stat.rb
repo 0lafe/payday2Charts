@@ -25,6 +25,23 @@ class WeaponStat < ApplicationRecord
     stats
   end
 
+  def self.lowest_kills
+    kill_stats = column_names.filter do |name|
+      name.index('weapon_kills_') == 0
+    end
+
+    values = kill_stats.map do |stat|
+      val = WeaponStat.where.not({stat => nil}).order("#{stat} DESC").first
+      if val.present?
+        [stat, val[stat]]
+      else
+        [stat, 0]
+      end
+    end
+    byebug
+
+  end
+
   def total_kills
     names = WeaponStat.column_names
 

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def create
-    if PlayerStatGrabber.store_individual(params[:user][:steam_id])
+    if PlayerStatGrabber.store_individual(params[:user][:steam_id].gsub(' ', ''))
       flash[:notice] = "User added successfully"
     else
       flash[:alert] = "Error, make sure the ID is correct and the player's stats are public and try again"
