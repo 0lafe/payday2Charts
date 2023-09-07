@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
 
   def get_stat_names(stat_type)
     stats = get_schema['game']['availableGameStats']['stats']
-    # getMissingStats(stats)
     stats = stats.filter {|stat| stat['name'].index(stat_type) == 0 }.map {|stat| stat['name'] }
     stats = stats.filter {|stat| !black_list.include?(stat) }
   end
@@ -123,28 +122,34 @@ class ApplicationController < ActionController::Base
     get_historical_stats(urls, stat)
   end
 
-  def getMissingStats(stats)
-    options = HomesController.new.index
+  def get_missing_stats
+    current_stats = WeaponStat.column_names + PlayerStat.column_names + MiscStat.column_names
 
-    additional_filters = [
-      'contract_',
-      'player_specialization',
-      'option_',
-      'level_',
-      'job_'
-    ]
-    
-    names = stats.map {|stat| stat['name'] }
+    remote_stats = get_schema['game']['availableGameStats']['stats'].map {|s| s['name'] }
 
-    options.map {|option| option[1] }.each do |option|
-      names = names.filter {|name| !name.include?(option) }
+    diff = remote_stats - current_stats
+
+    formatted_diff = diff.map do |stat|
+      {'name' => stat}
     end
 
-    additional_filters.each do |filter|
-      names = names.filter {|name| !(name.index(filter) == 0) }
+    weapon_stats, player_stats, misc_stats = PlayerStatGrabber.create_hash(formatted_diff)
+
+    weapon_stats.keys.each do |key|
+      p "add_column :weapon_stats, :#{key}, :integer"
     end
 
-    byebug
+    p ""
+
+    player_stats.keys.each do |key|
+      p "add_column :player_stats, :#{key}, :integer"
+    end
+
+    p ""
+
+    misc_stats.keys.each do |key|
+      p "add_column :misc_stats, :#{key}, :integer"
+    end
   end
 
 end
