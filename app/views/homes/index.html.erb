@@ -122,6 +122,7 @@
   const handleSwitchDataSet = () => {
     if (!statisticData[type]) {
       removeChildren(document.getElementById('chart_holder'))
+      document.getElementById('chart_holder').innerHTML = '<div class="data-table" style="display:flex;flex-direction:row;justify-content:center;"><div class="loader"></div></div>'.repeat(6)
       getData(type).then(() => {
         currentPage = 1
         listItems = statisticData[type].data

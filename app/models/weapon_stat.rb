@@ -38,8 +38,6 @@ class WeaponStat < ApplicationRecord
         [stat, 0]
       end
     end
-    byebug
-
   end
 
   def total_kills
