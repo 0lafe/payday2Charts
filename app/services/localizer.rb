@@ -147,7 +147,7 @@ class Localizer
     begin
       name + uuid
     rescue
-      byebug
+      false
     end
     descriptor + localize(name + uuid) + suffix
   end

@@ -83,7 +83,7 @@ class PlayerStatGrabber
   def self.update_stats_hash(id)
     data = retreive_user_data(id)
     if data['error']
-      byebug
+      false
     else
       if data['playerstats'] && data['playerstats']['stats']
         create_hash(data['playerstats']['stats'])
@@ -97,7 +97,7 @@ class PlayerStatGrabber
       if index >= starting_index
         data = retreive_user_data(player)
         if data['error']
-          byebug
+          false
         else
           if data['playerstats'] && data['playerstats']['stats']
             user = User.find_or_create_by(steam_id: player.to_i).id

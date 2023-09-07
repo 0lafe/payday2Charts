@@ -19,7 +19,7 @@ class PlayerStat < ApplicationRecord
     column_names.each do |column|
       pos = PlayerStat.where.not({column => nil}).order("#{column} DESC").limit(100).pluck(:user_id).index(this_id)
       if pos
-        stats << "#{Localizer.localize_from_statistic(column)} #{user.weapon_stat[column]} #{pos + 1}"
+        stats << "#{Localizer.localize_from_statistic(column)} #{user.player_stat[column]} #{pos + 1}"
       end
     end
     stats

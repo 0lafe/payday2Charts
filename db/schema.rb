@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_094542) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_07_044243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1056,6 +1056,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_094542) do
     t.integer "gloves_used_txsuede"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "level_deep"
+    t.integer "job_deep"
+    t.integer "contract_deep_win"
+    t.integer "contract_deep_win_dropin"
+    t.integer "contract_deep_fail"
+    t.integer "gloves_used_roclogrip"
+    t.integer "enemy_kills_deep_boss"
+    t.integer "gloves_used_hackglove"
+    t.integer "enemy_kills_piggydozer"
     t.index ["user_id"], name: "index_misc_stats_on_user_id"
   end
 
@@ -2396,6 +2405,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_094542) do
     t.integer "suit_used_sambass"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "mask_used_roclown"
+    t.integer "suit_used_roclown"
+    t.integer "mask_used_gabhelm"
+    t.integer "mask_used_bossflagmask"
+    t.integer "suit_used_bossflag"
+    t.integer "suit_used_sneak_suit_default"
+    t.integer "suit_used_sneak_suit_camo"
+    t.integer "suit_used_thug_gold"
+    t.integer "suit_used_hacksuit"
+    t.integer "suit_used_dgame_default"
+    t.integer "suit_used_dgame_white"
+    t.integer "suit_used_gangzsta_default"
+    t.integer "suit_used_gangzsta_yellow"
+    t.integer "suit_used_gangzsta_red"
+    t.integer "suit_used_gangzsta_blue"
+    t.integer "mask_used_guldgris"
+    t.integer "mask_used_hackmask"
+    t.integer "mask_used_splitcrim"
+    t.integer "mask_used_teddymoo"
+    t.integer "mask_used_zoothat_black"
+    t.integer "mask_used_zoothat_blue"
+    t.integer "mask_used_zoothat_red"
+    t.integer "mask_used_zoothat_yellow"
     t.index ["user_id"], name: "index_player_stats_on_user_id"
   end
 
@@ -3749,6 +3781,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_29_094542) do
     t.integer "weapon_hits_kacchainsaw"
     t.integer "weapon_hits_kacchainsaw_flamethrower"
     t.integer "weapon_hits_supernova"
+    t.integer "weapon_used_bessy"
+    t.integer "melee_used_piggy_hammer"
+    t.integer "weapon_kills_bessy"
+    t.integer "weapon_shots_bessy"
+    t.integer "weapon_hits_bessy"
+    t.integer "melee_kills_piggy_hammer"
+    t.integer "weapon_charm_used_wpn_fps_upg_charm_deadgame"
+    t.integer "weapon_charm_used_wpn_fps_upg_charm_deadgame_alt"
     t.index ["user_id"], name: "index_weapon_stats_on_user_id"
   end
 
