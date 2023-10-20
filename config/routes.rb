@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   resources :stats, only: ['show']
   resources :leaderboards, only: ['index', 'show']
   resources :users, only: ['create']
+  resources :crits, only: ['index'] do
+    collection do
+      post :calculate
+    end
+  end
 
   root "homes#index"
 end
