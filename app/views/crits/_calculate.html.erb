@@ -1,0 +1,15 @@
+<turbo-frame id="crit_calculator_result">
+  <div class="calculator-container">
+    <div class="data-table calculator-inputs">
+      <% if @shots %>
+        <h1>Average: <%= @shots %> shots</h1>
+      <% else %>
+        <h1>Something went wrong</h1>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+    renderChart(<%= @labels %>, <%= @values %>)
+  </script>
+</turbo-frame>
