@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post :calculate
     end
   end
+  resources :gifs, only: ['index']
 
   root "homes#index"
 end
