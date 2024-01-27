@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :stats, only: ['show']
-  resources :leaderboards, only: ['index', 'show']
+  resources :leaderboards, only: ['index', 'show'] do
+    member do
+      get 'top_100'
+    end
+    collection do
+      get 'top_100_index'
+    end
+  end
   resources :users, only: ['create']
   resources :crits, only: ['index'] do
     collection do

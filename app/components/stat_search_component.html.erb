@@ -1,4 +1,4 @@
-  <%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name) %>
+<%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name) %>
 
 <script>
   $(document).ready(function() { $("#statistic_choice").select2(); });

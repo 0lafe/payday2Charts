@@ -34,4 +34,15 @@ class LeaderboardsController < ApplicationController
     @name = Localizer.localize_from_statistic(name)
   end
 
+  def top_100_index
+
+  end
+
+  def top_100
+    @user = User.find_by(steam_id: params[:id])
+    @stats = Rails.application.leaderboard.user_positions(@user).sort_by { |item| item[:value] }
+    @weapon_stats = WeaponStat.find_by(user_id: @user.id)
+    @player_stats = PlayerStat.find_by(user_id: @user.id)
+    @misc_stats = MiscStat.find_by(user_id: @user.id)
+  end
 end

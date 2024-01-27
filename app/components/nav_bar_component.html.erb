@@ -1,6 +1,7 @@
 <ul class="nav-bar-container">
   <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a></li>
   <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>"><a href="/leaderboards">Leaderboards</a></li>
+  <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>"><a href="/leaderboards/top_100_index">Top 100</a></li>
   <li class="nav-element"><a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a></li>
   
   <% if current_page?(controller: 'homes', action: 'index') %>
@@ -45,6 +46,16 @@
         <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
           <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title"><%= @title %></h2>
         </div>
+      </div>
+    </li>
+  <% end %>
+
+  <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
+    <li class="nav-element" style="float:right;">
+      <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
+        <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
+          This list was last updated on <%= Rails.application.leaderboard.updated_at %>
+        </h2>
       </div>
     </li>
   <% end %>

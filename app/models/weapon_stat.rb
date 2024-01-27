@@ -13,18 +13,6 @@ class WeaponStat < ApplicationRecord
     end
   end
 
-  def self.user_in_top_10?(user)
-    this_id = user.id
-    stats = []
-    column_names.each do |column|
-      pos = WeaponStat.where.not({column => nil}).order("#{column} DESC").limit(100).pluck(:user_id).index(this_id)
-      if pos
-        stats << "#{Localizer.localize_from_statistic(column)} #{user.weapon_stat[column]} #{pos + 1}"
-      end
-    end
-    stats
-  end
-
   def self.lowest_kills
     kill_stats = column_names.filter do |name|
       name.index('weapon_kills_') == 0
