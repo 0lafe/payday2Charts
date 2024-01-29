@@ -1,3 +1,5 @@
 Rails.configuration.after_initialize do
-  Rails.application.leaderboard = Leaderboard.new
+  if defined?(::Rails::Server)
+    UpdateLeaderboardJob.perform_async
+  end
 end

@@ -13,9 +13,6 @@ module Pd2Charts
     config.load_defaults 7.0
     config.active_job.queue_adapter = :sidekiq
 
-  initializer 'init leaderboard' do
-    @leaderboard = nil
-  end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

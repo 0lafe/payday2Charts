@@ -1,29 +1,35 @@
 <div class="background-image"></div>
 <div class="page">
   <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
-    <% if @stats.length %>
-      <h1 style="color:white">
-        <%= @user.name %> is in the top 100 for <%= @stats.length %> stats!
-      </h1>
-      <div class="statistic-choice">
-        <table style="min-width:60%">
-          <tr>
-            <th>Stat name</th>
-            <th>Position</th>
-            <th>Value</th>
-          </tr>
-          <% @stats.each do |stat| %>
+    <% if @user.present? %>
+      <% if @stats.length %>
+        <h1 style="color:white">
+          <%= @user.name %> is in the top 100 for <%= @stats.length %> stats!
+        </h1>
+        <div class="statistic-choice">
+          <table style="min-width:60%">
             <tr>
-              <td><a href="/leaderboards/<%= stat[:name] %>"><%= Localizer.localize_from_statistic(stat[:name]) %></a></td>
-              <td><%= stat[:value] + 1 %></td>
-              <td><%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %></td>
+              <th>Stat name</th>
+              <th>Position</th>
+              <th>Value</th>
             </tr>
-          <% end %>
-        </table>
-      </div>
+            <% @stats.each do |stat| %>
+              <tr>
+                <td><a href="/leaderboards/<%= stat[:name] %>"><%= Localizer.localize_from_statistic(stat[:name]) %></a></td>
+                <td><%= stat[:value] + 1 %></td>
+                <td><%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      <% else %>
+        <h1 style="color:white">
+          <%= @user.name %> is not in the top 100 for any stats
+        </h1>
+      <% end %>
     <% else %>
       <h1 style="color:white">
-        <%= @user.name %> is not in the top 100 for any stats
+        No user could be found with that ID
       </h1>
     <% end %>
   </div>

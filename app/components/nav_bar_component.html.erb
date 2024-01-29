@@ -54,7 +54,7 @@
     <li class="nav-element" style="float:right;">
       <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
         <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
-          This list was last updated on <%= Rails.application.leaderboard.updated_at %>
+          This list was last updated <%= Leaderboard.read['updated_at'] %>
         </h2>
       </div>
     </li>

@@ -1,12 +1,24 @@
 class Leaderboard
-  attr_accessor :updated_at
+  attr_accessor :updated_at, :top_100s
   def initialize
     @top_100s = {}
     [WeaponStat, PlayerStat, MiscStat].each do |stat|
       p "Storing #{stat} in leaderboard"
       store_top_100s(stat)
     end
-    @updated_at = Date.today
+    @updated_at = Time.now.to_formatted_s(:short)
+  end
+
+  def self.create
+    lb = Leaderboard.new
+    return {
+      updated_at: lb.updated_at,
+      top_100s: lb.top_100s
+    }
+  end
+
+  def self.read
+    JSON.parse(REDIS_CLIENT.get('lb'))
   end
 
   def store_top_100s(table)
@@ -30,17 +42,17 @@ class Leaderboard
     end
   end
 
-  def user_positions(user)
+  def self.user_positions(user)
     user_id = user.id
     out = []
     ['weapon_stat', 'player_stat', 'misc_stat'].each do |type|
-      filtered = @top_100s[type].filter do |stat|
-        stat[:values].include?(user_id)
+      filtered = Leaderboard.read['top_100s'][type].filter do |stat|
+        stat['values'].include?(user_id)
       end
       filtered.each do |stat|
         out << {
-          name: stat[:name],
-          value: stat[:values].index(user_id)
+          name: stat['name'],
+          value: stat['values'].index(user_id)
         }
       end
     end
