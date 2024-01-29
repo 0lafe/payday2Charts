@@ -8,7 +8,8 @@ class WeaponStat < ApplicationRecord
       {
         name: names[index],
         steam_id: a.user.steam_id,
-        value: a[name]
+        value: a[name],
+        updated_at: a.updated_at
       }
     end
   end

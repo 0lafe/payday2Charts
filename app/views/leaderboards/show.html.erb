@@ -11,6 +11,7 @@
           <th>Steam Profile</th>
           <th>Top 100s</th>
           <th>Value</th>
+          <th>Updated at</th>
         </tr>
         <% @data.each_with_index do |stat, index| %>
           <tr>
@@ -20,6 +21,7 @@
             <td><a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">Steam</a></td>
             <td><a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">Top 100s</a></td>
             <td><%= number_with_delimiter(stat[:value]) %></td>
+            <td><%= stat[:updated_at].to_formatted_s(:short) %></td>
           </tr>
         <% end %>
       </table>

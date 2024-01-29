@@ -8,7 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Pd2Charts
   class Application < Rails::Application
-    attr_accessor :leaderboard
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     config.active_job.queue_adapter = :sidekiq
