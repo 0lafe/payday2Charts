@@ -25,6 +25,6 @@ class UpdateUserJob
     rescue => exception
       
     end
-    UpdateUserJob.perform_async(id + 1)
+    # UpdateUserJob.perform_async(id + 1)
   end
 end
