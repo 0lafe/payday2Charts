@@ -31,4 +31,5 @@
 /config/master.key
 
 .env
+.download_gif_create_statements.rb
 .byebug_history
