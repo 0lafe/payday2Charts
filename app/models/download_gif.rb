@@ -6,6 +6,8 @@ class DownloadGif < ApplicationRecord
   after_save :create_gif, if: :saved_change_to_title?
 
   def create_gif
+    return unless Rails.env == 'development'
+    
     base_gif = Magick::ImageList.new("app/assets/images/msga.gif")
 
     text = Magick::Draw.new
