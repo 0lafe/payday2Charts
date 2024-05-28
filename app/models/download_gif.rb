@@ -1,8 +1,9 @@
 class DownloadGif < ApplicationRecord
   validates :title, :url, presence: true
 
-  after_save :create_gif
-  before_destroy :delete_gif
+  has_one_attached :gif, dependent: :destroy
+
+  after_save :create_gif, if: :saved_change_to_title?
 
   def create_gif
     base_gif = Magick::ImageList.new("app/assets/images/msga.gif")
@@ -10,14 +11,14 @@ class DownloadGif < ApplicationRecord
     text = Magick::Draw.new
 
     base_gif.each do |frame|
-      frame.annotate(text, 0, 0, 0, 0, title) do
+      frame.annotate(text, 0, 0, 1, 1, title) do
         text.gravity = Magick::NorthGravity
         text.pointsize = 32
         text.font_weight = 700
         text.fill = "#000000"
         frame.format = "gif"
       end
-      frame.annotate(text, 0, 0, -2, -2, title) do
+      frame.annotate(text, 0, 0, -1, -1, title) do
         text.gravity = Magick::NorthGravity
         text.pointsize = 32
         text.font_weight = 700
@@ -26,10 +27,6 @@ class DownloadGif < ApplicationRecord
       end
     end
 
-    base_gif.write("app/assets/images/gifs#{id}.gif")
-  end
-
-  def delete_gif
-    File.delete("app/assets/images/gifs#{id}.gif")
+    gif.attach io: StringIO.open(base_gif.to_blob), filename: "gif#{id}.gif", content_type: 'image/gif'
   end
 end
