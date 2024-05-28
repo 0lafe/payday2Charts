@@ -1,7 +1,8 @@
 class DownloadGif < ApplicationRecord
   validates :title, :url, presence: true
 
-  has_one_attached :gif, dependent: :destroy
+  # has_one_attached :gif, dependent: :destroy
+  before_destroy :delete_gif
 
   after_save :create_gif, if: :saved_change_to_title?
 
@@ -27,6 +28,12 @@ class DownloadGif < ApplicationRecord
       end
     end
 
-    gif.attach io: StringIO.open(base_gif.to_blob), filename: "gif#{id}.gif", content_type: 'image/gif'
+    # gif.attach io: StringIO.open(base_gif.to_blob), filename: "gif#{id}.gif", content_type: 'image/gif'
+    base_gif.write(Rails.root.join("app").join("assets").join("images").join("gifs").join("#{id}.gif"))
+  end
+
+  def delete_gif
+    path = Rails.root.join("app").join("assets").join("images").join("gifs").join("#{id}.gif")
+    File.delete(path) if File.exist?(path)
   end
 end
