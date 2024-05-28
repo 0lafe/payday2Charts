@@ -84,3 +84,5 @@ gem "select2-rails"
 gem 'simple_form'
 gem 'rmagick'
 gem "aws-sdk-s3", require: false
+gem "bootstrap"
+gem "sassc-rails"

@@ -1,0 +1,193 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+
+body {
+  background: #04041c;
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.background-image {
+  z-index: -1;
+  background-image: url('https://fbi-files.s3.amazonaws.com/menu.png');
+  background-repeat: repeat-y;
+  background-position-x: center;
+  background-size: contain;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+}
+
+.page-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 24px;
+  width: 80%;
+  margin-top: 1rem;
+}
+
+.data-table {
+  display: inline-block;
+  padding: 1rem;
+  background: white;
+  border: 4px solid #bfc9ce;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+.pagination-number,
+.pagination-button {
+  font-size: 1.1rem;
+  background-color: transparent;
+  border: none;
+  margin: 0.25rem 0.25rem;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: .2rem;
+  color: white;
+}
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+  background: #fff;
+  color: black;
+}
+
+.pagination-button:disabled,
+.pagination-button[disabled] {
+  color: #666666;
+}
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6;
+}
+
+.chart-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chart-image {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.chart-image-container {
+  height: 8rem;
+  width: 70%
+}
+
+.chart-description {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 8rem;
+}
+
+.filtering {
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.navigation-container {
+  width: 50%;
+}
+
+.statistic-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+td,
+th {
+  border: 1px solid gray;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.alert {
+  color: white;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: red;
+}
+
+.notice {
+  color: white;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: limegreen;
+}
