@@ -1,0 +1,9 @@
+<div style="display:flex;flex-direction:row;justify-content:center;margin-top:2rem;">
+  <div style="width:80%;display:flex;flex-direction:row;justify-content:center;margin-top:2rem;">
+    <% if @error %>
+      <h1 style="color:white;">Error: <%== @error %></h1>
+    <% else %>
+      <h1 style="color:white;">Success: Account has been linked.</h1>
+    <% end %>
+  </div>
+</div>

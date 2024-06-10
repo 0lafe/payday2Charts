@@ -18,6 +18,15 @@ Rails.application.routes.draw do
     end
   end
   resources :gifs, only: ['index', 'show']
+  resources :oauth, only: ['index']
+
+  namespace :api do
+    resources :veggie_bot do
+      member do
+        get 'build'
+      end
+    end
+  end
 
   root "homes#index"
 end
