@@ -16,7 +16,9 @@ class Localizer
     'character_used_': 'Usage for ',
     'enemy_kills_': 'Kills on ',
     'armor_used_': 'Usage for ',
-    'contract_': ''
+    'contract_': '',
+    'weapon_charm_used_': 'Usage for ',
+    'weapon_color_used_': 'Usage for '
   }
 
   @overkill_goofs = {
@@ -61,7 +63,11 @@ class Localizer
     elsif statistic.include?('weapon_')
       "https://fbi.paydaythegame.com/img/weapons/ranged/thumbs/#{uuid}.png"
     elsif statistic.index('grenade_') == 0
-      "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid}.png"
+      if statistic.include?('wpn_prj_') || statistic.include?('wpn_gre_')
+        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
+      else
+        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid}.png"
+      end
     elsif statistic.include?('mask_')
       "https://fbi.paydaythegame.com/img/masks/thumb/#{uuid}_dif.png"
     elsif statistic.include?('gloves_')
@@ -78,9 +84,7 @@ class Localizer
       "https://fbi.paydaythegame.com/img/weapons/equipment/thumbs/#{uuid}.png"
     end
 
-    url = '' unless url
-
-    url
+    url || ''
   end
 
   def self.remove_stat(name)
@@ -95,44 +99,48 @@ class Localizer
 
     name = if statistic.include?('melee_')
       'bm_melee_'
+    elsif statistic.include?('weapon_charm_used_')
+      ''
+    elsif statistic.include?('weapon_color_used_')
+      'bm_wskn_'
     elsif statistic.include?('weapon_')
       'bm_w_'
     elsif statistic.include?('mask_')
-      if statistic.include?('mask_used_cop_kawaii') || statistic.include?('mask_used_cop_skull') || statistic.include?('mask_used_cop_plague_doctor')
-        'bm_'
-      else
-        'bm_msk_'
-      end
+      'bm_msk_'
     elsif statistic.include?('gadget_')
       'bm_equipment_'
     elsif statistic.include?('grenade_')
-      if statistic.include?('_wpn_') || statistic.include?('_concussion') || statistic.include?('_dynamite')
-        'bm_'
-      else
-        'bm_grenade_'
-      end
+      'bm_throwable_'
     elsif statistic.include?('gloves_used_')
       'bm_gloves_'
     elsif statistic.include?('suit_used')
       'bm_suit_'
     elsif statistic.include?('difficulty_')
-      'menu_'
+      ''
     elsif statistic.include?('character_used')
       suffix = ' (Character)'
-      'menu_'
+      'bm_character_'
     elsif statistic.include?('armor_used')
       'bm_armor_'
     elsif statistic.include?('contract_')
+      statistic = statistic.gsub('_prof', '')
+
       if statistic.include?('_win_dropin')
-        suffix = ' Win (drop in)'
+        suffix += ' Win (drop in)'
         statistic = statistic.gsub('_win_dropin', '')
       elsif statistic.include?('_win')
-        suffix = ' Win'
+        suffix += ' Win'
         statistic = statistic.gsub('_win', '')
       elsif statistic.include?('_fail')
-        suffix = ' Lose'
+        suffix += ' Lose'
         statistic = statistic.gsub('_fail', '')
       end
+
+      if statistic.end_with?('_night')
+        suffix += ' Night'
+        statistic = statistic.gsub('_night', '')
+      end
+
       'heist_'
     end
 

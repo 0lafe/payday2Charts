@@ -3,16 +3,24 @@ class Api::VeggieBotController < ApplicationController
     @user = User.find_by(discord_id: params['id'])
     if !@user
       render json: {
-        error: 'User does not exist'
+        error: 'User is not registered with payday charts'
       }, status: 404
       return
     end
 
-    user_stats = PlayerStatGrabber.update_stats_hash(@user.steam_id)[0]
+    user_stats = PlayerStatGrabber.update_stats_hash(@user.steam_id)
+    if !user_stats
+      render json: {
+        error: "User's stats are not visible to steam. Checking for account with id: #{@user.steam_id}"
+      }, status: 404
+      return
+    end
+
+    weapon_stats = user_stats[0]
     ordered_set = []
 
     WeaponStat.column_names.filter {|name| name.starts_with?('weapon_kills_') }.each do |stat_name|
-      ordered_set << [Localizer.localize(stat_name.gsub('weapon_kills_', 'bm_w_')), user_stats[stat_name] || 0]
+      ordered_set << [Localizer.localize(stat_name.gsub('weapon_kills_', 'bm_w_')), weapon_stats[stat_name] || 0]
     end
 
     ordered_set.sort_by! {|val| val[1] }

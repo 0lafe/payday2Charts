@@ -10,13 +10,14 @@ class HomesController < ApplicationController
       ['Weapon Hits', 'weapon_hits'],
       ['Weapon Charm Usage ', 'weapon_charm_used'],
       ['Weapon Color Usage ', 'weapon_color_used'],
+      ['Mask Usage', 'mask_used'],
+      ['Glove Usage', 'gloves_used'],
+      ['Outfit Usage', 'suit_used'],
+      ['Heist Data ', 'contract'],
       ['Armor Used ', 'armor_used'],
       ['Throwable Kills', 'grenade_kills'],
       ['Throwable Usage', 'grenade_used'],
       ['Deployable Usage', 'gadget_used'],
-      ['Mask Usage', 'mask_used'],
-      ['Glove Usage', 'gloves_used'],
-      ['Outfit Usage', 'suit_used'],
       ['Difficulties Played', 'difficulty'],
       ['Heister Used ', 'character_used'],
       ['Enemies Killed ', 'enemy_kills'],
@@ -27,7 +28,6 @@ class HomesController < ApplicationController
       ['Player Cash ', 'player_cash'],
       ['Player Coins ', 'player_coins'],
       ['Skills ', 'skill_'],
-      ['Heist Data ', 'contract'],
       ['Kick Method ', 'option_decide']
     ]
   end
