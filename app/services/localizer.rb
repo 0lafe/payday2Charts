@@ -97,54 +97,57 @@ class Localizer
   def self.localize_from_statistic(statistic)
     suffix = ''
 
-    name = if statistic.include?('melee_')
-      'bm_melee_'
-    elsif statistic.include?('weapon_charm_used_')
-      ''
-    elsif statistic.include?('weapon_color_used_')
-      'bm_wskn_'
-    elsif statistic.include?('weapon_')
-      'bm_w_'
-    elsif statistic.include?('mask_')
-      'bm_msk_'
-    elsif statistic.include?('gadget_')
-      'bm_equipment_'
-    elsif statistic.include?('grenade_')
-      'bm_throwable_'
-    elsif statistic.include?('gloves_used_')
-      'bm_gloves_'
-    elsif statistic.include?('suit_used')
-      'bm_suit_'
-    elsif statistic.include?('difficulty_')
-      ''
-    elsif statistic.include?('character_used')
-      suffix = ' (Character)'
-      'bm_character_'
-    elsif statistic.include?('armor_used')
-      'bm_armor_'
-    elsif statistic.include?('contract_')
-      statistic = statistic.gsub('_prof', '')
+    name = 
+      if statistic.include?('melee_')
+        'bm_melee_'
+      elsif statistic.include?('weapon_charm_used_')
+        ''
+      elsif statistic.include?('weapon_color_used_')
+        'bm_wskn_'
+      elsif statistic.include?('weapon_')
+        'bm_w_'
+      elsif statistic.include?('mask_')
+        'bm_msk_'
+      elsif statistic.include?('gadget_')
+        'bm_equipment_'
+      elsif statistic.include?('grenade_')
+        'bm_throwable_'
+      elsif statistic.include?('gloves_used_')
+        'bm_gloves_'
+      elsif statistic.include?('suit_used')
+        'bm_suit_'
+      elsif statistic.include?('difficulty_')
+        ''
+      elsif statistic.include?('character_used')
+        suffix = ' (Character)'
+        'bm_character_'
+      elsif statistic.include?('armor_used')
+        'bm_armor_'
+      elsif statistic.include?('enemy_kills_')
+        'enemy_'
+      elsif statistic.include?('contract_')
+        statistic = statistic.gsub('_prof', '')
 
-      if statistic.include?('_win_dropin')
-        suffix += ' Win (drop in)'
-        statistic = statistic.gsub('_win_dropin', '')
-      elsif statistic.include?('_win')
-        suffix += ' Win'
-        statistic = statistic.gsub('_win', '')
-      elsif statistic.include?('_fail')
-        suffix += ' Lose'
-        statistic = statistic.gsub('_fail', '')
+        if statistic.include?('_win_dropin')
+          suffix += ' Win (drop in)'
+          statistic = statistic.gsub('_win_dropin', '')
+        elsif statistic.include?('_win')
+          suffix += ' Win'
+          statistic = statistic.gsub('_win', '')
+        elsif statistic.include?('_fail')
+          suffix += ' Lose'
+          statistic = statistic.gsub('_fail', '')
+        end
+
+        if statistic.end_with?('_night')
+          suffix += ' Night'
+          statistic = statistic.gsub('_night', '')
+        end
+
+        'heist_'
       end
 
-      if statistic.end_with?('_night')
-        suffix += ' Night'
-        statistic = statistic.gsub('_night', '')
-      end
-
-      'heist_'
-    end
-
-    name = '' unless name
+    name = name || ''
 
     uuid = statistic
     descriptor = ''
