@@ -1,0 +1,3 @@
+class JeopardyPlayer < ApplicationRecord
+  
+end

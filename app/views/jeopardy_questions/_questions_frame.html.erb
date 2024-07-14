@@ -1,0 +1,27 @@
+<%= turbo_frame_tag :jeopardy_questions do %>
+  <div class="bubble" id="selected-clue-bubble">
+    <h2 style="color:gold;">
+      $<%= question.value %>
+    </h2>
+    <div class="question">
+      <p>
+        <%= question.question %>
+      </p>
+      <% if question.image.present? %>
+        <%= image_tag(question.image) %>
+      <% end %>
+    </div>
+    <div>
+      <hr/>
+      <p>Player</p>
+      <%= simple_form_for game, url: answer_question_jeopardy_game_path(game, question_id: question.id) do |f| %>
+        <%= f.simple_fields_for :player do |ff| %>
+          <%= ff.input :player, as: :radio_buttons, collection: game.jeopardy_players.order('created_at DESC').map {|player| [player.name, player.id] }, label: false %>
+        <% end %>
+        <hr/>
+        <%= f.submit 'Wrong', class: 'danger-button', value: 'wrong' %>
+        <%= f.submit 'Right', style: 'background:greenyellow;border-radius:0.25rem;margin-left:1rem;', value: 'right' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

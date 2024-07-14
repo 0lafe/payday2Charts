@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_10_030544) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_14_054829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,36 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_030544) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+  end
+
+  create_table "jeopardy_categories", force: :cascade do |t|
+    t.string "title"
+    t.bigint "jeopardy_game_id"
+    t.index ["jeopardy_game_id"], name: "index_jeopardy_categories_on_jeopardy_game_id"
+  end
+
+  create_table "jeopardy_games", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jeopardy_players", force: :cascade do |t|
+    t.string "name"
+    t.bigint "jeopardy_game_id"
+    t.integer "score", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jeopardy_game_id"], name: "index_jeopardy_players_on_jeopardy_game_id"
+  end
+
+  create_table "jeopardy_questions", force: :cascade do |t|
+    t.bigint "jeopardy_category_id"
+    t.text "question"
+    t.text "answer"
+    t.integer "value"
+    t.boolean "answered", default: false
+    t.index ["jeopardy_category_id"], name: "index_jeopardy_questions_on_jeopardy_category_id"
   end
 
   create_table "misc_stats", force: :cascade do |t|

@@ -1,0 +1,13 @@
+<div class="background-image"></div>
+
+<div class="page">
+  <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
+    <h1 style="color:white">Jeopardy Games</h1>
+    <%= link_to 'Create New Game', new_jeopardy_game_path, class: 'btn', style: 'background:lightblue' %>
+    <hr/>
+    <hr/>
+    <% JeopardyGame.order('created_at DESC').limit(20).each do |jeopardy_game| %>
+      <%= link_to jeopardy_game.name, jeopardy_game_path(jeopardy_game), class: 'btn', style: 'background:indianred;margin:1rem 0;' %>
+    <% end %>
+  </div>
+</div>

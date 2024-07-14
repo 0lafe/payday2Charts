@@ -28,5 +28,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :jeopardy_games do
+    member do
+      get 'reset'
+      patch 'answer_question'
+    end
+  end
+
+  resources :jeopardy_questions
+
   root "homes#index"
 end

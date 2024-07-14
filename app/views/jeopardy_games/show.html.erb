@@ -1,0 +1,224 @@
+<style>
+  body {
+    background-color: #121212;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    /* min-height: 1030px; */
+  }
+
+  #jeopardy-container {
+    background-color: #121212;
+    width: 90%;
+    justify-content: center;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #score {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    font: arial;
+    font-size: 20pt;
+  }
+
+  .category-column {
+    background-color: #121212;
+    display: inline-table;
+    word-wrap: break-word;
+    justify-content: center;
+    width: 16.66%;
+    /* min-height: 80%; */
+  }
+
+  .clue-container {
+    background-color: black;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .bubble {
+    border-radius: 10px;
+    background-color: blue;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+  }
+
+  .category-bubble {
+    border-radius: 5px;
+    background-color: blue;
+    text-align: center;
+    word-wrap: break-word;
+    hyphens: manual;
+    font-size: 16pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 20px 0;
+    width: auto;
+    pointer-events: none;
+  }
+
+  .clue-bubble {
+    border-radius: 5px;
+    background-color: blue;
+    font: arial;
+    font-weight: bolder;
+    font-size: 42pt;
+    color: gold;
+    text-align: center;
+    width: auto;
+    height: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bubble#menu-bubble {
+    display: block;
+    width: 700px;
+    height: 500px;
+    padding-top: 40px;
+  }
+
+  .bubble#selected-clue-bubble {
+    display: block;
+    min-height: 500px;
+    padding: 60px;
+  }
+
+  .bubble#game-over {
+    display: block;
+    font-size: 40pt;
+    padding: 70px 0;
+    width: 700px;
+    height: 500px;
+    padding: 60px;
+  }
+
+  .bubble#game-over ol{
+    font-size: 20pt;
+  }
+
+  .question {
+    font-size: 30pt;
+    padding: 70px 0;
+  }
+
+  .answer {
+    font-size: 14pt;
+  }
+
+  #logo {
+    background-color: #6B6B6B;
+    width: 395px;
+    height: 116px;
+    display: flex;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-color: gold;
+    border-width: 5px;
+    border-style: solid;
+    border-spacing: 2px;
+    border-radius: 20px;
+  }
+
+  .bubble-text {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .bubble-text#welcome {
+    font-size: 40pt;
+  }
+
+  .answer-status {
+    font-size: 24pt;
+    color: gold;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #jeopardy-container{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  #jeopardy-container a {
+    text-decoration: none;
+    color: gold;
+  }
+
+  #jeopardy-container input.radio_buttons {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  span.radio {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .danger-button {
+    background: indianred;
+    border-radius: 0.25rem;
+    margin-right:1rem;
+  }
+
+  input.radio_buttons {
+    margin-right: 10px;
+  }
+</style>
+
+<div id="jeopardy-container">
+  <div style="display:flex;justify-content:space-between;">
+    <%= image_tag('Jeopardy!_logo.png', id: 'logo') %>
+    <div>
+      <%= link_to 'Reset Game', reset_jeopardy_game_path(@game), class: 'btn btn-danger', style: 'color:white', data: { controller: 'turbo' } %>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_new_player">
+        Add New Player
+      </button>
+    </div>
+    <%= render 'jeopardy_games/players_frame', game: @game %>
+  </div>
+
+  <%= render 'jeopardy_games/questions_frame', game: @game %>
+</div>
+
+<div class="modal" id="add_new_player" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= simple_form_for @game do |f| %>
+        <div class="modal-body">
+          <%= f.simple_fields_for :jeopardy_players, @game.jeopardy_players.build do |ff| %>
+            <p style="color:black;text-shadow:none;">Name: </p>
+            <%= ff.input :name, label: false %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= f.submit 'Add Player', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<%= turbo_frame_tag :jeopardy_players do %>
+  <% game.jeopardy_players.order('created_at DESC').each do |player| %>
+    <div style="display:inline;margin:2rem;">
+      <h2 style="display:inline;">
+        <%= player.name %>: <span style='color:gold;'>$<%= player.score %></span>
+      </h2>
+    </div>
+  <% end %>
+<% end %>
