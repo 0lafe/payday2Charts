@@ -1,16 +1,19 @@
 <%= turbo_frame_tag :jeopardy_questions do %>
   <div class="bubble" id="selected-clue-bubble">
+    <a style="float:right;" class="btn" data-bs-toggle="modal" data-bs-target="#edit-question"><i class="fa-solid fa-pencil"></i></a>
     <h2 style="color:gold;">
       $<%= question.value %>
     </h2>
+    <h2 id="question-title">Question:</h2>
     <div class="question">
-      <p>
+      <p id="question-question">
         <%= question.question %>
       </p>
       <% if question.image.present? %>
-        <%= image_tag(question.image) %>
+        <%= image_tag(question.image, class: 'jeopardy-image') %>
       <% end %>
     </div>
+    <button id="question-answer" class="btn btn-warning">Answer</button>
     <div>
       <hr/>
       <p>Player</p>
@@ -24,4 +27,40 @@
       <% end %>
     </div>
   </div>
+
+  <div class="modal fade" id="edit-question" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <%= simple_form_for question do |f| %>
+          <div class="modal-body">
+            <p style="color:black;text-shadow:none;">Question: </p>
+            <%= f.input :question, label: false, input_html: { style: 'width:100%', class: 'form-control' } %>
+            <hr/>
+            <p style="color:black;text-shadow:none;">Answer: </p>
+            <%= f.input :answer, label: false, input_html: { style: 'width:100%', class: 'form-control' } %>
+            <hr/>
+            <p style="color:black;text-shadow:none;">Image: </p>
+            <%= f.input :image, label: false, input_html: { style: 'width:100%', class: 'form-control' } %>
+            <hr/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <%= f.submit 'Update Question', class: 'btn btn-primary', id: 'update-question-submit', 'data-bs-dismiss':"modal" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('#question-answer').on('click', () => {
+      $('#question-title').text('Answer')
+      $('#question-question').text('<%= question.answer %>')
+      $('#question-answer').remove()
+    })
+
+    $('#update-question-submit').on('click', () => {
+      // $('#edit-question').modal('hide')
+    })
+  </script>
 <% end %>

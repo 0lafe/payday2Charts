@@ -95,7 +95,7 @@
   .bubble#selected-clue-bubble {
     display: block;
     min-height: 500px;
-    padding: 60px;
+    padding: 20px;
   }
 
   .bubble#game-over {
@@ -187,12 +187,16 @@
   input.radio_buttons {
     margin-right: 10px;
   }
+
+  .jeopardy-image {
+    max-width: 100%;
+  }
 </style>
 
 <div id="jeopardy-container">
   <div style="display:flex;justify-content:space-between;">
     <%= image_tag('Jeopardy!_logo.png', id: 'logo') %>
-    <div>
+    <div style="display:flex;flex-direction:column;justify-content:space-around;">
       <%= link_to 'Reset Game', reset_jeopardy_game_path(@game), class: 'btn btn-danger', style: 'color:white', data: { controller: 'turbo' } %>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_new_player">
         Add New Player
@@ -204,7 +208,7 @@
   <%= render 'jeopardy_games/questions_frame', game: @game %>
 </div>
 
-<div class="modal" id="add_new_player" tabindex="-1">
+<div class="modal fade" id="add_new_player" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <%= simple_form_for @game do |f| %>

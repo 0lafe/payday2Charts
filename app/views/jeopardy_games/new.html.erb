@@ -5,7 +5,7 @@
     <div style="background:white;border-radius:0.25rem;width:90%;margin-top:1rem;display:flex;flex-direction:column;align-items:center">
       <h1>Create New Jeopardy Game</h1>
       <%= simple_form_for @jeopardy_game, html: {style: 'width:100%'} do |f| %>
-        <%= f.input :name, input_html: {style: ''}, label_html: {style: 'margin:1rem 0.5rem 1rem 2rem;'} %>
+        <%= f.input :name, input_html: {  }, label_html: {style: 'margin:1rem 0.5rem 1rem 2rem;'} %>
         <table style="width:95%;margin:auto;">
           <tr>
             <th>
@@ -30,13 +30,14 @@
           <%= f.simple_fields_for :jeopardy_categories do |ff| %>
             <tr>
               <td>
-                <%= ff.input :title, label: false, input_html: {style: 'width:100%'} %>
+                <%= ff.input :title, as: :text, label: false, input_html: { style: 'width:100%;', rows: 6, class: 'form-control' } %>
               </td>
               <%= ff.simple_fields_for :jeopardy_questions do |fff| %>
+                <%= fff.hidden_field :value %>
                 <td>
-                  <%= fff.input :question, label: false, as: :text, input_html: {style: 'width:100%'} %>
-                  <%= fff.hidden_field :value %>
-                  <%= fff.file_field :image %>
+                  <%= fff.input :question, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
+                  <%= fff.input :answer, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
+                  <%= fff.file_field :image, input_html: { class: 'form-control' } %>
                 </td>
               <% end %>
             </tr>

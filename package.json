@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
+    "@hotwired/turbo": "^8.0.5",
     "chart.js": "^4.2.1"
   }
 }

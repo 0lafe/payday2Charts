@@ -35,7 +35,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :jeopardy_questions
+  resources :jeopardy_questions, only: [:show, :update]
+
+  resources :jeopardy_players, only: [:update]
 
   root "homes#index"
 end

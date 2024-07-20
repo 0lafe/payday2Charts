@@ -1,9 +1,30 @@
 <%= turbo_frame_tag :jeopardy_players do %>
   <% game.jeopardy_players.order('created_at DESC').each do |player| %>
     <div style="display:inline;margin:2rem;">
-      <h2 style="display:inline;">
+      <h2 style="display:inline;white-space:nowrap;">
         <%= player.name %>: <span style='color:gold;'>$<%= player.score %></span>
+        <a style="padding:0;color:#dc3545" class="btn" data-bs-toggle="modal" data-bs-target="#edit-player-<%= player.id %>"><i class="fa-solid fa-pencil"></i></a>
       </h2>
+    </div>
+    <div class="modal fade" id="edit-player-<%= player.id %>" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p style="color:black;text-shadow:none;">Editing: <%= player.name %></p>
+          </div>
+          <%= simple_form_for player do |f| %>
+            <div class="modal-body">
+              <p style="color:black;text-shadow:none;">Score: </p>
+              <%= f.input :score, label: false, input_html: { class: 'form-control' } %>
+              <hr/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <%= f.submit 'Update Player', class: 'btn btn-primary', 'data-bs-dismiss': "modal" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   <% end %>
 <% end %>
