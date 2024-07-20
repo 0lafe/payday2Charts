@@ -61,7 +61,7 @@
       $('#question-answer').remove()
       if ($('.jeopardy-image').length) {
         $('#question-question').text('')
-        $('#question-answer').text('<%= question.answer %>')
+        $('#image-answer').text('<%= question.answer %>')
       } else {
         $('#question-question').text('<%= question.answer %>')
       }
