@@ -11,9 +11,12 @@
       </p>
       <% if question.image.present? %>
         <%= image_tag(question.image, class: 'jeopardy-image') %>
+        <p id="image-answer"></p>
       <% end %>
     </div>
-    <button id="question-answer" class="btn btn-warning">Answer</button>
+    <% if question.answer.present? %>
+      <button id="question-answer" class="btn btn-warning">Answer</button>
+    <% end %>
     <div>
       <hr/>
       <p>Player</p>
@@ -55,12 +58,13 @@
   <script>
     $('#question-answer').on('click', () => {
       $('#question-title').text('Answer')
-      $('#question-question').text('<%= question.answer %>')
       $('#question-answer').remove()
-    })
-
-    $('#update-question-submit').on('click', () => {
-      // $('#edit-question').modal('hide')
+      if ($('#jeopardy-image').length) {
+        $('#question-question').text('')
+        $('#question-answer').text('<%= question.answer %>')
+      } else {
+        $('#question-question').text('<%= question.answer %>')
+      }
     })
   </script>
 <% end %>
