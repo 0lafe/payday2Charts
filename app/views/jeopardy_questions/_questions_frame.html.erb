@@ -59,7 +59,7 @@
     $('#question-answer').on('click', () => {
       $('#question-title').text('Answer')
       $('#question-answer').remove()
-      if ($('#jeopardy-image').length) {
+      if ($('.jeopardy-image').length) {
         $('#question-question').text('')
         $('#question-answer').text('<%= question.answer %>')
       } else {
