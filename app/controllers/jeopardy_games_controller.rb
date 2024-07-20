@@ -42,7 +42,11 @@ class JeopardyGamesController < ApplicationController
 
     @question.update(answered: true)
     if params[:commit] == 'right'
-      @player.score += @question.value
+      if @question.variable_points?
+        @player.score += params[:jeopardy_game][:variable_points][:variable_points].to_i
+      else
+        @player.score += @question.value
+      end
     else
       @player.score -= @question.value
     end
@@ -67,7 +71,8 @@ class JeopardyGamesController < ApplicationController
           :question,
           :answer,
           :value,
-          :image
+          :image,
+          :variable_points
         ]
       ]
     )

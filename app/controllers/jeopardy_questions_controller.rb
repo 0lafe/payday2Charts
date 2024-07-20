@@ -13,6 +13,6 @@ class JeopardyQuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:jeopardy_question).permit(:question, :answer, :image)
+    params.require(:jeopardy_question).permit(:question, :answer, :image, :variable_points)
   end
 end

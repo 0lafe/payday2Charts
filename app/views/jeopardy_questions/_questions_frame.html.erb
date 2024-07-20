@@ -27,6 +27,12 @@
         <hr/>
         <%= f.submit 'Wrong', class: 'danger-button', value: 'wrong' %>
         <%= f.submit 'Right', style: 'background:greenyellow;border-radius:0.25rem;margin-left:1rem;', value: 'right' %>
+        <% if question.variable_points %>
+          <%= f.simple_fields_for :variable_points do |ff| %>
+            <span>Points: </span>
+            <%= ff.input :variable_points, input_html: { class: 'form-control', style: 'width: 10%;display:inline;' }, label: false %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -44,6 +50,9 @@
             <hr/>
             <p style="color:black;text-shadow:none;">Image: </p>
             <%= f.input :image, label: false, input_html: { style: 'width:100%', class: 'form-control' } %>
+            <hr/>
+            <p style="color:black;text-shadow:none;">Variable Points: </p>
+            <%= f.input :variable_points, label: false, input_html: { style: 'width:100%' } %>
             <hr/>
           </div>
           <div class="modal-footer">

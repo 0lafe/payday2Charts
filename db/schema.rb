@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_14_054829) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_20_172122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_14_054829) do
     t.text "answer"
     t.integer "value"
     t.boolean "answered", default: false
+    t.boolean "variable_points", default: false
     t.index ["jeopardy_category_id"], name: "index_jeopardy_questions_on_jeopardy_category_id"
   end
 
