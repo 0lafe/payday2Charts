@@ -87,3 +87,4 @@ gem "aws-sdk-s3", require: false
 gem "bootstrap"
 gem "sassc-rails"
 gem "oauth2"
+gem "open-uri"

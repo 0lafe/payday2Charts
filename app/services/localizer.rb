@@ -52,39 +52,59 @@ class Localizer
 
   }
 
-  def self.generate_image_url(statistic)
-    uuid = statistic
+	def self.isolate_statistic_uuid(statistic)
+		uuid = statistic
     uuid = @overkill_goofs[uuid.to_sym] if @overkill_goofs[uuid.to_sym]
     @stats.keys.each do |stat|
       uuid = uuid.gsub(stat.to_s, '')
     end
-    url = if statistic.include?('melee_')
-      "https://fbi.paydaythegame.com/img/weapons/melee/thumbs/#{uuid}.png"
+		uuid
+	end
+
+  def self.base_image_url(statistic)
+		uuid = self.isolate_statistic_uuid(statistic)
+
+    if statistic.include?('melee_')
+      "weapons/melee/thumbs/#{uuid}.png"
     elsif statistic.include?('weapon_')
-      "https://fbi.paydaythegame.com/img/weapons/ranged/thumbs/#{uuid}.png"
+      "weapons/ranged/thumbs/#{uuid}.png"
     elsif statistic.index('grenade_') == 0
       if statistic.include?('wpn_prj_') || statistic.include?('wpn_gre_')
-        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
+        "weapons/thrown/thumbs/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
       else
-        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid}.png"
+        "weapons/thrown/thumbs/#{uuid}.png"
       end
     elsif statistic.include?('mask_')
-      "https://fbi.paydaythegame.com/img/masks/thumb/#{uuid}_dif.png"
+      "masks/thumb/#{uuid}_dif.png"
     elsif statistic.include?('gloves_')
-      "https://fbi.paydaythegame.com/img/gloves/thumbs/#{uuid}.png"
+      "gloves/thumbs/#{uuid}.png"
     elsif statistic.include?('suit_')
-      "https://fbi.paydaythegame.com/img/suits/thumbs/#{uuid}.png"
+      "suits/thumbs/#{uuid}.png"
     elsif statistic.include?('difficulty_')
-      "https://fbi.paydaythegame.com/img/#{@difficulty_mappings[uuid.to_sym]}.png"
+      "#{@difficulty_mappings[uuid.to_sym]}.png"
     elsif statistic.include?('character_')
-      "https://fbi.paydaythegame.com/img/sketches/sketch-#{uuid}-large.jpg"
+      "sketches/sketch-#{uuid}-large.jpg"
     elsif statistic.include?('armor_used_')
-      "https://fbi.paydaythegame.com/img/weapons/armors/thumbs/#{uuid}.png"
+      "weapons/armors/thumbs/#{uuid}.png"
     elsif statistic.include?('gadget_used_')
-      "https://fbi.paydaythegame.com/img/weapons/equipment/thumbs/#{uuid}.png"
+      "weapons/equipment/thumbs/#{uuid}.png"
     end
+  end
 
-    url || ''
+  def self.generate_image_url(statistic)
+    base_url = self.base_image_url(statistic)
+		if base_url
+			"https://fbi.paydaythegame.com/img/#{base_url}"
+		else
+			""
+		end
+  end
+
+  def self.get_image_atlas(statistic)
+		paths = self.base_image_url(statistic)&.split("/")
+		return unless paths
+
+		paths[0..paths.length - 2].join("_")
   end
 
   def self.remove_stat(name)

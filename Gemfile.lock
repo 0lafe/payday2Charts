@@ -179,6 +179,10 @@ GEM
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
     observer (0.1.2)
+    open-uri (0.4.1)
+      stringio
+      time
+      uri
     pagy (6.0.3)
     pg (1.4.6)
     pkg-config (1.5.6)
@@ -262,8 +266,11 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    stringio (3.1.1)
     thor (1.2.1)
     tilt (2.3.0)
+    time (0.4.0)
+      date
     timeout (0.3.2)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -310,6 +317,7 @@ DEPENDENCIES
   jbuilder
   nokogiri
   oauth2
+  open-uri
   pagy
   pg (~> 1.1)
   puma (~> 5.0)
