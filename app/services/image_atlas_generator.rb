@@ -23,12 +23,12 @@ class ImageAtlasGenerator
 		stats.each do |stat|
 			self.get_stat_names(stat).each do |individual_stat|
         atlas = Localizer.get_image_atlas(individual_stat)
-        Dir.mkdir "image_out/#{atlas}" unless Dir.exist?("image_out/#{atlas}")
+        Dir.mkdir "tmp/image_out/#{atlas}" unless Dir.exist?("tmp/image_out/#{atlas}")
         uuid = Localizer.isolate_statistic_uuid(individual_stat)
 
-        if atlas && !File.file?("image_out/#{atlas}/#{uuid}.png")
+        if atlas && !File.file?("tmp/image_out/#{atlas}/#{uuid}.png")
           image_url = Localizer.generate_image_url(individual_stat)
-          File.open("image_out/#{atlas}/#{uuid}.png", 'wb') do |f|
+          File.open("tmp/image_out/#{atlas}/#{uuid}.png", 'wb') do |f|
             f.write(URI.open(image_url).read)
           end
         end
@@ -45,10 +45,10 @@ class ImageAtlasGenerator
       atlases: {},
       images: {}
     }
-    Dir.children("image_out").each do |atlas|
-      image_count = Dir.children("image_out/#{atlas}").length
-      first_file = Dir.children("image_out/#{atlas}").first
-      first_image = Magick::Image.ping("image_out/#{atlas}/#{first_file}").first
+    Dir.children("tmp/image_out").each do |atlas|
+      image_count = Dir.children("tmp/image_out/#{atlas}").length
+      first_file = Dir.children("tmp/image_out/#{atlas}").first
+      first_image = Magick::Image.ping("tmp/image_out/#{atlas}/#{first_file}").first
       x_dim = first_image.columns
       y_dim = first_image.rows
       mappings[:atlases][atlas] = [x_dim, y_dim]
@@ -60,33 +60,33 @@ class ImageAtlasGenerator
       base_image = Magick::Image.new(x_count * x_dim, y_count * y_dim) { |options| options.background_color = "none" }
       base_image.alpha(Magick::ActivateAlphaChannel)
 
-      Dir.glob("image_out/#{atlas}/*").each_with_index do |full_path, index|
+      Dir.glob("tmp/image_out/#{atlas}/*").each_with_index do |full_path, index|
         image = Magick::Image.read(full_path).first
         image.alpha(Magick::ActivateAlphaChannel)
         x_pos = ( index % x_count ) * x_dim
         y_pos = ( index / x_count ).floor * y_dim
         base_image.composite!(image, x_pos, y_pos, Magick::ReplaceCompositeOp)
 
-        uuid = full_path.split("/").last
+        uuid = full_path.split("/").last.gsub(".png", "")
         mappings[:images][uuid] = [x_pos, y_pos]
       end
-      base_image.write("atlas/#{atlas}.png")
+      base_image.write("tmp/atlas/#{atlas}.png")
     end
     self.write_css(mappings)
   end
 
   def self.write_css(mappings)
     atlases = mappings[:atlases].map do |image_data|
-      ".#{image_data[0]}_atlas {\n  background-size: #{image_data[1][0]}px #{image_data[1][1]}px\n}"
+      ".#{image_data[0]}_atlas {\n  background-size: #{image_data[1][0]}px #{image_data[1][1]}px;\n  background: url('#{image_data[0]}.png') 0 0 no-repeat;\n}"
     end
     atlases = atlases.join("\n")
     offsets = mappings[:images].map do |image_data|
-      "##{image_data[0]}_offset {\n  background-position: #{image_data[1][0]}px #{image_data[1][1]}px\n}"
+      "##{image_data[0]}_offset {\n  background-position: #{image_data[1][0]}px #{image_data[1][1]}px;\n}"
     end
     offsets = offsets.join("\n")
 
-    File.open("atlas/output.css", "w") do |file|
-      file.write(atlases + offsets)
+    File.open("tmp/atlas/output.scss", "w") do |file|
+      file.write(atlases + "\n" + offsets)
     end
   end
   # deletes non images and resizes weird ones
