@@ -1,0 +1,15 @@
+<% if params[:controller] == "homes" %>
+  <meta property="og:description" content="Global Payday 2 Statistics">
+<% elsif params[:controller] == "leaderboards" %>
+  <% if params[:action] == "show" %>
+    <meta property="og:description" content="<%= Localizer.localize_from_statistic(params[:id]) %> Leaderboard">
+  <% elsif params[:action] == "top_100_index" %>
+    <meta property="og:description" content="Payday 2 Top 100">
+  <% elsif params[:action] == "top_100" %>
+    <meta property="og:description" content="Top 100 for <%= @user.name %>">
+  <% else %>
+    <meta property="og:description" content="Payday 2 Leaderboards">
+  <% end %>
+<% elsif params[:controller] == "guess_whos" %>
+    <meta property="og:description" content="Payday 2 Guess Who">
+<% end %>
