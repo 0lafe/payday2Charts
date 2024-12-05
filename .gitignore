@@ -33,3 +33,5 @@
 .env
 .download_gif_create_statements.rb
 .byebug_history
+app/assets/builds/*
+node_modules/*

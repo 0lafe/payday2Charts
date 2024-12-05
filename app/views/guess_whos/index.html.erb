@@ -1,0 +1,28 @@
+<div style="display:flex;justify-content:center;">
+  <div style="display:flex;justify-content:center;flex-direction:column; width:20rem;background-color:white;padding:0 2rem 2rem 2rem;margin-top:2rem;border-radius:0.5rem;">
+    <h1>Guess Who!</h1>
+    <label>Game ID:</label>
+    <input style="margin-top:1rem;" id="game_id"/>
+    <button style="margin-top:1rem;" id="join_game">Join Game</button>
+    <div style="border-bottom: 1px solid #000000 !important;margin-top:1rem;"></div>
+    <button style="margin-top:1rem;" id="open_create_game">New Game</button>
+    <div hidden id="create_game" style="margin-top:1rem;">
+      <%= simple_form_for GuessWho.new do |f| %>
+        <%= f.input :game_type, collection: GuessWho.game_types, label_html: { style: "margin-right:1rem;" }, input_html: { style: "width:100%" } %>
+        <%= f.submit 'Create Game', style: "width:100%;margin-top:1rem;" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(() => {
+    $("#join_game").on("click", () => {
+      window.location.href = `guess_whos/${$("#game_id").val()}`
+    })
+
+    $("#open_create_game").on("click", () => {
+      $("#create_game").attr("hidden", false)
+    })
+  })
+</script>

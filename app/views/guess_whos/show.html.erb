@@ -1,0 +1,63 @@
+<div>
+  <div style="display:flex;justify-content:center;margin-top:2rem;">
+    <button class="btn btn-primary" style="padding:0.5rem 1rem;" id="reset-button">Reset</button>
+  </div>
+  <div style="padding: 0 4rem;">
+    <div style="display:grid;grid-template-columns: repeat(8, 1fr);">
+      <% @guess_who.items.each do |item| %>
+        <div style="border-radius:0.5rem;margin:2rem;display:flex;justify-content:center;" class="gameplay-item unturned">
+          <% if @guess_who.game_type == "heist" %>
+            <%= image_tag("guess_who/#{item}", style: "width:120px;-webkit-user-drag: none;padding: 1rem 0;") %>
+          <% else %>
+            <img src="<%= item %>" style="width:160px;-webkit-user-drag: none;"/>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <hr/>
+  <div style="display:flex;justify-content:center;padding: 2rem 4rem;">
+    <h2 style="color:white;padding-right:2rem;">Your Card:</h2>
+    <div style="background:white;border-radius:0.5rem;">
+      <% if @guess_who.game_type == "heist" %>
+        <img id="your-pick" style="width:120px;-webkit-user-drag: none;padding: 1rem;"/>
+      <% else %>
+        <img id="your-pick" style="width:160px;-webkit-user-drag: none;"/>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(() => {
+    const imageSource = $(".gameplay-item")[[Math.floor(Math.random() * $(".gameplay-item").length)]].children[0].src
+    $("#your-pick").attr("src", imageSource)
+
+    $(".gameplay-item").on("click", (e) => {
+      if (e.currentTarget.classList.contains("turned")) {
+        e.currentTarget.classList.remove("turned")
+        e.currentTarget.classList.add("unturned")
+      } else {
+        e.currentTarget.classList.remove("unturned")
+        e.currentTarget.classList.add("turned")
+      }
+    })
+
+    $("#reset-button").on("click", () => {
+      const imageSource = $(".gameplay-item")[[Math.floor(Math.random() * $(".gameplay-item").length)]].children[0].src
+      $("#your-pick").attr("src", imageSource)
+      $(".gameplay-item").removeClass("turned")
+      $(".gameplay-item").addClass("unturned")
+    })
+  })
+</script>
+
+<style>
+  .turned {
+    background: #222222;
+  }
+  
+  .unturned {
+    background: white;
+  }
+</style>

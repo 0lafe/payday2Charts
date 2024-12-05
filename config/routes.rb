@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :guess_whos, only: ['index', 'show', 'create']
+
   resources :jeopardy_questions, only: [:show, :update]
 
   resources :jeopardy_players, only: [:update]
