@@ -1,28 +1,27 @@
 <div>
-  <div style="display:flex;justify-content:center;margin-top:2rem;">
-    <button class="btn btn-primary" style="padding:0.5rem 1rem;" id="reset-button">Reset</button>
-  </div>
   <div style="padding: 0 4rem;">
     <div style="display:grid;grid-template-columns: repeat(8, 1fr);">
       <% @guess_who.items.each do |item| %>
         <div style="border-radius:0.5rem;margin:2rem;display:flex;justify-content:center;" class="gameplay-item unturned">
           <% if @guess_who.game_type == "heist" %>
-            <%= image_tag("guess_who/#{item}", style: "width:120px;-webkit-user-drag: none;padding: 1rem 0;") %>
+            <%= image_tag("guess_who/#{item}", style: "width:120px;padding: 1rem 0;", class: "guess_who_card") %>
           <% else %>
-            <img src="<%= item %>" style="width:160px;-webkit-user-drag: none;"/>
+            <img src="<%= item %>" style="width:160px;" class="guess_who_card"/>
           <% end %>
         </div>
       <% end %>
     </div>
   </div>
   <hr/>
-  <div style="display:flex;justify-content:center;padding: 2rem 4rem;">
-    <h2 style="color:white;padding-right:2rem;">Your Card:</h2>
+  <div style="display:flex;justify-content:space-between;padding: 2rem 4rem;width:60%;margin:auto;">
+    <h2 style="color:white;">Your lobby code is <%= params[:id] %></h2>
+    <button class="btn btn-primary" style="padding:0.5rem 1rem;height:20%;" id="reset-button">Reset</button>
+    <h2 style="color:white;">Your Card:</h2>
     <div style="background:white;border-radius:0.5rem;">
       <% if @guess_who.game_type == "heist" %>
-        <img id="your-pick" style="width:120px;-webkit-user-drag: none;padding: 1rem;"/>
+        <img id="your-pick" style="width:120px;padding:1rem" class="guess_who_card"/>
       <% else %>
-        <img id="your-pick" style="width:160px;-webkit-user-drag: none;"/>
+        <img id="your-pick" style="width:160px;" class="guess_who_card"/>
       <% end %>
     </div>
   </div>
@@ -59,5 +58,16 @@
   
   .unturned {
     background: white;
+  }
+
+  .guess_who_card {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
   }
 </style>
