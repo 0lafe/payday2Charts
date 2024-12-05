@@ -3,7 +3,11 @@ class GuessWhosController < ApplicationController
 
   def create
     game = GuessWho.create(guess_who_params)
-    redirect_to guess_who_path(game)
+    if game.valid?
+      redirect_to guess_who_path(game)
+    else
+      redirect_back alert: game.errors.full_messages.to_sentence, fallback_location: root_url
+    end
   end
 
   def show

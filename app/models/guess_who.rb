@@ -1,6 +1,8 @@
 class GuessWho < ApplicationRecord
   before_create :set_items
 
+  validates :game_type, presence: true
+
   def black_list
     [
       'weapon_kills_tec9',
