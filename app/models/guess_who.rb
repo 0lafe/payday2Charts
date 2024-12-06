@@ -58,7 +58,7 @@ class GuessWho < ApplicationRecord
     ]
   end
 
-  def heist_list
+  def self.heist_list
     [
       "aftershockpng.png",
       "alaskan-dealpng.png",
@@ -141,6 +141,99 @@ class GuessWho < ApplicationRecord
     ]
   end
 
+  def self.content_creators_list
+    [
+      "0lafe.PNG",
+      "APX.PNG",
+      "AZ.PNG",
+      "Ace.PNG",
+      "Amke.PNG",
+      "Arthrad.PNG",
+      "BOI.PNG",
+      "Bay1k.PNG",
+      "Carlos.PNG",
+      "Carrot.PNG",
+      "Cdawgg.PNG",
+      "Commander.PNG",
+      "CrabicGangster.png",
+      "DINAX.PNG",
+      "Darrel.PNG",
+      "Dasher.PNG",
+      "General.PNG",
+      "Gorko7.PNG",
+      "Hitmanguy.PNG",
+      "Hoxtilicious.PNG",
+      "Inigo.PNG",
+      "Jaide.PNG",
+      "Jesus.PNG",
+      "Jocab.PNG",
+      "Just a Cat.PNG",
+      "KingZ.PNG",
+      "Kknowley.PNG",
+      "Lucky.PNG",
+      "Marcbm.PNG",
+      "Marioinatophat.PNG",
+      "Martino.PNG",
+      "Mortifier.PNG",
+      "Niphen.PNG",
+      "Payday.PNG",
+      "RustyChains.PNG",
+      "Semper.PNG",
+      "Simon.PNG",
+      "Spider.PNG",
+      "Sprin.PNG",
+      "Stol3n.PNG",
+      "Timmy.PNG",
+      "ToastedBread.PNG",
+      "Tony.PNG",
+      "Uncle.PNG",
+      "Vyse.PNG",
+      "Zdann.PNG",
+      "akg.jpg",
+      "alagusta.jpg",
+      "altonator.jpg",
+      "appii.PNG",
+      "arco.png",
+      "armorerfan.PNG",
+      "b33croft.PNG",
+      "bleetstreets.PNG",
+      "bob feet.png",
+      "capcake.jpg",
+      "captainalpha.jpg",
+      "cassius.jpg",
+      "damon.PNG",
+      "dazelux.jpg",
+      "dwan.png",
+      "e3k.PNG",
+      "given.png",
+      "heart.png",
+      "hox.png",
+      "itspansy.PNG",
+      "jamesblack.jpg",
+      "kev.PNG",
+      "lilguyG.PNG",
+      "mr wombat.png",
+      "nash.jpg",
+      "nico.jpg",
+      "nikita.PNG",
+      "nuka.png",
+      "overcastspy.jpg",
+      "pluto.png",
+      "random kenny.png",
+      "randomguy.PNG",
+      "redarcherlive.PNG",
+      "richard dangles.jpg",
+      "rob thanatos.PNG",
+      "russian badger.jpg",
+      "salem.jpg",
+      "sam.jpg",
+      "sheri shaw.PNG",
+      "staufackar.PNG",
+      "tuanbomb.PNG",
+      "unknownknight.PNG"
+    ]
+  end
+
   def get_schema
     response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{ENV['STEAM_KEY']}&appid=218620")
     if response.ok?
@@ -158,17 +251,20 @@ class GuessWho < ApplicationRecord
   end
 
   def self.game_types
-    %w[
-      heist
-      mask
-      weapon
-      melee
+    [
+      ["Heist", "heist"],
+      ["Mask", "mask"],
+      ["Weapon", "weapon"],
+      ["Melee", "melee"],
+      ["Content Creators", "content_creators"]
     ]
   end
 
   def set_items
     if game_type == "heist"
-      self.items = heist_list.sample(24)
+      self.items = GuessWho.heist_list.sample(24)
+    elsif game_type == "content_creators"
+      self.items = GuessWho.content_creators_list.sample(24)
     else
       item_stats = []
       if game_type == "mask"

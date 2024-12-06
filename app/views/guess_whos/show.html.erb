@@ -2,11 +2,18 @@
   <div style="padding: 0 4rem;">
     <div style="display:grid;grid-template-columns: repeat(8, 1fr);">
       <% @guess_who.items.each do |item| %>
-        <div style="border-radius:0.5rem;margin:2rem;display:flex;justify-content:center;" class="gameplay-item unturned">
-          <% if @guess_who.game_type == "heist" %>
-            <%= image_tag("guess_who/#{item}", style: "width:120px;padding: 1rem 0;", class: "guess_who_card") %>
-          <% else %>
-            <img src="<%= item %>" style="width:160px;" class="guess_who_card"/>
+        <div style="margin:2rem;">
+          <div style="border-radius:0.5rem;display:flex;justify-content:center;" class="gameplay-item unturned">
+            <% if @guess_who.game_type == "heist" %>
+              <%= image_tag("guess_who/heists/#{item}", style: "width:120px;padding: 1rem 0;", class: "guess_who_card") %>
+            <% elsif @guess_who.game_type == "content_creators" %>
+              <%= image_tag("guess_who/content_creators/#{item}", style: "width:120px;height:140px;padding: 1rem 0;", class: "guess_who_card") %>
+            <% else %>
+              <img src="<%= item %>" style="width:160px;" class="guess_who_card"/>
+            <% end %>
+          </div>
+          <% if @guess_who.game_type == "content_creators" %>
+            <p style="color:white"><%= item.gsub(".png", "").gsub(".jpg", "").gsub(".PNG", "") %></p>
           <% end %>
         </div>
       <% end %>
@@ -18,7 +25,7 @@
     <button class="btn btn-primary" style="padding:0.5rem 1rem;height:20%;" id="reset-button">Reset</button>
     <h2 style="color:white;">Your Card:</h2>
     <div style="background:white;border-radius:0.5rem;">
-      <% if @guess_who.game_type == "heist" %>
+      <% if ["heist", "content_creators"].include?(@guess_who.game_type) %>
         <img id="your-pick" style="width:120px;padding:1rem" class="guess_who_card"/>
       <% else %>
         <img id="your-pick" style="width:160px;" class="guess_who_card"/>
