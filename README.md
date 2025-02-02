@@ -1,8 +1,10 @@
 # Payday 2 Charts
 
-Available at https://payday-2-charts.herokuapp.com/
+Available at https://payday-charts.com/
 
 A website for viewing payday 2 stats from the steam web api
+
+Also contains miscellaneous games related to payday
 
 # TODO
 
