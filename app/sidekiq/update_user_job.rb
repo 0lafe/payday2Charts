@@ -18,13 +18,11 @@ class UpdateUserJob
       return
     end
 
-    p "Updating user ##{id}"
-
     begin
       User.find(id).fetch_new_stats
     rescue => exception
       
     end
-    # UpdateUserJob.perform_async(id + 1)
+    UpdateUserJob.perform_in(2.seconds, id + 1)
   end
 end
