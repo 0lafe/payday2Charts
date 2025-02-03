@@ -1,7 +1,7 @@
 class PlayerStat < ApplicationRecord
   belongs_to :user
 
-  def self.get_top_10(name)
+  def self.get_top_100(name)
     users = PlayerStat.where.not({name => nil}).order("#{name} DESC").includes(:user).limit(100)
     names = User.names(users.map {|player| player.user.steam_id })
     users.map.with_index do |a, index|

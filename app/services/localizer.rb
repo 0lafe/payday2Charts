@@ -163,23 +163,41 @@ class Localizer
     descriptor + localize(name + uuid) + suffix
   end
 
+  def self.weapon_from_stat(stat)
+    stat
+      .gsub("weapon_used", "bm_w")
+      .gsub("weapon_kills", "bm_w")
+      .gsub("weapon_shots", "bm_w")
+      .gsub("weapon_hits", "bm_w")
+  end
+
+  def self.localize_weapon_from_stat(stat)
+    localize(weapon_from_stat(stat))
+  end
+
+  def self.melee_from_stat(stat)
+    stat
+      .gsub("melee_used", "bm_melee")
+      .gsub("melee_kills", "bm_melee")
+  end
+
+  def self.localize_melee_from_stat(stat)
+    localize(melee_from_stat(stat))
+  end
+
+  def self.throwable_from_stat(stat)
+    stat
+      .gsub("grenade_used", "bm_throwable")
+      .gsub("grenade_kills", "bm_throwable")
+  end
+
+  def self.localize_throwable_from_stat(stat)
+    localize(throwable_from_stat(stat))
+  end
+
   def self.localize(name)
     @localization_file ||= JSON.parse(File.open('./app/services/localizations.json').read)
     name = @overkill_goofs[name.to_sym] if @overkill_goofs[name.to_sym]
     @localization_file[name] || name
-  end
-
-  def self.obtain_json()
-    hash = {}
-    Dir['./app/services/xml/*'].each do |path|
-      file = File.read(path)
-      stripped = file.gsub("\r", '').gsub("\n", '').gsub('<string ', "").gsub('</string>', '&&&').split('&&&')
-      stripped.map do |item|
-        unlocalized = item[4..item.index("\"", 4) - 1]
-        localized = item[item.index('>') + 1..]
-        hash[unlocalized] = localized
-      end
-    end
-    File.write('./app/services/localizations.json', hash.to_json)
   end
 end

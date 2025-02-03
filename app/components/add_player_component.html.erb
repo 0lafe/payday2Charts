@@ -3,6 +3,6 @@
   <p>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
   <%= simple_form_for(User.new) do |f| %>
     <%= f.input :steam_id, label: 'Steam 64 ID', input_html: {class: 'add-user-form'} %>
-    <%= f.button :submit, 'Add Player To Leaderboard', input_html: {class: 'add-user-form submit-button'} %>
+    <%= f.button :submit, 'Add Player To Leaderboard', class: 'add-user-form submit-button btn-primary' %>
   <% end %>
 </div>

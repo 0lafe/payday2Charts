@@ -1,16 +1,20 @@
 class WeaponStat < ApplicationRecord
   belongs_to :user
 
-  def self.get_top_10(name)
-    users = WeaponStat.where.not({name => nil}).order("#{name} DESC").includes(:user).limit(100)
-    names = User.names(users.map {|player| player.user.steam_id })
-    users.map.with_index do |a, index|
-      {
-        name: names[index],
-        steam_id: a.user.steam_id,
-        value: a[name],
-        updated_at: a.updated_at
-      }
+  def self.get_top_100(record_name, filter = nil)
+    if filter
+      top_100_filter(record_name, filter)
+    else
+      users = WeaponStat.where.not({record_name => nil}).order("#{record_name} DESC").includes(:user).limit(100)
+      names = User.names(users.map {|player| player.user.steam_id })
+      users.map.with_index do |a, index|
+        {
+          name: names[index],
+          steam_id: a.user.steam_id,
+          value: a[record_name],
+          updated_at: a.updated_at
+        }
+      end
     end
   end
 
@@ -19,7 +23,7 @@ class WeaponStat < ApplicationRecord
       name.index('weapon_kills_') == 0
     end
 
-    values = kill_stats.map do |stat|
+    kill_stats.map do |stat|
       val = WeaponStat.where.not({stat => nil}).order("#{stat} DESC").first
       if val.present?
         [stat, val[stat]]
@@ -37,5 +41,37 @@ class WeaponStat < ApplicationRecord
       sum += user.weapon_stat[name] if name.include?('weapon_kills_') && user.weapon_stat[name]
     end
     p sum
+  end
+
+  private
+
+  def self.top_100_filter(name, filter)
+    record = ""
+    type = ""
+    if name.starts_with?("bm_w")
+      type = "weapon_"
+      record = name.gsub("bm_w", "weapon_#{filter}")
+    elsif name.starts_with?("bm_melee")
+      type = "melee_"
+      record = name.gsub("bm_melee", "melee_#{filter}")
+    else
+      type = "grenade_"
+      record = name.gsub("bm_throwable", "grenade_#{filter}")
+    end
+
+    users = WeaponStat.where.not({record => nil}).order("#{record} DESC").includes(:user).limit(100)
+    names = User.names(users.map {|player| player.user.steam_id })
+
+    users.map.with_index do |a, index|
+      {
+        name: names[index],
+        steam_id: a.user.steam_id,
+        kills: a[record.gsub("#{type}#{filter}", "#{type}kills")],
+        uses: a[record.gsub("#{type}#{filter}", "#{type}used")],
+        shots: a[record.gsub("#{type}#{filter}", "#{type}shots")],
+        hits: a[record.gsub("#{type}#{filter}", "#{type}hits")],
+        updated_at: a.updated_at
+      }
+    end
   end
 end

@@ -3,28 +3,74 @@
   <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
     <%= render(AddPlayerComponent.new) %>
     <div class="statistic-choice">
-      <table style="min-width:60%">
-        <tr>
-          <th>Position</th>
-          <th>Player</th>
-          <th>FBI Files</th>
-          <th>Steam Profile</th>
-          <th>Top 100s</th>
-          <th>Value</th>
-          <th>Updated at</th>
-        </tr>
-        <% @data.each_with_index do |stat, index| %>
+      <table style="min-width:60%" id="leaderboard-table">
+        <thead>
           <tr>
-            <td><%= index + 1 %></td>
-            <td><%= stat[:name] %></td>
-            <td><a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">FBI</a></td>
-            <td><a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">Steam</a></td>
-            <td><a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">Top 100s</a></td>
-            <td><%= number_with_delimiter(stat[:value]) %></td>
-            <td><%= stat[:updated_at].to_formatted_s(:short) %></td>
+            <th data-dt-order="disable">Position</th>
+            <th data-dt-order="disable">Player</th>
+            <th data-dt-order="disable">FBI Files</th>
+            <th data-dt-order="disable">Steam Profile</th>
+            <th data-dt-order="disable">Top 100s</th>
+            <% if @grouping %>
+              <th>Kills</th>
+              <th>Uses</th>
+              <% if @grouping == "weapon" %>
+                <th>Shots</th>
+                <th>Shots Hit</th>
+              <% end %>
+            <% else %>
+              <th>Value</th>
+            <% end %>
+            <th data-dt-order="disable">Last Updated</th>
           </tr>
-        <% end %>
+        </thead>
+        <tbody>
+          <% @data.each_with_index do |stat, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= stat[:name] %></td>
+              <td><a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">FBI</a></td>
+              <td><a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">Steam</a></td>
+              <td><a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">Top 100s</a></td>
+              <% if @grouping %>
+                <td><%= number_with_delimiter(stat[:kills]) %></td>
+                <td><%= number_with_delimiter(stat[:uses]) %></td>
+                <% if @grouping == "weapon" %>
+                  <td><%= number_with_delimiter(stat[:shots]) %></td>
+                  <td><%= number_with_delimiter(stat[:hits]) %></td>
+                <% end %>
+              <% else %>
+                <td><%= number_with_delimiter(stat[:value]) %></td>
+              <% end %>
+              <td><%= stat[:updated_at].strftime("%b %m %Y") %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(() => {
+    let table = $("#leaderboard-table").DataTable({
+      paging: false,
+      info: false
+    })
+    <% if @grouping %>
+      $("<span>Filter By:</span>").appendTo($('.dt-layout-start').first())
+      $("<button class='filter-button btn btn-primary <%= @filter == "kills" ? "disabled" : nil %>' data-filter='kills'>Kills</button>").appendTo($('.dt-layout-start').first())
+      $("<button class='filter-button btn btn-primary <%= @filter == "used" ? "disabled" : nil %>' data-filter='used'>Uses</button>").appendTo($('.dt-layout-start').first())
+      <% if @grouping == "weapon" %>
+        $("<button class='filter-button btn btn-primary <%= @filter == "shots" ? "disabled" : nil %>' data-filter='shots'>Shots</button>").appendTo($('.dt-layout-start').first())
+        $("<button class='filter-button btn btn-primary <%= @filter == "hits" ? "disabled" : nil %>' data-filter='hits'>Shots Hit</button>").appendTo($('.dt-layout-start').first())
+      <% end %>
+    <% end %>
+
+    $(".filter-button").on("click", (e) => {
+      let filter = e.target.dataset.filter
+      let grouping = new URLSearchParams(window.location.search).get("grouping")
+      window.location.href = `${location.pathname}?grouping=${grouping}&filter=${filter}`
+    })
+  })
+</script>

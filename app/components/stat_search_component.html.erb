@@ -4,10 +4,18 @@
   $(document).ready(function() { $("#statistic_choice").select2(); });
 
   $('#statistic_choice').on('select2:select', function (e) {
-    if (window.location.pathname === '/leaderboards') {
-      window.location.href = `leaderboards/${e.target.value}`
+    const grouping = $("#statistic_choice").find(":selected").data("grouping")
+    let route
+    if (grouping) {
+      route = `${e.target.value}?grouping=${grouping}`
     } else {
-      window.location.href = `${e.target.value}`
+      route = e.target.value
+    }
+    
+    if (window.location.pathname === '/leaderboards') {
+      window.location.href = `leaderboards/${route}`
+    } else {
+      window.location.href = `${route}`
     }
   });
 
