@@ -23,6 +23,6 @@ class UpdateUserJob
     rescue => exception
       
     end
-    UpdateUserJob.perform_in(1.seconds, id + 1)
+    # UpdateUserJob.perform_in(1.seconds, id + 1)
   end
 end
