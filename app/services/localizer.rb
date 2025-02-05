@@ -82,6 +82,8 @@ class Localizer
       "https://fbi.paydaythegame.com/img/weapons/armors/thumbs/#{uuid}.png"
     elsif statistic.include?('gadget_used_')
       "https://fbi.paydaythegame.com/img/weapons/equipment/thumbs/#{uuid}.png"
+    elsif statistic.include?("specialization_used_")
+      "https://fbi.paydaythegame.com/img/weapons/perkdeck/thumbs/#{statistic.gsub("specialization_used_", "")}.png"
     end
 
     url || ''
