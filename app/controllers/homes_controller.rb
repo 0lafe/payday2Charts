@@ -15,6 +15,7 @@ class HomesController < ApplicationController
       ['Outfit Usage', 'suit_used'],
       ['Heist Data ', 'contract'],
       ['Armor Used ', 'armor_used'],
+      ['Perkdeck Used ', 'specialization_used'],
       ['Throwable Kills', 'grenade_kills'],
       ['Throwable Usage', 'grenade_used'],
       ['Deployable Usage', 'gadget_used'],

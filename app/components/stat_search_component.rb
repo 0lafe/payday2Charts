@@ -22,7 +22,6 @@ class StatSearchComponent < ViewComponent::Base
       "gage5_",
       "gmod_",
       "option_",
-      "specialization_",
       "option_",
       "equipped_",
       "crimefest_",
