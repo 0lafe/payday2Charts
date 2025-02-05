@@ -40,28 +40,27 @@
 </script>
 
 <script>
-  const searchField = document.getElementById('search_field')
-  var timeout = null
-
-  const filter = (v) => {
-    filtered = []
-    statisticData[type].data.forEach((i) => {
-      if (i.localized_name.toUpperCase().includes(v.toUpperCase())) {
-        filtered.push(i)
-      }
-    })
-    listItems = filtered
-    handleDataChange()
-  }
-
-  const inputHandler = (e) => {
-    if (timeout) {
-      clearTimeout(timeout)
+  $(document).ready(() => {
+    var timeout = null
+  
+    const filter = (v) => {
+      filtered = []
+      statisticData[type].data.forEach((i) => {
+        if (i.localized_name.toUpperCase().includes(v.toUpperCase())) {
+          filtered.push(i)
+        }
+      })
+      listItems = filtered
+      handleDataChange()
     }
-    timeout = setTimeout(filter, 50, e.target.value)
-  }
 
-  searchField.addEventListener('input', inputHandler);
+    $("#search_field").on("input", (e) => {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+      timeout = setTimeout(filter, 50, e.target.value)
+    })
+  })
 </script>
 
 <script>
@@ -310,31 +309,4 @@
   $(document).on('select2:open', () => {
     document.querySelector('.select2-search__field').focus();
   });
-
-  var modal = document.getElementById("history_content");
-
-
-  var span = document.getElementsByClassName("close")[0];
-
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  const renderHistory = (name) => {
-    removeChildren(document.getElementById('history_chart_container'))
-    getHistoricalData(name).then(() => {
-      const item = individualData[name].data
-      const element = generateChart(`${item['name']}_history`, item['labels'], item['value'], item['localized_name'], item['img_url'])
-      document.getElementById('history_chart_container').appendChild(element)
-      renderChart(`${item['name']}_history`, item['labels'], item['value'])
-    })
-  }
-
-  window.onload = () => {
-    window.addEventListener('click', (e) => {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    })
-  }
 </script>

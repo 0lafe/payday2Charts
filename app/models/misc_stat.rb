@@ -23,4 +23,13 @@ class MiscStat < ApplicationRecord
     end
     p sum
   end
+
+  def perkdeck_list
+    list = 23.times.map do |i|
+      {
+        name: "specialization_used_#{i + 1}",
+        value: self["specialization_used_#{i + 1}"]
+      }
+    end
+  end
 end
