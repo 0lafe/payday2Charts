@@ -14,6 +14,7 @@ RSpec.feature "Get Charts" do
 
     scenario "They can search for melee weapons", js: true do
       find("#search_field").send_keys("Two Handed Great Ruler")
+      select "Weapon Kills", from: "statistic_choice"
       expect(page).to have_selector(".data-table", count: 1)
       expect(page).to have_content("Two handed Great Ruler")
     end
