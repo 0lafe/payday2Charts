@@ -83,7 +83,6 @@ class Leaderboard
       'option_',
       'player_',
       'skill_',
-      'specialization_',
       'setting_',
       'sb17_',
       'pda_',
