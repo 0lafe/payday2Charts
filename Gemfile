@@ -53,7 +53,13 @@ gem "bootsnap", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "byebug"
+  gem "capybara"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "rspec"
+  gem "rspec-rails"
 end
 
 group :development do
@@ -69,21 +75,20 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  gem "capybara-screenshot"
   gem "selenium-webdriver"
-  gem "webdrivers"
 end
 
 gem "httparty"
-gem "byebug"
 gem "view_component"
 gem "pagy"
 gem "nokogiri"
-gem 'dotenv-rails', groups: [:development, :test]
+gem "dotenv-rails", groups: [:development, :test]
 gem "select2-rails"
-gem 'simple_form'
-gem 'rmagick'
+gem "simple_form"
+gem "rmagick"
 gem "aws-sdk-s3", require: false
 gem "bootstrap"
 gem "sassc-rails"
 gem "oauth2"
+gem "down"
