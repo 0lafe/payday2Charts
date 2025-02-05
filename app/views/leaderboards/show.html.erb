@@ -42,7 +42,7 @@
               <% else %>
                 <td><%= number_with_delimiter(stat[:value]) %></td>
               <% end %>
-              <td><%= stat[:updated_at].strftime("%b %m %Y") %></td>
+              <td><%= stat[:updated_at].strftime("%b %d %Y") %></td>
             </tr>
           <% end %>
         </tbody>
