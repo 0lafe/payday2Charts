@@ -12,3 +12,5 @@ Auto updating stats
   - Working but needs to be slowed down due to steam api rate limiting
 
 UI Rework
+Player Stats
+Steam signin/global account

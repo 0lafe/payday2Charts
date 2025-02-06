@@ -191,3 +191,18 @@ table {
   padding: 1rem;
   background: limegreen;
 }
+
+.leaderboard-icon {
+  display: inline;
+  width: 2rem;
+  transition: all .2s ease-in-out;
+}
+
+.leaderboard-icon:hover {
+  transform: scale(1.2);
+}
+
+.centered-td {
+  vertical-align: middle;
+  text-align: center;
+}

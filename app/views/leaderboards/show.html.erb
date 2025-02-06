@@ -29,8 +29,16 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= stat[:name] %></td>
-              <td><a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">FBI</a></td>
-              <td><a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">Steam</a></td>
+              <td class="centered-td">
+                <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+                  <%= image_tag("https://fbi-files.s3.amazonaws.com/favicon.png", class: "leaderboard-icon") %>
+                </a>
+              </td>
+              <td class="centered-td">
+                <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+                  <%= image_tag("steam_logo.svg", class: "leaderboard-icon") %>
+                </a>
+              </td>
               <td><a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">Top 100s</a></td>
               <% if @grouping %>
                 <td><%= number_with_delimiter(stat[:kills]) %></td>
