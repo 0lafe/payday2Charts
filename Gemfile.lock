@@ -302,6 +302,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.2)
+    ruby-openid (2.9.2)
     rubyzip (2.4.1)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -398,6 +399,7 @@ DEPENDENCIES
   rmagick
   rspec
   rspec-rails
+  ruby-openid (~> 2.9, >= 2.9.2)
   sassc-rails
   select2-rails
   selenium-webdriver

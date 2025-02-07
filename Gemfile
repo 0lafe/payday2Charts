@@ -60,6 +60,7 @@ group :development, :test do
   gem "faker"
   gem "rspec"
   gem "rspec-rails"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -83,7 +84,6 @@ gem "httparty"
 gem "view_component"
 gem "pagy"
 gem "nokogiri"
-gem "dotenv-rails", groups: [:development, :test]
 gem "select2-rails"
 gem "simple_form"
 gem "rmagick"
@@ -92,3 +92,4 @@ gem "bootstrap"
 gem "sassc-rails"
 gem "oauth2"
 gem "down"
+gem 'ruby-openid', '~> 2.9', '>= 2.9.2'

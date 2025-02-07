@@ -1,65 +1,73 @@
 <% if !(params[:controller] == 'jeopardy_games') %>
   <ul class="nav-bar-container">
-    <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a></li>
-    <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>"><a href="/leaderboards">Leaderboards</a></li>
-    <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>"><a href="/leaderboards/top_100_index">Top 100</a></li>
-    <li class="nav-element <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>"><a href="/guess_whos">Guess Who</a></li>
-    <li class="nav-element"><a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a></li>
-    
-    <% if current_page?(controller: 'homes', action: 'index') %>
-      <li class="nav-element" style="float:right;">
-        <div style="display:flex;color:white;align-items:center;">
-          <button class="pagination-button" id="skip-start" title="First page" aria-label="First page">
-            &lt;&lt;&lt;
-          </button>
-          <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
-            &lt;
-          </button>
-          
-          <div id="pagination-numbers"></div>
-          
-          <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
-            &gt;
-          </button>
-          <button class="pagination-button" id="skip-end" title="Last Page" aria-label="Last Page" style="margin-right:2rem;">
-            &gt;&gt;&gt;
-          </button>
+    <div style="display:inline;">
+      <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a></li>
+      <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>"><a href="/leaderboards">Leaderboards</a></li>
+      <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>"><a href="/leaderboards/top_100_index">Top 100</a></li>
+      <li class="nav-element <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>"><a href="/guess_whos">Guess Who</a></li>
+      <li class="nav-element"><a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a></li>
+    </div>
 
-          <div style="display:flex;align-items:center;padding-right:2rem;border-left: 1px solid #bbb;">
-            <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
-            <%= select_tag('statistic_choice', options_for_select(@options)) %>
+    <div style="display:inline;">
+      <% if current_page?(controller: 'homes', action: 'index') %>
+        <li class="nav-element">
+          <div style="display:flex;color:white;align-items:center;">
+            <button class="pagination-button" id="skip-start" title="First page" aria-label="First page">
+              &lt;&lt;&lt;
+            </button>
+            <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
+              &lt;
+            </button>
+            
+            <div id="pagination-numbers"></div>
+            
+            <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
+              &gt;
+            </button>
+            <button class="pagination-button" id="skip-end" title="Last Page" aria-label="Last Page" style="margin-right:2rem;">
+              &gt;&gt;&gt;
+            </button>
+
+            <div style="display:flex;align-items:center;padding-right:2rem;border-left: 1px solid #bbb;">
+              <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
+              <%= select_tag('statistic_choice', options_for_select(@options)) %>
+            </div>
+
+            <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
+              <span style="margin-right:1rem;" class="nav-input-title">Search<span>
+              <input type="text" class='search-field' id="search_field"/>
+            </div>
           </div>
+        </li>
+      <% end %>
 
+      <% if params[:controller] == 'leaderboards' && params[:action] == 'show' %>
+        <li class="nav-element">
+          <div style="display:flex;color:white;align-items:center;">
+            <div style="display:flex;align-items:center;padding-right:2rem;">
+              <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
+              <%= render(StatSearchComponent.new('small-search')) %>
+            </div>
+            <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
+              <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title"><%= @title %></h2>
+            </div>
+          </div>
+        </li>
+      <% end %>
+
+      <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
+        <li class="nav-element">
           <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-            <span style="margin-right:1rem;" class="nav-input-title">Search<span>
-            <input type="text" class='search-field' id="search_field"/>
+            <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
+              This list was last updated <%= Leaderboard.read['updated_at'] %>
+            </h2>
           </div>
-        </div>
-      </li>
-    <% end %>
+        </li>
+      <% end %>
 
-    <% if params[:controller] == 'leaderboards' && params[:action] == 'show' %>
-      <li class="nav-element" style="float:right;">
-        <div style="display:flex;color:white;align-items:center;">
-          <div style="display:flex;align-items:center;padding-right:2rem;">
-            <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
-            <%= render(StatSearchComponent.new('small-search')) %>
-          </div>
-          <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-            <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title"><%= @title %></h2>
-          </div>
-        </div>
-      </li>
-    <% end %>
-
-    <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
-      <li class="nav-element" style="float:right;">
-        <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-          <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
-            This list was last updated <%= Leaderboard.read['updated_at'] %>
-          </h2>
-        </div>
-      </li>
-    <% end %>
+      <%= link_to(new_session_path) do %>
+        <%= image_tag("steam_login.png") %>
+      <% end %>
+    </div>
   </ul>
 <% end %>

@@ -41,5 +41,7 @@ Rails.application.routes.draw do
 
   resources :jeopardy_players, only: [:update]
 
+  resources :sessions
+
   root "homes#index"
 end

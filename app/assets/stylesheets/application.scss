@@ -206,3 +206,19 @@ table {
   vertical-align: middle;
   text-align: center;
 }
+
+.login-page {
+  margin-top: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.login-content {
+  width: 40%;
+}
+
+.login-page h3 {
+  color: white;
+}
