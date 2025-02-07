@@ -151,5 +151,4 @@ class ApplicationController < ActionController::Base
       p "add_column :misc_stats, :#{key}, :integer"
     end
   end
-
 end

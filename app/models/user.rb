@@ -13,6 +13,16 @@ class User < ApplicationRecord
     end
   end
 
+  def avatar
+    response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{ENV['STEAM_KEY']}&steamids=#{steam_id}")
+    if response.ok?
+      data = JSON.parse(response.body)
+      data["response"]["players"].first["avatar"]
+    else
+      return ''
+    end
+  end
+
   def fetch_new_stats
     weapon_stats, player_stats, misc_stats = PlayerStatGrabber.update_stats_hash(steam_id)
 

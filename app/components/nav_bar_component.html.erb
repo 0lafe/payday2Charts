@@ -1,16 +1,26 @@
 <% if !(params[:controller] == 'jeopardy_games') %>
   <ul class="nav-bar-container">
-    <div style="display:inline;">
-      <li class="nav-element <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" ><a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a></li>
-      <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>"><a href="/leaderboards">Leaderboards</a></li>
-      <li class="nav-element <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>"><a href="/leaderboards/top_100_index">Top 100</a></li>
-      <li class="nav-element <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>"><a href="/guess_whos">Guess Who</a></li>
-      <li class="nav-element"><a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a></li>
+    <div style="display:flex;">
+      <li class="nav-element nav-element-left <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" >
+        <a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a>
+      </li>
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
+        <a href="/leaderboards">Leaderboards</a>
+      </li>
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
+        <a href="/leaderboards/top_100_index">Top 100</a>
+      </li>
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
+        <a href="/guess_whos">Guess Who</a>
+      </li>
+      <li class="nav-element nav-element-left">
+        <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a>
+      </li>
     </div>
 
-    <div style="display:inline;">
+    <div style="display:flex;">
       <% if current_page?(controller: 'homes', action: 'index') %>
-        <li class="nav-element">
+        <li class="nav-element nav-element-left">
           <div style="display:flex;color:white;align-items:center;">
             <button class="pagination-button" id="skip-start" title="First page" aria-label="First page">
               &lt;&lt;&lt;
@@ -42,7 +52,7 @@
       <% end %>
 
       <% if params[:controller] == 'leaderboards' && params[:action] == 'show' %>
-        <li class="nav-element">
+        <li class="nav-element nav-element-left">
           <div style="display:flex;color:white;align-items:center;">
             <div style="display:flex;align-items:center;padding-right:2rem;">
               <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
@@ -56,7 +66,7 @@
       <% end %>
 
       <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
-        <li class="nav-element">
+        <li class="nav-element nav-element-left">
           <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
             <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
               This list was last updated <%= Leaderboard.read['updated_at'] %>
@@ -65,8 +75,19 @@
         </li>
       <% end %>
 
-      <%= link_to(new_session_path) do %>
-        <%= image_tag("steam_login.png") %>
+      <% if current_user %>
+        <li class="nav-element nav-element-right">
+          <a href="#">
+            <%= image_tag(current_user.avatar, class: "steam-avatar") %>
+            <%= current_user.name %>
+          </a>
+        </li>
+      <% else %>
+        <li class="nav-element nav-element-right">
+          <%= link_to(new_session_path) do %>
+            <%= image_tag("steam_login.png") %>
+          <% end %>
+        </li>
       <% end %>
     </div>
   </ul>

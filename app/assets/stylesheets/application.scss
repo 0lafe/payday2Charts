@@ -195,11 +195,6 @@ table {
 .leaderboard-icon {
   display: inline;
   width: 2rem;
-  transition: all .2s ease-in-out;
-}
-
-.leaderboard-icon:hover {
-  transform: scale(1.2);
 }
 
 .centered-td {
@@ -221,4 +216,27 @@ table {
 
 .login-page h3 {
   color: white;
+}
+
+.login-button {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.image-grow {
+  transition: all .2s ease-in-out;
+}
+
+.image-grow:hover {
+  transform: scale(1.2);
+}
+
+.image-grow-small {
+  transition: all .1s ease-in-out;
+}
+
+.image-grow-small:hover {
+  transform: scale(1.1);
 }
