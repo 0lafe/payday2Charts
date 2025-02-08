@@ -1,10 +1,6 @@
 class StatsController < ApplicationController
   def show
-    if params[:long_history]
-      render json: {data: generate_historical_data(params[:id])}
-    else
-      render json: {data: generate_data(params[:id])}
-    end
+    render json: {data: generate_data(params[:id])}
   end
 
   private

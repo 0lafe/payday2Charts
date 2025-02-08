@@ -19,38 +19,6 @@
     </div>
 
     <div style="display:flex;">
-      <% if current_page?(controller: 'homes', action: 'index') %>
-        <li class="nav-element nav-element-left">
-          <div style="display:flex;color:white;align-items:center;">
-            <button class="pagination-button" id="skip-start" title="First page" aria-label="First page">
-              &lt;&lt;&lt;
-            </button>
-            <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page">
-              &lt;
-            </button>
-            
-            <div id="pagination-numbers"></div>
-            
-            <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page">
-              &gt;
-            </button>
-            <button class="pagination-button" id="skip-end" title="Last Page" aria-label="Last Page" style="margin-right:2rem;">
-              &gt;&gt;&gt;
-            </button>
-
-            <div style="display:flex;align-items:center;padding-right:2rem;border-left: 1px solid #bbb;">
-              <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
-              <%= select_tag('statistic_choice', options_for_select(@options)) %>
-            </div>
-
-            <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-              <span style="margin-right:1rem;" class="nav-input-title">Search<span>
-              <input type="text" class='search-field' id="search_field"/>
-            </div>
-          </div>
-        </li>
-      <% end %>
-
       <% if params[:controller] == 'leaderboards' && params[:action] == 'show' %>
         <li class="nav-element nav-element-left">
           <div style="display:flex;color:white;align-items:center;">
