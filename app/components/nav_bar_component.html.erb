@@ -2,7 +2,7 @@
   <ul class="nav-bar-container">
     <div style="display:flex;">
       <li class="nav-element nav-element-left <%= 'active-nav' if current_page?(controller: 'homes', action: 'index') %>" >
-        <a href="/" onclick="setTimeout(() => location.reload(), 1000)">General Stats</a>
+        <a href="/"data-turbo="false">General Stats</a>
       </li>
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
         <a href="/leaderboards">Leaderboards</a>
