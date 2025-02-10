@@ -30,10 +30,11 @@
       <% end %>
 
       <% if current_user %>
+        <% user_data = current_user.steam_data %>
         <li class="nav-element nav-element-right">
           <a href="#">
-            <%= image_tag(current_user.avatar, class: "steam-avatar") %>
-            <%= current_user.name %>
+            <%= image_tag(user_data["avatar"], class: "steam-avatar") %>
+            <%= user_data["personaname"] %>
           </a>
         </li>
       <% else %>

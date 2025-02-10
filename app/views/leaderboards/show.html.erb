@@ -4,8 +4,11 @@
     <div style="display:flex;width:100%;align-items: stretch;">
       <div class="new-user-container portlet-container">
         <h2 class="nav-input-title"><%= @name %></h2>
-        <span style="margin-right:1rem;" class="nav-input-title">Change Statistic</span>
-        <div style="min-width:80%;margin-bottom:2rem;">
+        <div style="margin: 2rem; 0.5rem;max-height:150px">
+          <%= image_tag(Localizer.generate_image_url(@name_id, "full"), style: "object-fit: contain;height:100%;width:100%") %>
+        </div>
+        <div style="min-width:80%;margin-bottom:2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+          <span style="margin-right:1rem;" class="nav-input-title">Change Statistic</span>
           <%= render(StatSearchComponent.new) %>
         </div>
       </div>

@@ -3,24 +3,22 @@ class User < ApplicationRecord
   has_one :player_stat, dependent: :destroy
   has_one :misc_stat, dependent: :destroy
 
-  def name
+  def steam_data
     response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{ENV['STEAM_KEY']}&steamids=#{steam_id}")
     if response.ok?
       data = JSON.parse(response.body)
-      data['response']['players'].first['personaname']
+      data['response']['players'].first
     else
-      return ''
+      return {}
     end
   end
 
+  def name
+    steam_data["personaname"]
+  end
+
   def avatar
-    response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{ENV['STEAM_KEY']}&steamids=#{steam_id}")
-    if response.ok?
-      data = JSON.parse(response.body)
-      data["response"]["players"].first["avatar"]
-    else
-      return ''
-    end
+    steam_data["avatar"]
   end
 
   def fetch_new_stats

@@ -18,7 +18,10 @@ class Localizer
     'armor_used_': 'Usage for ',
     'contract_': '',
     'weapon_charm_used_': 'Usage for ',
-    'weapon_color_used_': 'Usage for '
+    'weapon_color_used_': 'Usage for ',
+    "bm_w_": "",
+    "bm_melee_": "",
+    "bm_throwable_": "",
   }
 
   @overkill_goofs = {
@@ -52,41 +55,53 @@ class Localizer
 
   }
 
-  def self.generate_image_url(statistic)
+  @base_url = "https://fbi.paydaythegame.com/img/"
+
+  def self.generate_image_url(statistic, size = "thumbs")
     uuid = statistic
     uuid = @overkill_goofs[uuid.to_sym] if @overkill_goofs[uuid.to_sym]
     @stats.keys.each do |stat|
       uuid = uuid.gsub(stat.to_s, '')
     end
     url = if statistic.include?('melee_')
-      "https://fbi.paydaythegame.com/img/weapons/melee/thumbs/#{uuid}.png"
+      "weapons/melee/#{size}/#{uuid}.png"
     elsif statistic.include?('weapon_')
-      "https://fbi.paydaythegame.com/img/weapons/ranged/thumbs/#{uuid}.png"
+      "weapons/ranged/#{size}/#{uuid}.png"
     elsif statistic.index('grenade_') == 0
       if statistic.include?('wpn_prj_') || statistic.include?('wpn_gre_')
-        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
+        "weapons/thrown/#{size}/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
       else
-        "https://fbi.paydaythegame.com/img/weapons/thrown/thumbs/#{uuid}.png"
+        "weapons/thrown/#{size}/#{uuid}.png"
       end
     elsif statistic.include?('mask_')
-      "https://fbi.paydaythegame.com/img/masks/thumb/#{uuid}_dif.png"
+      "masks/thumb/#{uuid}_dif.png"
     elsif statistic.include?('gloves_')
-      "https://fbi.paydaythegame.com/img/gloves/thumbs/#{uuid}.png"
+      "gloves/#{size}/#{uuid}.png"
     elsif statistic.include?('suit_')
-      "https://fbi.paydaythegame.com/img/suits/thumbs/#{uuid}.png"
+      "suits/#{size}/#{uuid}.png"
     elsif statistic.include?('difficulty_')
-      "https://fbi.paydaythegame.com/img/#{@difficulty_mappings[uuid.to_sym]}.png"
+      "#{@difficulty_mappings[uuid.to_sym]}.png"
     elsif statistic.include?('character_')
-      "https://fbi.paydaythegame.com/img/sketches/sketch-#{uuid}-large.jpg"
+      "sketches/sketch-#{uuid}-large.jpg"
     elsif statistic.include?('armor_used_')
-      "https://fbi.paydaythegame.com/img/weapons/armors/thumbs/#{uuid}.png"
+      "weapons/armors/#{size}/#{uuid}.png"
     elsif statistic.include?('gadget_used_')
-      "https://fbi.paydaythegame.com/img/weapons/equipment/thumbs/#{uuid}.png"
+      "weapons/equipment/#{size}/#{uuid}.png"
     elsif statistic.include?("specialization_used_")
-      "https://fbi.paydaythegame.com/img/weapons/perkdeck/thumbs/#{statistic.gsub("specialization_used_", "")}.png"
+      "weapons/perkdeck/thumbs/#{statistic.gsub("specialization_used_", "")}.png"
+    elsif statistic.starts_with?("bm_w_")
+      "weapons/ranged/#{size}/#{uuid}.png"
+    elsif statistic.starts_with?("bm_melee_")
+      "weapons/melee/#{size}/#{uuid}.png"
+    elsif statistic.starts_with?("bm_throwable_")
+      if statistic.include?('wpn_prj_') || statistic.include?('wpn_gre_')
+        "weapons/thrown/#{size}/#{uuid.gsub('wpn_prj_', '').gsub('wpn_gre_', '')}.png"
+      else
+        "weapons/thrown/#{size}/#{uuid}.png"
+      end
     end
 
-    url || ''
+    url && @base_url + url || ''
   end
 
   def self.remove_stat(name)

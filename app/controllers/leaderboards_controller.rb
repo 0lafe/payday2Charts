@@ -3,19 +3,19 @@ class LeaderboardsController < ApplicationController
   def index; end
 
   def show
-    name = params[:id]
+    @name_id = params[:id]
     @grouping = ["weapon", "melee", "throwable"].include?(params[:grouping]) && params[:grouping] || nil
     if @grouping
-      handle_grouping(name)
+      handle_grouping
     else
-      @data = if name.index('weapon_') == 0 || name.index('melee_') == 0 || name.index('grenade_') == 0
-        WeaponStat.get_top_100(name)
-      elsif name.index('mask_') == 0 || name.index('suit_') == 0 || name.index('player_') == 0 || name.index('skill_') == 0
-        PlayerStat.get_top_100(name)
+      @data = if @name_id.index('weapon_') == 0 || @name_id.index('melee_') == 0 || @name_id.index('grenade_') == 0
+        WeaponStat.get_top_100(@name_id)
+      elsif @name_id.index('mask_') == 0 || @name_id.index('suit_') == 0 || @name_id.index('player_') == 0 || @name_id.index('skill_') == 0
+        PlayerStat.get_top_100(@name_id)
       else
-        MiscStat.get_top_100(name)
+        MiscStat.get_top_100(@name_id)
       end
-      @name = Localizer.localize_from_statistic(name)
+      @name = Localizer.localize_from_statistic(@name_id)
     end
   end
 
@@ -33,9 +33,9 @@ class LeaderboardsController < ApplicationController
 
   private
 
-  def handle_grouping(name)
+  def handle_grouping
     @filter = ["kills", "used", "shots", "hits"].include?(params[:filter]) && params[:filter] || "kills"
-    @data = WeaponStat.get_top_100(name, @filter)
-    @name = Localizer.localize(name)
+    @data = WeaponStat.get_top_100(@name_id, @filter)
+    @name = Localizer.localize(@name_id)
   end
 end
