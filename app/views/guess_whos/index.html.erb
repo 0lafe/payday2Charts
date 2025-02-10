@@ -1,6 +1,7 @@
 <div style="display:flex;justify-content:center;">
-  <div style="display:flex;justify-content:center;flex-direction:column; width:20rem;background-color:white;padding:0 2rem 2rem 2rem;margin-top:2rem;border-radius:0.5rem;">
+  <div class="portlet-container" style="display:flex;justify-content:center;flex-direction:column;padding:1rem 3rem 2rem 3rem;margin-top:2rem;border-radius:0.5rem;">
     <h1>Guess Who!</h1>
+    <div style="border-bottom: 1px solid #000000 !important;margin-bottom:1rem;margin-top:0.5rem;"></div>
     <label>Game ID:</label>
     <input style="margin-top:1rem;" id="game_id"/>
     <button style="margin-top:1rem;" class="btn btn-primary" id="join_game">Join Game</button>
@@ -8,7 +9,7 @@
     <button style="margin-top:1rem;" class="btn btn-primary" id="open_create_game">New Game</button>
     <div hidden id="create_game" style="margin-top:1rem;">
       <%= simple_form_for GuessWho.new do |f| %>
-        <%= f.input :game_type, collection: GuessWho.game_types, label_html: { style: "margin-right:1rem;" }, input_html: { style: "width:100%" }, required: true %>
+        <%= f.input :game_type, collection: GuessWho.game_types, input_html: { style: "width:100%;height:2rem;" }, required: true %>
         <%= f.submit 'Create Game', style: "width:100%;margin-top:1rem;", class: "btn btn-primary" %>
       <% end %>
     </div>
