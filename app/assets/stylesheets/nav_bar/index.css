@@ -2,7 +2,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   background-color: #333;
   display: flex;
   flex-direction: row;
@@ -19,7 +18,8 @@
   align-items: center;
 }
 
-.nav-element a {
+.nav-element a,
+.nav-element button {
   display: flex;
   color: white;
   text-align: center;
@@ -29,9 +29,23 @@
   padding: 0 1rem;
 }
 
-.nav-element a:hover {
+.nav-element button {
+  background-color: transparent;
+  border: none;
+}
+
+.nav-element a:hover,
+.nav-element button:hover {
   background-color: #fff;
   color: black;
+}
+
+.nav-element .dropdown-menu .dropdown-item {
+  color: black;
+}
+
+.nav-element .dropdown-menu .dropdown-item:hover {
+  background-color: #BBBBBB
 }
 
 .nav-element-left {
