@@ -11,11 +11,10 @@
 }
 
 .new-user-container {
-  background: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 2rem;
-  border-radius: 0.5rem;
   align-items: center;
+  width: 50%;
 }

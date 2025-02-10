@@ -1,9 +1,25 @@
 <div class="background-image"></div>
 <div class="page">
-  <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
-    <%= render(AddPlayerComponent.new) %>
+  <div style="display:flex;align-items:center;padding:1rem 4rem;margin:auto;width:80%;" class='page-container'>
+    <div style="display:flex;width:100%;align-items: stretch;">
+      <div class="new-user-container portlet-container">
+        <h2 class="nav-input-title"><%= @name %></h2>
+        <span style="margin-right:1rem;" class="nav-input-title">Change Statistic</span>
+        <div style="min-width:80%;margin-bottom:2rem;">
+          <%= render(StatSearchComponent.new) %>
+        </div>
+      </div>
+      <div class='new-user-container portlet-container'>
+        <p class='add-user-form'>Notice someone is missing? Add them by supplying their steam ID</p>
+        <p>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
+        <%= simple_form_for(User.new) do |f| %>
+          <%= f.input :steam_id, label: 'Steam 64 ID', input_html: {class: 'add-user-form'} %>
+          <%= f.button :submit, 'Add Player To Leaderboard', class: 'add-user-form submit-button btn-primary' %>
+        <% end %>
+      </div>
+    </div>
     <div class="statistic-choice portlet-container">
-      <table style="min-width:60%" id="leaderboard-table">
+      <table id="leaderboard-table">
         <thead>
           <tr>
             <th data-dt-order="disable">Position</th>

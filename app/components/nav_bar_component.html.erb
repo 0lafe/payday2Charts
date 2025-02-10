@@ -19,20 +19,6 @@
     </div>
 
     <div style="display:flex;">
-      <% if params[:controller] == 'leaderboards' && params[:action] == 'show' %>
-        <li class="nav-element nav-element-left">
-          <div style="display:flex;color:white;align-items:center;">
-            <div style="display:flex;align-items:center;padding-right:2rem;">
-              <span style="margin-right:1rem;" class="nav-input-title">Choose Statistic</span>
-              <%= render(StatSearchComponent.new('small-search')) %>
-            </div>
-            <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-              <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title"><%= @title %></h2>
-            </div>
-          </div>
-        </li>
-      <% end %>
-
       <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
         <li class="nav-element nav-element-left">
           <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
