@@ -14,11 +14,17 @@
         <a href="/guess_whos" data-turbo="false">Guess Who</a>
       </li>
       <li class="nav-element nav-element-left">
-        <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a>
+        <a href="/jeopardy_games" data-turbo="false">Jeopardy</a>
+      </li>
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'gifs_controller' && %w(index show).include?(params[:action]) %>">
+        <a href="/gifs" data-turbo="false">Gifs</a>
       </li>
     </div>
 
     <div style="display:flex;">
+      <li class="nav-element nav-element-right">
+        <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">Report Bugs Here</a>
+      </li>
       <% if current_user %>
         <% user_data = current_user.steam_data %>
         <li class="nav-element nav-element-right">
