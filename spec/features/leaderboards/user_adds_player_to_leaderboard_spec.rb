@@ -3,7 +3,7 @@ require "rails_helper"
 feature "User adds player to LB" do
 
   before(:each) do
-    visit leaderboards_path
+    visit leaderboard_path("contract_arena_win")
   end
 
   context "When adding a player to the leaderboards" do

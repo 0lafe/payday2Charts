@@ -28,7 +28,7 @@
     
   </head>
   <body>
-    <%= render(NavBarComponent.new(@options, @name)) %>
+    <%= render(NavBarComponent.new) %>
     <% flash.each do |type, msg| %>
       <div class="<%= type %>">
         <%= msg %>
