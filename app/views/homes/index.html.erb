@@ -152,7 +152,7 @@
   const handleSwitchDataSet = () => {
     if (!statisticData[type]) {
       removeChildren(document.getElementById('chart_holder'))
-      document.getElementById('chart_holder').innerHTML = '<div class="data-table" style="display:flex;flex-direction:row;justify-content:center;align-items:center"><div class="loader"></div></div>'.repeat(6)
+      document.getElementById('chart_holder').innerHTML = '<div class="data-table portlet-container" style="display:flex;flex-direction:row;justify-content:center;align-items:center"><div class="loader"></div></div>'.repeat(6)
       getData(type).then(() => {
         currentPage = 1
         listItems = statisticData[type].data
@@ -204,6 +204,7 @@
   const generateChart = (name, labels, values, localizedName, url) => {
     const div = document.createElement('div')
     div.classList.add('data-table')
+    div.classList.add('portlet-container')
     div.id = name
 
     const title = document.createElement('span')

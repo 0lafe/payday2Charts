@@ -17,7 +17,7 @@
         <input type="hidden" name="openid.claimed_id" value="http://specs.openid.net/auth/2.0/identifier_select">
         <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0">
         <input type="hidden" name="openid.mode" value="checkid_setup">
-        <% if Rails.env.production? || true %>
+        <% if Rails.env.production? %>
           <input type="hidden" name="openid.return_to" value="https://payday-charts.com/sessions/">
         <% else %>
           <input type="hidden" name="openid.return_to" value="http://localhost:3000/sessions/">

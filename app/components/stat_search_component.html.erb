@@ -1,7 +1,10 @@
-<%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name) %>
+<%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name, style: "width: 100%;min-width: 300px;") %>
 
 <script>
-  $(document).ready(function() { $("#statistic_choice").select2(); });
+  $(document).ready(function() { 
+    $("#statistic_choice").select2({
+    }); 
+  });
 
   $('#statistic_choice').on('select2:select', function (e) {
     const grouping = $("#statistic_choice").find(":selected").data("grouping")

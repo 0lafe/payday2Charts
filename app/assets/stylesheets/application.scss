@@ -18,7 +18,7 @@
 
 body {
   background: #04041c;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   margin: 0;
 }
 
@@ -62,8 +62,6 @@ body {
 .data-table {
   display: inline-block;
   padding: 1rem;
-  background: #BBBBBB;
-  border: 4px solid #333;
   height: 356px;
 }
 
@@ -147,9 +145,14 @@ body {
   align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  background: white;
   padding: 1rem;
+  max-width: 100%;
+}
+
+.portlet-container {
+  background: #BBBBBB;
   border-radius: 0.3rem;
+  border: 4px solid #333;
 }
 
 .search-container {
@@ -203,7 +206,7 @@ table {
 }
 
 .login-page {
-  margin-top: 4rem;
+  margin-top: 8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
