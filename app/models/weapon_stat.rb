@@ -6,10 +6,11 @@ class WeaponStat < ApplicationRecord
       top_100_filter(record_name, filter)
     else
       users = WeaponStat.where.not({record_name => nil}).order("#{record_name} DESC").includes(:user).limit(100)
-      names = User.names(users.map {|player| player.user.steam_id })
+      names = User.steam_data(users.map {|player| player.user.steam_id })
       users.map.with_index do |a, index|
         {
-          name: names[index],
+          name: names[index][:name],
+          avatar: names[index][:avatar],
           steam_id: a.user.steam_id,
           value: a[record_name],
           updated_at: a.updated_at
@@ -60,11 +61,12 @@ class WeaponStat < ApplicationRecord
     end
 
     users = WeaponStat.where.not({record => nil}).order("#{record} DESC").includes(:user).limit(100)
-    names = User.names(users.map {|player| player.user.steam_id })
+    names = User.steam_data(users.map {|player| player.user.steam_id })
 
     users.map.with_index do |a, index|
       {
-        name: names[index],
+        name: names[index][:name],
+        avatar: names[index][:avatar],
         steam_id: a.user.steam_id,
         kills: a[record.gsub("#{type}#{filter}", "#{type}kills")],
         uses: a[record.gsub("#{type}#{filter}", "#{type}used")],

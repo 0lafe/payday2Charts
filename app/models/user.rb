@@ -45,13 +45,16 @@ class User < ApplicationRecord
     end
   end
 
-  def self.names(steam_ids)
+  def self.steam_data(steam_ids)
     response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{ENV['STEAM_KEY']}&steamids=#{steam_ids.join(',')}")
     if response.ok?
       out = Array.new(steam_ids.length)
       data = JSON.parse(response.body)
       data['response']['players'].map do |player|
-        out[steam_ids.index(player['steamid'])] = player['personaname'] 
+        out[steam_ids.index(player['steamid'])] = {
+          name: player['personaname'],
+          avatar: player["avatar"]
+        }
       end
       out
     else

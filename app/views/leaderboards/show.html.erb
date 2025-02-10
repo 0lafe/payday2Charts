@@ -2,7 +2,7 @@
 <div class="page">
   <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
     <%= render(AddPlayerComponent.new) %>
-    <div class="statistic-choice">
+    <div class="statistic-choice portlet-container">
       <table style="min-width:60%" id="leaderboard-table">
         <thead>
           <tr>
@@ -28,7 +28,10 @@
           <% @data.each_with_index do |stat, index| %>
             <tr>
               <td><%= index + 1 %></td>
-              <td><%= stat[:name] %></td>
+              <td>
+                <%= image_tag(stat[:avatar], class: "steam-avatar") %>
+                <%= stat[:name] %>
+              </td>
               <td class="centered-td">
                 <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
                   <%= image_tag("https://fbi-files.s3.amazonaws.com/favicon.png", class: "leaderboard-icon image-grow") %>
