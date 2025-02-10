@@ -22,7 +22,7 @@ class LeaderboardsController < ApplicationController
   def top_100_index; end
 
   def top_100
-    @user = User.find_by(steam_id: params[:id])
+    @user = User.find_by(steam_id: params[:id].gsub(/\D/, ''))
     return if @user.nil?
 
     @stats = Leaderboard.user_positions(@user).sort_by { |item| item[:value] }

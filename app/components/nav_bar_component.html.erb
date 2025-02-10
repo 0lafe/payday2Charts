@@ -19,16 +19,6 @@
     </div>
 
     <div style="display:flex;">
-      <% if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>
-        <li class="nav-element nav-element-left">
-          <div style="display:flex;align-items:center;border-left: 1px solid #bbb;">
-            <h2 style="margin: 0 1rem 0 0;padding:8px;color:white;" class="nav-input-title">
-              This list was last updated <%= Leaderboard.read['updated_at'] %>
-            </h2>
-          </div>
-        </li>
-      <% end %>
-
       <% if current_user %>
         <% user_data = current_user.steam_data %>
         <li class="nav-element nav-element-right">
