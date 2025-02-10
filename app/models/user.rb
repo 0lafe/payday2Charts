@@ -9,7 +9,10 @@ class User < ApplicationRecord
       data = JSON.parse(response.body)
       data['response']['players'].first
     else
-      return {}
+      return {
+        "personaname" => steam_id,
+        "avatar" => ""
+      }
     end
   end
 
