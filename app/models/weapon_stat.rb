@@ -44,6 +44,39 @@ class WeaponStat < ApplicationRecord
     p sum
   end
 
+  def self.has_filtering?(stat)
+    weapon_stat?(stat) || melee_stat?(stat) || throwable_stat?(stat)
+  end
+
+  def self.weapon_stat?(stat)
+    stat.starts_with?("weapon_used_") || stat.starts_with?("weapon_kills_") || stat.starts_with?("weapon_shots_") || stat.starts_with?("weapon_hits_")
+  end
+
+  def self.melee_stat?(stat)
+    stat.starts_with?("melee_kills_") || stat.starts_with?("melee_used_")
+  end
+
+  def self.throwable_stat?(stat)
+    stat.starts_with?("grenade_kills_") || stat.starts_with?("grenade_used_")
+  end
+
+  def self.translate_weapon_stat_to_url(stat)
+    name_id = ""
+    grouping = ""
+    if self.weapon_stat?(stat)
+      grouping = "weapon"
+      name_id = Localizer.weapon_from_stat(stat)
+    elsif self.melee_stat?(stat)
+      grouping = "melee"
+      name_id = Localizer.melee_from_stat(stat)
+    elsif self.throwable_stat?(stat)
+      grouping = "throwable"
+      name_id = Localizer.throwable_from_stat(stat)
+    end
+    filter = stat.split("_")[1]
+    Rails.application.routes.url_helpers.leaderboard_path(name_id, grouping:, filter:)
+  end
+
   private
 
   def self.top_100_filter(name, filter)

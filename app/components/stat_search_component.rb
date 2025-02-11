@@ -1,5 +1,5 @@
 class StatSearchComponent < ViewComponent::Base
-  def initialize(class_name = "")
+  def initialize
     # columns on tables that don't corolate to stats
     non_stats = [
       "id",
@@ -44,7 +44,7 @@ class StatSearchComponent < ViewComponent::Base
     ]
 
     ws = WeaponStat.column_names.map do |unlocalized_name|
-      if weapon_stat?(unlocalized_name)
+      if WeaponStat.weapon_stat?(unlocalized_name)
         [
           Localizer.localize_weapon_from_stat(unlocalized_name),
           Localizer.weapon_from_stat(unlocalized_name),
@@ -52,7 +52,7 @@ class StatSearchComponent < ViewComponent::Base
             "data-grouping": "weapon"
           }
         ]
-      elsif melee_stat?(unlocalized_name)
+      elsif WeaponStat.melee_stat?(unlocalized_name)
         [
           Localizer.localize_melee_from_stat(unlocalized_name),
           Localizer.melee_from_stat(unlocalized_name),
@@ -60,7 +60,7 @@ class StatSearchComponent < ViewComponent::Base
             "data-grouping": "melee"
           }
         ]
-      elsif throwable_stat?(unlocalized_name)
+      elsif WeaponStat.throwable_stat?(unlocalized_name)
         [
           Localizer.localize_throwable_from_stat(unlocalized_name),
           Localizer.throwable_from_stat(unlocalized_name),
@@ -87,19 +87,5 @@ class StatSearchComponent < ViewComponent::Base
         !stat[0].starts_with?(black_list)
       end
     end
-
-    @class_name = class_name
-  end
-
-  def weapon_stat?(stat)
-    stat.starts_with?("weapon_used_") || stat.starts_with?("weapon_kills_") || stat.starts_with?("weapon_shots_") || stat.starts_with?("weapon_hits_")
-  end
-
-  def melee_stat?(stat)
-    stat.starts_with?("melee_kills_") || stat.starts_with?("melee_used_")
-  end
-
-  def throwable_stat?(stat)
-    stat.starts_with?("grenade_kills_") || stat.starts_with?("grenade_used_")
   end
 end

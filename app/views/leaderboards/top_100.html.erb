@@ -26,11 +26,19 @@
               <% @stats.each do |stat| %>
                 <tr>
                   <td>
-                    <%= link_to(
-                      Localizer.localize_from_statistic(stat[:name]),
-                      leaderboard_path(stat[:name]),
-                      data: { turbo: false }
-                    ) %>
+                    <% if WeaponStat.has_filtering?(stat[:name]) %>
+                      <%= link_to(
+                        Localizer.localize_from_statistic(stat[:name]),
+                        WeaponStat.translate_weapon_stat_to_url(stat[:name]),
+                        data: { turbo: false }
+                      ) %>
+                    <% else %>
+                      <%= link_to(
+                        Localizer.localize_from_statistic(stat[:name]),
+                        leaderboard_path(stat[:name]),
+                        data: { turbo: false }
+                      ) %>
+                    <% end %>
                   </td>
                   <td><%= stat[:value] + 1 %></td>
                   <td><%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %></td>

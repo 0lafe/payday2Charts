@@ -13,4 +13,4 @@ Auto updating stats
 
 UI Rework
 Player Stats
-Steam signin/global account
+More Images
