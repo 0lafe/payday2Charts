@@ -1,5 +1,5 @@
 class Leaderboard
-  attr_accessor :updated_at, :top_100s
+  attr_accessor :updated_at, :top_100s, :usernames
   def initialize
     @top_100s = {}
     [WeaponStat, PlayerStat, MiscStat].each do |stat|
@@ -7,13 +7,37 @@ class Leaderboard
       store_top_100s(stat)
     end
     @updated_at = Time.now.to_formatted_s(:short)
+    get_user_names
+  end
+
+  def get_user_names
+    names = []
+    ['weapon_stat', 'player_stat', 'misc_stat'].each do |type|
+      @top_100s[type].each do |stat|
+        user_id = stat[:values].first
+        if user_id
+          names << user_id
+        end
+      end
+    end
+    names.uniq!
+
+    users = User.where(id: names)
+    @usernames = {}
+    users.each_slice(100) do |users|
+      steam_data = User.steam_data(users.map(&:steam_id))
+      users.each_with_index do |user, index|
+        @usernames[user.steam_id] = steam_data[index][:name]
+      end
+    end
   end
 
   def self.create
     lb = Leaderboard.new
     return {
       updated_at: lb.updated_at,
-      top_100s: lb.top_100s
+      top_100s: lb.top_100s,
+      usernames: lb.usernames
     }
   end
 
@@ -57,6 +81,40 @@ class Leaderboard
       end
     end
     out
+  end
+
+  def self.ranked_users
+    users = User.where(id: @ranked_list.map {|a| a[0] })
+    @rankings = users.map do |user|
+      {
+        steam_id: user.steam_id,
+        count: @ranked_list[user.id],
+        username: @data["usernames"][user.steam_id]
+      }
+    end
+  end
+
+  def self.ranked_list
+    @data = read
+    @ranked_list = {}
+    ['weapon_stat', 'player_stat', 'misc_stat'].each do |type|
+      @data["top_100s"][type].each do |stat|
+        user_id = stat["values"].first
+        if user_id
+          if @ranked_list[user_id]
+            @ranked_list[user_id] = @ranked_list[user_id] + 1
+          else
+            @ranked_list[user_id] = 1
+          end
+        end
+      end
+    end
+  end
+
+  def self.rankings
+    ranked_list
+    ranked_users
+    @rankings.sort_by { |user| user[:count] }.reverse
   end
 
   def formatted_positions(user)

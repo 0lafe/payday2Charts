@@ -1,7 +1,7 @@
 <div class="background-image"></div>
 <div class="page">
-  <div style="display:flex;flex-direction:column;align-items:center;" class='page-container'>
-    <div class='portlet-container' style="margin:4rem;">
+  <div style="display:flex;flex-direction:row;align-items:stretch;justify-content:center;margin-top:4rem;margin-bottom:2rem;" class='page-container'>
+    <div class='portlet-container'>
       <p class='add-user-form'>Input a user's steam ID to find which leaderboards they are on</p>
       <p class='add-user-form'>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
       <hr style="width:90%;margin:auto;"/>
@@ -10,30 +10,60 @@
         <%= f.button :submit, 'Check Stats', class: 'add-user-form submit-button btn btn-primary', id: 'submit-button' %>
       <% end %>
     </div>
-      <div class='portlet-container' style="margin: 0 4rem;">
-        <p class='add-user-form'>Logged in users are able to check their own stats without inputting their id</p>
-        <% if current_user %>
-          <p class='add-user-form'>Check your own stats</p>
-          <hr style="width:90%;margin:auto;"/>
-          <div style="display:flex;justify-content:center;">
-            <%= simple_form_for :logged_in_user do |f| %>
-              <%= f.button :submit, 'Check Personal Stats', class: 'add-user-form submit-button btn btn-primary', id: 'logged-in-submit-button' %>
-            <% end %>
-          </div>
-          <script>
-            $('#logged-in-submit-button').on('click', (e) => {
-              e.preventDefault()
-              window.location.href = `/leaderboards/<%= current_user.steam_id %>/top_100`
-            })
-          </script>
-        <% else %>
-          <div style="display:flex;justify-content:center;margin: 2rem;">
-            <%= link_to(new_session_path) do %>
-              <%= image_tag("steam_login.png") %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+    <div class='portlet-container' style="margin: 0 4rem;display:flex;flex-direction:column;justify-content:space-between;">
+      <p class='add-user-form'>Logged in users are able to check their own stats without inputting their id</p>
+      <% if current_user %>
+        <p class='add-user-form'>Check your own stats</p>
+        <hr style="width:90%;margin:auto;"/>
+        <div style="display:flex;justify-content:center;">
+          <%= simple_form_for :logged_in_user do |f| %>
+            <%= f.button :submit, 'Check Personal Stats', class: 'add-user-form submit-button btn btn-primary', id: 'logged-in-submit-button' %>
+          <% end %>
+        </div>
+        <script>
+          $('#logged-in-submit-button').on('click', (e) => {
+            e.preventDefault()
+            window.location.href = `/leaderboards/<%= current_user.steam_id %>/top_100`
+          })
+        </script>
+      <% else %>
+        <div style="display:flex;justify-content:center;margin: 2rem;">
+          <%= link_to(new_session_path) do %>
+            <%= image_tag("steam_login.png") %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div style="margin:auto;">
+    <div class="statistic-choice portlet-container" style="padding:2rem;">
+      <h1>Most #1 Stats</h1>
+      <table style="min-width:60%" id="top_100">
+        <thead>
+          <tr>
+            <th data-dt-order="disable">Position</th>
+            <th data-dt-order="disable">User</th>
+            <th data-dt-order="disable">Count</th>
+            <th data-dt-order="disable">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rankings.each_with_index do |ranking, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= ranking[:username] %></td>
+              <td><%= ranking[:count] %></td>
+              <td>
+                <%= link_to(top_100_leaderboard_path(ranking[:steam_id]), class: "btn btn-primary") do %>
+                  <div style="display:flex;align-items:center;">Top 100 <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i></div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -43,5 +73,13 @@
     if ($('#user_steam_id').val().length) {
       window.location.href = `/leaderboards/${$('#user_steam_id').val()}/top_100`
     }
+  })
+
+  $(document).ready(() => {
+    let table = $("#top_100").DataTable({
+      paging: false,
+      info: false,
+      ordering: false
+    })
   })
 </script>
