@@ -59,7 +59,12 @@ class User < ApplicationRecord
       end
       out
     else
-      return ''
+      steam_ids.map do |user|
+        {
+          name: user,
+          avatar: ""
+        }
+      end
     end
   end
 
