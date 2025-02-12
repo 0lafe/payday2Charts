@@ -1,6 +1,13 @@
 class SteamApiKey
   def self.current_key
     current_index = REDIS_CLIENT.get("steam_key_index")
+
+    # set initial key
+    if current_index.nil?
+      REDIS_CLIENT.set("steam_key_index", "a")
+      current_index = "a"
+    end
+
     Rails.application.credentials.steam[current_index]
   end
 

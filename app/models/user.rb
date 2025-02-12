@@ -4,7 +4,12 @@ class User < ApplicationRecord
   has_one :misc_stat, dependent: :destroy
 
   def steam_data
-    response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{SteamApiKey.current_key}&steamids=#{steam_id}")
+    response = SteamApi.get(
+      "ISteamUser/GetPlayerSummaries/v0002/",
+      {
+        steamids: steam_id
+      }
+    )
     if response.ok?
       data = JSON.parse(response.body)
       data['response']['players'].first
@@ -47,7 +52,13 @@ class User < ApplicationRecord
   end
 
   def self.steam_data(steam_ids)
-    response = HTTParty.get("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=#{SteamApiKey.current_key}&steamids=#{steam_ids.join(',')}")
+    response = SteamApi.get(
+      "ISteamUser/GetPlayerSummaries/v0002/",
+      {
+        steamids: steam_ids.join(',')
+      }
+    )
+
     if response.ok?
       out = Array.new(steam_ids.length)
       data = JSON.parse(response.body)
