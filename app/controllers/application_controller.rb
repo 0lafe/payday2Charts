@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def get_schema
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{ENV['STEAM_KEY']}&appid=218620")
+    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{SteamApiKey.current_key}&appid=218620")
     if response.ok?
       data = JSON.parse(response.body)
       return data
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def generate_url(type)
-    base_url = "https://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v1/?key=#{ENV['STEAM_KEY']}&appid=218620"
+    base_url = "https://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v1/?key=#{SteamApiKey.current_key}&appid=218620"
     count = 0
     query = ""
     urls = []
@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
   end
 
   def long_historical_data(stat)
-    base_url = "https://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v1/?key=#{ENV['STEAM_KEY']}&appid=218620&count=1&name[0]=#{stat}"
+    base_url = "https://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v1/?key=#{SteamApiKey.current_key}&appid=218620&count=1&name[0]=#{stat}"
     urls = []
     30.times do |i|
       origin = (Date.today - (59 * i).days)

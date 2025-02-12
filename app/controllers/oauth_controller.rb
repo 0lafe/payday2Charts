@@ -1,7 +1,13 @@
 class OauthController < ApplicationController
   def index
     begin
-      client = OAuth2::Client.new(ENV['OAUTH_CLIENT_ID'], ENV['OAUTH_CLIENT_SECRET'], site: 'https://discord.com', authorization_url: '/oauth2/authorize', token_url: '/api/oauth2/token')
+      client = OAuth2::Client.new(
+        Rails.application.credentials.oauth.client_id,
+        Rails.application.credentials.oauth.client_secret,
+        site: 'https://discord.com',
+        authorization_url: '/oauth2/authorize',
+        token_url: '/api/oauth2/token'
+      )
       access = client.auth_code.get_token(params['code'], redirect_uri: 'https://payday-2-charts.herokuapp.com/oauth')
       token = access.token
     rescue

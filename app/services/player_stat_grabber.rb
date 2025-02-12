@@ -1,7 +1,7 @@
 class PlayerStatGrabber
   
   def self.get_fields
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{ENV['STEAM_KEY']}&appid=218620")
+    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{SteamApiKey.current_key}&appid=218620")
     data = JSON.parse(response.body)
     data['game']['availableGameStats']['stats']
   end
@@ -40,7 +40,7 @@ class PlayerStatGrabber
   end
 
   def self.retreive_user_data(id)
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2/?key=#{ENV['STEAM_KEY']}&steamid=#{id}&appid=218620")
+    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2/?key=#{SteamApiKey.current_key}&steamid=#{id}&appid=218620")
     if response.ok?
       data = JSON.parse(response.body)
       return data

@@ -235,7 +235,7 @@ class GuessWho < ApplicationRecord
   end
 
   def get_schema
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{ENV['STEAM_KEY']}&appid=218620")
+    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{SteamApiKey.current_key}&appid=218620")
     if response.ok?
       data = JSON.parse(response.body)
       return data
