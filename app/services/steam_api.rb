@@ -45,6 +45,10 @@ class SteamApi
     response
   end
 
+  def self.schema
+    @schema
+  end
+
   def self.update_schema
     response = get("ISteamUserStats/GetSchemaForGame/v2/", { appid: "218620" })
     if response.ok?

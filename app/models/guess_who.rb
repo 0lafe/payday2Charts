@@ -233,23 +233,7 @@ class GuessWho < ApplicationRecord
       "unknownknight.PNG"
     ]
   end
-
-  def get_schema
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{SteamApiKey.current_key}&appid=218620")
-    if response.ok?
-      data = JSON.parse(response.body)
-      return data
-    else
-      return {error: response.headers}
-    end
-  end
-
-  def get_stat_names(stat_type)
-    stats = get_schema['game']['availableGameStats']['stats']
-    stats = stats.filter {|stat| stat['name'].index(stat_type) == 0 }.map {|stat| stat['name'] }
-    stats = stats.filter {|stat| !black_list.include?(stat) }
-  end
-
+  
   def self.game_types
     [
       ["Heist", "heist"],
@@ -258,6 +242,16 @@ class GuessWho < ApplicationRecord
       ["Melee", "melee"],
       ["Content Creators", "content_creators"]
     ]
+  end
+
+  def get_stat_names(stat_type)
+    stats = SteamApi.schema.filter do |stat|
+      stat["name"].starts_with?(stat_type) && !black_list.include?(stat["name"])
+    end
+
+    stats.map do |stat|
+      stat["name"]
+    end
   end
 
   def set_items
