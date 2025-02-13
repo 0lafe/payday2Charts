@@ -1,9 +1,13 @@
 class PlayerStatGrabber
   
   def self.get_fields
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=#{SteamApiKey.current_key}&appid=218620")
-    data = JSON.parse(response.body)
-    data['game']['availableGameStats']['stats']
+    response = SteamApi.get("ISteamUserStats/GetSchemaForGame/v2/", { appid: "218620" })
+    if response.ok?
+      data = JSON.parse(response.body)
+      data['game']['availableGameStats']['stats']
+    else
+      raise "Steam API Error"
+    end
   end
 
   def self.write_migration
@@ -40,7 +44,7 @@ class PlayerStatGrabber
   end
 
   def self.retreive_user_data(id)
-    response = HTTParty.get("https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2/?key=#{SteamApiKey.current_key}&steamid=#{id}&appid=218620")
+    response = SteamApi.get("ISteamUserStats/GetUserStatsForGame/v2/", { appid: "218620", steamid: id })
     if response.ok?
       data = JSON.parse(response.body)
       return data
