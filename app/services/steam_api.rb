@@ -1,6 +1,8 @@
 class SteamApi
   @base_url = "https://api.steampowered.com/"
 
+  @schema ||= JSON.parse(File.open("./app/services/steam_stat_schema.json").read)
+
   @blacklist = [
     'weapon_kills_tec9',
     'grenade_kills_wpn_prj_ace',
@@ -43,11 +45,14 @@ class SteamApi
     response
   end
 
-  def self.get_schema
+  def self.update_schema
     response = get("ISteamUserStats/GetSchemaForGame/v2/", { appid: "218620" })
     if response.ok?
-      data = JSON.parse(response.body)
-      return data
+      File.open("./app/services/steam_stat_schema.json", "w") do |file|
+        file.write(
+          JSON.parse(response.body)['game']['availableGameStats']['stats'].to_json
+        )
+      end
     else
       raise "Error #{response.status} #{response.body}"
     end
@@ -60,9 +65,7 @@ class SteamApi
   end
 
   def self.get_stat_names
-    stats = get_schema['game']['availableGameStats']['stats']
-
-    stats = stats.filter do |stat|
+    stats = @schema.filter do |stat|
       stat['name'].starts_with?(@stat_type) && !@blacklist.include?(stat["name"])
     end
 
@@ -72,40 +75,38 @@ class SteamApi
   end
 
   def self.generate_urls
-    @queries = []
-    get_stat_names().each_slice(100) do |stat_list|
+    @queries = get_stat_names().each_slice(100).map do |stat_list|
       params = {
         appid: 218620,
         count: stat_list.length,
         startdate: (Date.today - 59.days).to_time.to_i,
         enddate: Date.today.to_time.to_i
       }
-      stat_list.each_with_index do |stat, index|
-        params["name[#{index}]"] = stat
+      stat_list.each_with_index.reduce(params) do |params, (stat, index)|
+        params.update("name[#{index}]": stat)
       end
-      @queries << params
     end
   end
 
   def self.get_stats
-    out = {'response' => {'globalstats' => {}}}
-    @queries.each do |query|
+    @queries.reduce({}) do |data, query|
       response = get("ISteamUserStats/GetGlobalStatsForGame/v1/", query)
       if response.ok?
-        out['response']['globalstats'] = out['response']['globalstats'].merge(
+        data.merge(
           response["response"]["globalstats"]
         )
       else
         raise "Error #{response.status} #{response.body}"
       end
     end
-    out
   end
 
   def self.get_missing_stats
     current_stats = WeaponStat.column_names + PlayerStat.column_names + MiscStat.column_names
 
-    remote_stats = get_schema['game']['availableGameStats']['stats'].map { |s| s['name'] }
+    remote_stats = @schema.map do |s|
+      s['name']
+    end
 
     diff = remote_stats - current_stats
 

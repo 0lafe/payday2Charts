@@ -9,7 +9,7 @@ class StatsController < ApplicationController
     stats = SteamApi.retrieve_stats(type)
     data = []
     no_history = []
-    stats['response']['globalstats'].each do |stat|
+    stats.each do |stat|
       history, labels = if stat[1]['history']
         [
           stat[1]['history'].map {|history_item| history_item['total'] },

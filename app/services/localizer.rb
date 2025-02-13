@@ -213,7 +213,7 @@ class Localizer
   end
 
   def self.localize(name)
-    @localization_file ||= JSON.parse(File.open('./app/services/localizations.json').read)
+    @localization_file ||= JSON.parse(File.open("./app/services/localizations.json").read)
     name = @overkill_goofs[name.to_sym] if @overkill_goofs[name.to_sym]
     @localization_file[name] || name
   end
