@@ -9,7 +9,8 @@ class GuessWho < ApplicationRecord
       ["Mask", "mask"],
       ["Weapon", "weapon"],
       ["Melee", "melee"],
-      ["Content Creators", "content_creators"]
+      ["Content Creators", "content_creators"],
+      ["Characters", "characters"]
     ]
   end
 
@@ -31,6 +32,8 @@ class GuessWho < ApplicationRecord
       self.items = lists["heist_list"].sample(24)
     elsif game_type == "content_creators"
       self.items = lists["content_creators_list"].sample(24)
+    elsif game_type == "characters"
+      self.items = lists["characters_list"].sample(24)
     else
       item_stats = []
       if game_type == "mask"
