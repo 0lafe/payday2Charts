@@ -6,10 +6,9 @@ class StatsController < ApplicationController
   private
 
   def generate_data(type)
-    stats = SteamApi.retrieve_stats(type)
     data = []
     no_history = []
-    stats.each do |stat|
+    SteamApi.retrieve_stats(type).each do |stat|
       history, labels = if stat[1]['history']
         [
           stat[1]['history'].map {|history_item| history_item['total'] },
