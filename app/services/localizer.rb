@@ -25,7 +25,7 @@ class Localizer
     elsif statistic.include?("suit_")
       "suits/#{size}/#{uuid}.png"
     elsif statistic.include?("difficulty_")
-      "#{@difficulty_mappings[uuid.to_sym]}.png"
+      "#{@difficulty_mappings[uuid]}.png"
     elsif statistic.include?("character_")
       "sketches/sketch-#{uuid}-large.jpg"
     elsif statistic.include?("armor_used_")
