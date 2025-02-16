@@ -327,5 +327,1835 @@
     "Tim Sly Evans",
     "John P. Jones",
     "Booth"
-  ]
+  ],
+  "skins": {
+    "weapon_skins_ppk_css": {
+      "name": "00G",
+      "rarity": "common"
+    },
+    "weapon_skins_m134_forest": {
+      "name": "3000 heists/min",
+      "rarity": "common"
+    },
+    "weapon_skins_polymer_ait": {
+      "name": "A Man Called Hero",
+      "rarity": "common"
+    },
+    "weapon_skins_amcar_cola": {
+      "name": "AdHoc Mono",
+      "rarity": "common"
+    },
+    "weapon_skins_scorpion_smosh": {
+      "name": "Ancient",
+      "rarity": "common"
+    },
+    "weapon_skins_serbu_cs4": {
+      "name": "Apocalypse",
+      "rarity": "common"
+    },
+    "weapon_skins_plainsrider_woodland": {
+      "name": "Arctic Plains",
+      "rarity": "common"
+    },
+    "weapon_skins_deagle_bloodbath": {
+      "name": "Assault Wave",
+      "rarity": "common"
+    },
+    "weapon_skins_contraband_css": {
+      "name": "Battle Zone",
+      "rarity": "common"
+    },
+    "weapon_skins_scar_smosh": {
+      "name": "Battle Zone",
+      "rarity": "common"
+    },
+    "weapon_skins_peacemaker_sfs": {
+      "name": "Beach Bum",
+      "rarity": "common"
+    },
+    "weapon_skins_m249_ginger": {
+      "name": "Big Present",
+      "rarity": "common"
+    },
+    "weapon_skins_ak5_baaah": {
+      "name": "Billy",
+      "rarity": "common"
+    },
+    "weapon_skins_huntsman_forest": {
+      "name": "Black Thunder",
+      "rarity": "common"
+    },
+    "weapon_skins_plainsrider_bloodbath": {
+      "name": "Blood Drenched",
+      "rarity": "common"
+    },
+    "weapon_skins_glock_18c_nin": {
+      "name": "Bloodshed",
+      "rarity": "common"
+    },
+    "weapon_skins_saiga_ginger": {
+      "name": "Blue Tundra",
+      "rarity": "common"
+    },
+    "weapon_skins_shepheard_nin": {
+      "name": "Blueprint",
+      "rarity": "common"
+    },
+    "weapon_skins_boot_dss": {
+      "name": "Bonnie",
+      "rarity": "common"
+    },
+    "weapon_skins_wa2000_grunt": {
+      "name": "Boreas",
+      "rarity": "common"
+    },
+    "weapon_skins_m16_cs4": {
+      "name": "Born to Steal",
+      "rarity": "common"
+    },
+    "weapon_skins_x_b92fs_buck": {
+      "name": "Buckhorns",
+      "rarity": "common"
+    },
+    "weapon_skins_par_css": {
+      "name": "Bulldozer",
+      "rarity": "common"
+    },
+    "weapon_skins_scar_mxs": {
+      "name": "Caracara",
+      "rarity": "common"
+    },
+    "weapon_skins_x_1911_css": {
+      "name": "Castor and Pollux",
+      "rarity": "common"
+    },
+    "weapon_skins_m16_waves": {
+      "name": "Charlie Don't Surf",
+      "rarity": "common"
+    },
+    "weapon_skins_baka_waves": {
+      "name": "Chikara",
+      "rarity": "common"
+    },
+    "weapon_skins_akmsu_buck": {
+      "name": "Chopper",
+      "rarity": "common"
+    },
+    "weapon_skins_flamethrower_mk2_dallas": {
+      "name": "Chromed Combustion",
+      "rarity": "common"
+    },
+    "weapon_skins_mg42_dallas": {
+      "name": "Chromed Dominator",
+      "rarity": "common"
+    },
+    "weapon_skins_contraband_mxs": {
+      "name": "Chupacabra",
+      "rarity": "common"
+    },
+    "weapon_skins_ppk_golddigger": {
+      "name": "Classic Tiles",
+      "rarity": "common"
+    },
+    "weapon_skins_ksg_cat": {
+      "name": "Cloaker Gold",
+      "rarity": "common"
+    },
+    "weapon_skins_r870_baaah": {
+      "name": "Cloven Hoofs",
+      "rarity": "common"
+    },
+    "weapon_skins_chinchilla_dss": {
+      "name": "Clyde",
+      "rarity": "common"
+    },
+    "weapon_skins_famas_forest": {
+      "name": "Coin Ops",
+      "rarity": "common"
+    },
+    "weapon_skins_b92fs_forest": {
+      "name": "Copper",
+      "rarity": "common"
+    },
+    "weapon_skins_m45_dss": {
+      "name": "Copper Green",
+      "rarity": "common"
+    },
+    "weapon_skins_glock_17_cola": {
+      "name": "CopperHead",
+      "rarity": "common"
+    },
+    "weapon_skins_serbu_woodland": {
+      "name": "Cosmonaut",
+      "rarity": "common"
+    },
+    "weapon_skins_polymer_cs3": {
+      "name": "Crescent",
+      "rarity": "common"
+    },
+    "weapon_skins_x_coal_cat": {
+      "name": "Deadlock",
+      "rarity": "common"
+    },
+    "weapon_skins_striker_wolf": {
+      "name": "Denmother",
+      "rarity": "common"
+    },
+    "weapon_skins_ching_dss": {
+      "name": "Desert Stallion",
+      "rarity": "common"
+    },
+    "weapon_skins_hunter_burn": {
+      "name": "Dog Eat Dog",
+      "rarity": "common"
+    },
+    "weapon_skins_mateba_wac": {
+      "name": "Dragoon",
+      "rarity": "common"
+    },
+    "weapon_skins_judge_cs3": {
+      "name": "Dynamite",
+      "rarity": "common"
+    },
+    "weapon_skins_desertfox_sfs": {
+      "name": "Everglade",
+      "rarity": "common"
+    },
+    "weapon_skins_legacy_nin": {
+      "name": "Fade Out",
+      "rarity": "common"
+    },
+    "weapon_skins_new_mp5_cs3": {
+      "name": "Failsafe",
+      "rarity": "common"
+    },
+    "weapon_skins_colt_1911_wolf": {
+      "name": "Fenris",
+      "rarity": "common"
+    },
+    "weapon_skins_r93_forest": {
+      "name": "Fire Pixel",
+      "rarity": "common"
+    },
+    "weapon_skins_system_ait": {
+      "name": "Firefighter",
+      "rarity": "common"
+    },
+    "weapon_skins_deagle_same": {
+      "name": "Flaming Deagle",
+      "rarity": "common"
+    },
+    "weapon_skins_scar_cat": {
+      "name": "Flight",
+      "rarity": "common"
+    },
+    "weapon_skins_judge_bloodbath": {
+      "name": "Frenzy",
+      "rarity": "common"
+    },
+    "weapon_skins_china_sfs": {
+      "name": "Gator Masher",
+      "rarity": "common"
+    },
+    "weapon_skins_usp_cs4": {
+      "name": "Genesis",
+      "rarity": "common"
+    },
+    "weapon_skins_p226_grunt": {
+      "name": "Ghurka",
+      "rarity": "common"
+    },
+    "weapon_skins_r93_golddigger": {
+      "name": "Golden Flakes",
+      "rarity": "common"
+    },
+    "weapon_skins_m95_cs3": {
+      "name": "Greed",
+      "rarity": "common"
+    },
+    "weapon_skins_saiga_wolf": {
+      "name": "Hagelbrak",
+      "rarity": "common"
+    },
+    "weapon_skins_c96_wac": {
+      "name": "Hakkapeliitta",
+      "rarity": "common"
+    },
+    "weapon_skins_s552_waves": {
+      "name": "Hang Loose",
+      "rarity": "common"
+    },
+    "weapon_skins_g26_skf": {
+      "name": "Hazchem",
+      "rarity": "common"
+    },
+    "weapon_skins_rpg7_woodland": {
+      "name": "Headline",
+      "rarity": "common"
+    },
+    "weapon_skins_new_mp5_ginger": {
+      "name": "Ho-Ho-Ho",
+      "rarity": "common"
+    },
+    "weapon_skins_glock_18c_wac": {
+      "name": "Hoplite",
+      "rarity": "common"
+    },
+    "weapon_skins_rpk_buck": {
+      "name": "Horsepower",
+      "rarity": "common"
+    },
+    "weapon_skins_amcar_skf": {
+      "name": "Hot Miami",
+      "rarity": "common"
+    },
+    "weapon_skins_p226_skf": {
+      "name": "Insomnia",
+      "rarity": "common"
+    },
+    "weapon_skins_spas12_wac": {
+      "name": "Janissary",
+      "rarity": "common"
+    },
+    "weapon_skins_peacemaker_dss": {
+      "name": "Justice Pearl",
+      "rarity": "common"
+    },
+    "weapon_skins_msr_sfs": {
+      "name": "Key West",
+      "rarity": "common"
+    },
+    "weapon_skins_mp7_cat": {
+      "name": "LAZARUS ARMS",
+      "rarity": "common"
+    },
+    "weapon_skins_famas_dallas": {
+      "name": "Lafayette Hunter",
+      "rarity": "common"
+    },
+    "weapon_skins_ksg_wac": {
+      "name": "Lansquenet",
+      "rarity": "common"
+    },
+    "weapon_skins_arbiter_cs3": {
+      "name": "Last Man Standing",
+      "rarity": "common"
+    },
+    "weapon_skins_akm_waves": {
+      "name": "Le Grand Bleu",
+      "rarity": "common"
+    },
+    "weapon_skins_b682_burn": {
+      "name": "Lead Dead Plaid",
+      "rarity": "common"
+    },
+    "weapon_skins_saiga_grunt": {
+      "name": "Legionnaire",
+      "rarity": "common"
+    },
+    "weapon_skins_usp_waves": {
+      "name": "Lip Jibber",
+      "rarity": "common"
+    },
+    "weapon_skins_g22c_wolf": {
+      "name": "Liten Skit",
+      "rarity": "common"
+    },
+    "weapon_skins_breech_wwt": {
+      "name": "Little Georg",
+      "rarity": "common"
+    },
+    "weapon_skins_ppk_woodland": {
+      "name": "Little Leopard",
+      "rarity": "common"
+    },
+    "weapon_skins_serbu_cat": {
+      "name": "Loco",
+      "rarity": "common"
+    },
+    "weapon_skins_mosin_wolf": {
+      "name": "Lone Wolf",
+      "rarity": "common"
+    },
+    "weapon_skins_wa2000_baaah": {
+      "name": "Long Horn",
+      "rarity": "common"
+    },
+    "weapon_skins_wa2000_cs4": {
+      "name": "M9 Shepard",
+      "rarity": "common"
+    },
+    "weapon_skins_mac10_ait": {
+      "name": "MURICA",
+      "rarity": "common"
+    },
+    "weapon_skins_galil_wac": {
+      "name": "Man-at-arms",
+      "rarity": "common"
+    },
+    "weapon_skins_tec9_nin": {
+      "name": "Medic Bag",
+      "rarity": "common"
+    },
+    "weapon_skins_frankish_cs3": {
+      "name": "Modernized",
+      "rarity": "common"
+    },
+    "weapon_skins_g3_burn": {
+      "name": "Mosh Time",
+      "rarity": "common"
+    },
+    "weapon_skins_wa2000_buck": {
+      "name": "Muffler",
+      "rarity": "common"
+    },
+    "weapon_skins_m1928_grunt": {
+      "name": "Night Chill",
+      "rarity": "common"
+    },
+    "weapon_skins_new_mp5_grunt": {
+      "name": "Nightstalker",
+      "rarity": "common"
+    },
+    "weapon_skins_benelli_cs4": {
+      "name": "Nutshell",
+      "rarity": "common"
+    },
+    "weapon_skins_breech_css": {
+      "name": "On Point",
+      "rarity": "common"
+    },
+    "weapon_skins_par_same": {
+      "name": "Opulent",
+      "rarity": "common"
+    },
+    "weapon_skins_mp9_burn": {
+      "name": "Osterberg",
+      "rarity": "common"
+    },
+    "weapon_skins_gre_m79_dss": {
+      "name": "Oxidator",
+      "rarity": "common"
+    },
+    "weapon_skins_p90_same": {
+      "name": "PIXELWAR",
+      "rarity": "common"
+    },
+    "weapon_skins_m1928_dss": {
+      "name": "Pallido Madre",
+      "rarity": "common"
+    },
+    "weapon_skins_x_g22c_baaah": {
+      "name": "Pan",
+      "rarity": "common"
+    },
+    "weapon_skins_aug_skf": {
+      "name": "Peacekeeper Blue",
+      "rarity": "common"
+    },
+    "weapon_skins_x_deagle_mxs": {
+      "name": "Pistolero",
+      "rarity": "common"
+    },
+    "weapon_skins_x_1911_buck": {
+      "name": "Pistonheads",
+      "rarity": "common"
+    },
+    "weapon_skins_judge_woodland": {
+      "name": "Pixel",
+      "rarity": "common"
+    },
+    "weapon_skins_hs2000_burn": {
+      "name": "Pogo Time",
+      "rarity": "common"
+    },
+    "weapon_skins_gre_m79_burn": {
+      "name": "Poser Bash",
+      "rarity": "common"
+    },
+    "weapon_skins_p90_golddigger": {
+      "name": "Prospector",
+      "rarity": "common"
+    },
+    "weapon_skins_r870_smosh": {
+      "name": "Puncture Shot",
+      "rarity": "common"
+    },
+    "weapon_skins_m95_forest": {
+      "name": "Purple Haze",
+      "rarity": "common"
+    },
+    "weapon_skins_new_raging_bull_dallas": {
+      "name": "Quickdrawn Hunter",
+      "rarity": "common"
+    },
+    "weapon_skins_m45_grunt": {
+      "name": "Rattler",
+      "rarity": "common"
+    },
+    "weapon_skins_p90_woodland": {
+      "name": "Red Stars",
+      "rarity": "common"
+    },
+    "weapon_skins_r93_dallas": {
+      "name": "Reptilian Sting",
+      "rarity": "common"
+    },
+    "weapon_skins_huntsman_dallas": {
+      "name": "Reptilian Two Heads",
+      "rarity": "common"
+    },
+    "weapon_skins_spas12_ait": {
+      "name": "Riot",
+      "rarity": "common"
+    },
+    "weapon_skins_ksg_buck": {
+      "name": "Road Rash",
+      "rarity": "common"
+    },
+    "weapon_skins_new_m4_smosh": {
+      "name": "Royale Blue",
+      "rarity": "common"
+    },
+    "weapon_skins_sub2000_ait": {
+      "name": "Royale Blue",
+      "rarity": "common"
+    },
+    "weapon_skins_scar_wolf": {
+      "name": "Scarred",
+      "rarity": "common"
+    },
+    "weapon_skins_olympic_sfs": {
+      "name": "Seminole",
+      "rarity": "common"
+    },
+    "weapon_skins_elastic_ait": {
+      "name": "Snow Camo",
+      "rarity": "common"
+    },
+    "weapon_skins_p226_ginger": {
+      "name": "Soft Flake",
+      "rarity": "common"
+    },
+    "weapon_skins_new_m4_skf": {
+      "name": "Special Force",
+      "rarity": "common"
+    },
+    "weapon_skins_usp_same": {
+      "name": "Splitter",
+      "rarity": "common"
+    },
+    "weapon_skins_winchester1874_nin": {
+      "name": "Survivor",
+      "rarity": "common"
+    },
+    "weapon_skins_erma_wwt": {
+      "name": "Tarnschmeisser",
+      "rarity": "common"
+    },
+    "weapon_skins_lemming_mxs": {
+      "name": "Tenochtitlan",
+      "rarity": "common"
+    },
+    "weapon_skins_fal_cola": {
+      "name": "The Axiom",
+      "rarity": "common"
+    },
+    "weapon_skins_m16_cat": {
+      "name": "The Bear",
+      "rarity": "common"
+    },
+    "weapon_skins_mg42_wwt": {
+      "name": "The Devil's Piano",
+      "rarity": "common"
+    },
+    "weapon_skins_par_nin": {
+      "name": "The Street Heat",
+      "rarity": "common"
+    },
+    "weapon_skins_l85a2_cs4": {
+      "name": "The Zeal",
+      "rarity": "common"
+    },
+    "weapon_skins_ching_css": {
+      "name": "This Rifle",
+      "rarity": "common"
+    },
+    "weapon_skins_amcar_same": {
+      "name": "Throwback",
+      "rarity": "common"
+    },
+    "weapon_skins_x_1911_smosh": {
+      "name": "Tigershark",
+      "rarity": "common"
+    },
+    "weapon_skins_tec9_mxs": {
+      "name": "Tijuana",
+      "rarity": "common"
+    },
+    "weapon_skins_siltstone_mxs": {
+      "name": "Toltec",
+      "rarity": "common"
+    },
+    "weapon_skins_scorpion_cola": {
+      "name": "Tor-999",
+      "rarity": "common"
+    },
+    "weapon_skins_x_usp_cola": {
+      "name": "Twin Chip",
+      "rarity": "common"
+    },
+    "weapon_skins_b682_wwt": {
+      "name": "U.S.O. Commando",
+      "rarity": "common"
+    },
+    "weapon_skins_peacemaker_wwt": {
+      "name": "Uncle Sam's Party",
+      "rarity": "common"
+    },
+    "weapon_skins_ppk_skf": {
+      "name": "Under the Radar",
+      "rarity": "common"
+    },
+    "weapon_skins_uzi_cola": {
+      "name": "Velox",
+      "rarity": "common"
+    },
+    "weapon_skins_x_akmsu_sfs": {
+      "name": "Vice \u0026 Dice",
+      "rarity": "common"
+    },
+    "weapon_skins_new_raging_bull_bloodbath": {
+      "name": "Victim Shower",
+      "rarity": "common"
+    },
+    "weapon_skins_colt_1911_smosh": {
+      "name": "Vintage",
+      "rarity": "common"
+    },
+    "weapon_skins_gre_m79_same": {
+      "name": "Warpig",
+      "rarity": "common"
+    },
+    "weapon_skins_asval_waves": {
+      "name": "Wave Snake",
+      "rarity": "common"
+    },
+    "weapon_skins_huntsman_golddigger": {
+      "name": "Wolf Ornament",
+      "rarity": "common"
+    },
+    "weapon_skins_boot_cat": {
+      "name": "A Man Called Hero",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_deagle_cat": {
+      "name": "Agent Z",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_sparrow_cola": {
+      "name": "Aggrocinn",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_boot_grunt": {
+      "name": "Ambush",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_spas12_burn": {
+      "name": "Anti-Life",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_m14_golddigger": {
+      "name": "Ausome",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_x_judge_cat": {
+      "name": "BUFF",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_flamethrower_mk2_wwt": {
+      "name": "Bandit Burner",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_slap_ait": {
+      "name": "Battery",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m95_golddigger": {
+      "name": "Beta-2",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_akm_wolf": {
+      "name": "Big Bad",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m134_golddigger": {
+      "name": "Big Spender",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_arbiter_cs4": {
+      "name": "Biohazard",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_raging_bull_goldstripes": {
+      "name": "Black Bull",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_b92fs_bloodbath": {
+      "name": "Blood Dragon",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ray_skf": {
+      "name": "BoomBox",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_benelli_burn": {
+      "name": "Braindead",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_aa12_wac": {
+      "name": "Cataphract",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_striker_mxs": {
+      "name": "Chihuahua",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ppk_dallas": {
+      "name": "Chromed Sparrow",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_erma_dss": {
+      "name": "Classic Finish",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_flint_cs3": {
+      "name": "Cloaked",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_deagle_smosh": {
+      "name": "Combat Medic",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mg42_dss": {
+      "name": "Corrosive Blossom",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_x_chinchilla_nin": {
+      "name": "Corrupted Saints",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mp9_wac": {
+      "name": "Cossack",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_usp_cat": {
+      "name": "Cotton Candy",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_desertfox_wac": {
+      "name": "Crusader",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_amcar_cs4": {
+      "name": "DEVA",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_judge_same": {
+      "name": "DIAMOND SPLINTER",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_m4_bloodbath": {
+      "name": "Danger Ahead",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ksg_grunt": {
+      "name": "Desert Commando",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_m14_camohex": {
+      "name": "Digital Burn",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_saw_cs3": {
+      "name": "Disco",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_peacemaker_cs3": {
+      "name": "Engraving",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ksg_ginger": {
+      "name": "Evergreen",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m249_grunt": {
+      "name": "Gray Alpha",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_serbu_camohex": {
+      "name": "Greed",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_judge_camohex": {
+      "name": "Greed",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m37_burn": {
+      "name": "Happy Cynic",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_baka_wolf": {
+      "name": "Hati",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m37_css": {
+      "name": "Heat Wave",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m16_sfs": {
+      "name": "High Life",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m32_smosh": {
+      "name": "Homewrecker",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_hk21_sfs": {
+      "name": "Hubris",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_g36_goldstripes": {
+      "name": "Ice Leopard",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_x_b92fs_ginger": {
+      "name": "Jingling Bullets",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_scar_waves": {
+      "name": "Kapu",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_amcar_wac": {
+      "name": "Knight",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_saw_smosh": {
+      "name": "Loading",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_m14_dallas": {
+      "name": "Longhorn Hunter",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m37_cola": {
+      "name": "Lux CQC",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_akm_same": {
+      "name": "M90 Camo",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_g26_css": {
+      "name": "MOTORIST",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_polymer_cs4": {
+      "name": "MURICA",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_china_mxs": {
+      "name": "Maya",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_uzi_sfs": {
+      "name": "Miami Spice",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_sparrow_burn": {
+      "name": "Minor Threat",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_par_mxs": {
+      "name": "Moctezuma",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ray_nin": {
+      "name": "Motorist",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_b92fs_ait": {
+      "name": "No Mercy",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m249_buck": {
+      "name": "Nomad",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_rota_mxs": {
+      "name": "Olmec",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_hunter_cola": {
+      "name": "OmniBow",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_saw_buck": {
+      "name": "One Percenter",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_p226_wolf": {
+      "name": "Polisgris",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_aa12_cs3": {
+      "name": "Powerhouse",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mac10_cs4": {
+      "name": "Predator",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_colt_1911_waves": {
+      "name": "Radical",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_usp_baaah": {
+      "name": "Ram Petite",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ak74_nin": {
+      "name": "Razor Skull",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_deagle_dallas": {
+      "name": "Reptilian Fang",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ak74_dallas": {
+      "name": "Reptilian Russkie",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_lemming_skf": {
+      "name": "Respect",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_c96_css": {
+      "name": "Rhetoric",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_baka_same": {
+      "name": "Royal",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m16_baaah": {
+      "name": "Satyr",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mac10_waves": {
+      "name": "Shaka",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_uzi_ait": {
+      "name": "Shattered Line",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_g22c_grunt": {
+      "name": "Silent Strike",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mac10_wolf": {
+      "name": "Skoll",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_polymer_baaah": {
+      "name": "Spacegoat",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_g22c_buck": {
+      "name": "Spark Plug",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ching_skf": {
+      "name": "Spector",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_flamethrower_mk2_goldstripes": {
+      "name": "St. Basil",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_new_m4_goldstripes": {
+      "name": "Stripe On",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_ak5_skf": {
+      "name": "Suit up",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_spas12_sfs": {
+      "name": "Sunshine Surprise",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_sparrow_css": {
+      "name": "The Diamond",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_sterling_wwt": {
+      "name": "The Drop Buddy",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_winchester1874_buck": {
+      "name": "The Fork",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_colt_1911_same": {
+      "name": "The Harvest",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_flamethrower_mk2_bloodbath": {
+      "name": "Tiger Hazard",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_mg42_camohex": {
+      "name": "Tomb",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_aug_waves": {
+      "name": "Turtle Roll",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_x_shrew_dss": {
+      "name": "Twins of Grain",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_tecci_ait": {
+      "name": "Underground Neon",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_benelli_cola": {
+      "name": "Vix CQC",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_rota_nin": {
+      "name": "Wildfire",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m1928_smosh": {
+      "name": "Wiseguy",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_m1928_ginger": {
+      "name": "Xmas Noir",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cas_trash": {
+      "name": "B.I.N.",
+      "rarity": "uncommon"
+    },
+    "armor_skins_ast_armor3": {
+      "name": "British Paratrooper",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cvc_city_camo": {
+      "name": "City Camo Armor",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cvc_desert_camo": {
+      "name": "Desert Camo Armor",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cas_gensec": {
+      "name": "GenSec",
+      "rarity": "uncommon"
+    },
+    "armor_skins_ast_armor2": {
+      "name": "German Camo",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cas_miami": {
+      "name": "Hot Miami",
+      "rarity": "uncommon"
+    },
+    "armor_skins_ast_armor1": {
+      "name": "Russian Camo",
+      "rarity": "uncommon"
+    },
+    "armor_skins_cvc_woodland_camo": {
+      "name": "Woodland Camo Armor",
+      "rarity": "uncommon"
+    },
+    "weapon_skins_b92fs_bloodsplat": {
+      "name": "8 Ball",
+      "rarity": "rare"
+    },
+    "weapon_skins_polymer_waves": {
+      "name": "Aerodynamic",
+      "rarity": "rare"
+    },
+    "weapon_skins_b92fs_luxury": {
+      "name": "Angry Bear",
+      "rarity": "rare"
+    },
+    "weapon_skins_m45_buck": {
+      "name": "Asphalt Eater",
+      "rarity": "rare"
+    },
+    "weapon_skins_amcar_mxs": {
+      "name": "Aztec",
+      "rarity": "rare"
+    },
+    "weapon_skins_deagle_skullimov": {
+      "name": "BOOM!",
+      "rarity": "rare"
+    },
+    "weapon_skins_saiga_buck": {
+      "name": "Brain Bucket",
+      "rarity": "rare"
+    },
+    "weapon_skins_b92fs_dallas": {
+      "name": "Buckle Hunter",
+      "rarity": "rare"
+    },
+    "weapon_skins_p90_luxury": {
+      "name": "Bullet Breakout",
+      "rarity": "rare"
+    },
+    "weapon_skins_judge_wooh": {
+      "name": "Check Mate",
+      "rarity": "rare"
+    },
+    "weapon_skins_ppk_luxury": {
+      "name": "Cloakerize",
+      "rarity": "rare"
+    },
+    "weapon_skins_mosin_waves": {
+      "name": "Coo Coo Ca Choo",
+      "rarity": "rare"
+    },
+    "weapon_skins_hs2000_smosh": {
+      "name": "Cooldown",
+      "rarity": "rare"
+    },
+    "weapon_skins_x_chinchilla_cat": {
+      "name": "Cyberspace",
+      "rarity": "rare"
+    },
+    "weapon_skins_rota_ait": {
+      "name": "Damascus",
+      "rarity": "rare"
+    },
+    "weapon_skins_r93_bloodsplat": {
+      "name": "Death From Above",
+      "rarity": "rare"
+    },
+    "weapon_skins_rpg7_bloodsplat": {
+      "name": "Dinomageddon",
+      "rarity": "rare"
+    },
+    "weapon_skins_hs2000_cola": {
+      "name": "Efflux",
+      "rarity": "rare"
+    },
+    "weapon_skins_x_b92fs_grunt": {
+      "name": "Face of Death",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_m4_skullimov": {
+      "name": "Fade Zebra",
+      "rarity": "rare"
+    },
+    "weapon_skins_rpg7_bloodbath": {
+      "name": "Fair Warning",
+      "rarity": "rare"
+    },
+    "weapon_skins_huntsman_bloodsplat": {
+      "name": "First Line",
+      "rarity": "rare"
+    },
+    "weapon_skins_serbu_golddigger": {
+      "name": "Fleur de Lis",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_m14_same": {
+      "name": "Floral Thrust",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_mp5_cat": {
+      "name": "Fluorescent",
+      "rarity": "rare"
+    },
+    "weapon_skins_deagle_ait": {
+      "name": "Fluorescent",
+      "rarity": "rare"
+    },
+    "weapon_skins_mac10_sfs": {
+      "name": "Flying Pelican",
+      "rarity": "rare"
+    },
+    "weapon_skins_ching_wwt": {
+      "name": "Freedom Fighter",
+      "rarity": "rare"
+    },
+    "weapon_skins_tti_cs3": {
+      "name": "Frenzy",
+      "rarity": "rare"
+    },
+    "weapon_skins_judge_lones": {
+      "name": "G-Toxin",
+      "rarity": "rare"
+    },
+    "weapon_skins_x_deagle_wolf": {
+      "name": "Geri and Freki",
+      "rarity": "rare"
+    },
+    "weapon_skins_g22c_ginger": {
+      "name": "Gluckseliger Uberfall",
+      "rarity": "rare"
+    },
+    "weapon_skins_ak74_golddigger": {
+      "name": "Gold Vein",
+      "rarity": "rare"
+    },
+    "weapon_skins_c96_dss": {
+      "name": "Golden Serpent",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_m14_luxury": {
+      "name": "Helmet Space Program",
+      "rarity": "rare"
+    },
+    "weapon_skins_corgi_nin": {
+      "name": "Hyena",
+      "rarity": "rare"
+    },
+    "weapon_skins_m95_bombmatta": {
+      "name": "Hype Train",
+      "rarity": "rare"
+    },
+    "weapon_skins_plainsrider_skullimov": {
+      "name": "Hypno Scalp",
+      "rarity": "rare"
+    },
+    "weapon_skins_g3_cola": {
+      "name": "IMUR Spotter",
+      "rarity": "rare"
+    },
+    "weapon_skins_flamethrower_mk2_bloodsplat": {
+      "name": "Incinerated Death",
+      "rarity": "rare"
+    },
+    "weapon_skins_b92fs_same": {
+      "name": "Jack Shot",
+      "rarity": "rare"
+    },
+    "weapon_skins_b682_skf": {
+      "name": "Jocy",
+      "rarity": "rare"
+    },
+    "weapon_skins_chinchilla_mxs": {
+      "name": "Juarez",
+      "rarity": "rare"
+    },
+    "weapon_skins_scorpion_nin": {
+      "name": "Last Night",
+      "rarity": "rare"
+    },
+    "weapon_skins_aug_wolf": {
+      "name": "Longclaw",
+      "rarity": "rare"
+    },
+    "weapon_skins_x_mp5_lones": {
+      "name": "Macaw",
+      "rarity": "rare"
+    },
+    "weapon_skins_m249_baaah": {
+      "name": "Machine Goat",
+      "rarity": "rare"
+    },
+    "weapon_skins_sparrow_lones": {
+      "name": "Magic",
+      "rarity": "rare"
+    },
+    "weapon_skins_akm_nin": {
+      "name": "Magma Knight",
+      "rarity": "rare"
+    },
+    "weapon_skins_colt_1911_sfs": {
+      "name": "Manny's Revenge",
+      "rarity": "rare"
+    },
+    "weapon_skins_vhs_wac": {
+      "name": "Masai",
+      "rarity": "rare"
+    },
+    "weapon_skins_m95_luxury": {
+      "name": "Matrjoschka",
+      "rarity": "rare"
+    },
+    "weapon_skins_mg42_bloodbath": {
+      "name": "Meat Slicer",
+      "rarity": "rare"
+    },
+    "weapon_skins_ak5_waves": {
+      "name": "Meat Waffle",
+      "rarity": "rare"
+    },
+    "weapon_skins_fal_burn": {
+      "name": "Middle Finger Handout",
+      "rarity": "rare"
+    },
+    "weapon_skins_g26_wac": {
+      "name": "Mongol",
+      "rarity": "rare"
+    },
+    "weapon_skins_m37_wwt": {
+      "name": "Motherload",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_m4_cs3": {
+      "name": "NITRO",
+      "rarity": "rare"
+    },
+    "weapon_skins_olympic_cola": {
+      "name": "Novus Paradox",
+      "rarity": "rare"
+    },
+    "weapon_skins_p90_skullimov": {
+      "name": "OVERSKILL",
+      "rarity": "rare"
+    },
+    "weapon_skins_glock_18c_burn": {
+      "name": "Offensive Monarch",
+      "rarity": "rare"
+    },
+    "weapon_skins_mp7_skf": {
+      "name": "Overload",
+      "rarity": "rare"
+    },
+    "weapon_skins_p90_cat": {
+      "name": "PRO-TOUCH",
+      "rarity": "rare"
+    },
+    "weapon_skins_judge_dallas": {
+      "name": "Pocket Patriot",
+      "rarity": "rare"
+    },
+    "weapon_skins_lemming_ait": {
+      "name": "Possessed",
+      "rarity": "rare"
+    },
+    "weapon_skins_serbu_dallas": {
+      "name": "Power Patriot",
+      "rarity": "rare"
+    },
+    "weapon_skins_winchester1874_dss": {
+      "name": "Presidential Oil",
+      "rarity": "rare"
+    },
+    "weapon_skins_coal_css": {
+      "name": "Prototype",
+      "rarity": "rare"
+    },
+    "weapon_skins_akmsu_lones": {
+      "name": "Razor Splitter",
+      "rarity": "rare"
+    },
+    "weapon_skins_winchester1874_grunt": {
+      "name": "Royal Commander",
+      "rarity": "rare"
+    },
+    "weapon_skins_ak74_luxury": {
+      "name": "Sad Almir",
+      "rarity": "rare"
+    },
+    "weapon_skins_mp7_wac": {
+      "name": "Samurai",
+      "rarity": "rare"
+    },
+    "weapon_skins_wa2000_ginger": {
+      "name": "Santa's Helper",
+      "rarity": "rare"
+    },
+    "weapon_skins_jowi_mxs": {
+      "name": "Scorpion",
+      "rarity": "rare"
+    },
+    "weapon_skins_mg42_bloodsplat": {
+      "name": "Skull Spotted",
+      "rarity": "rare"
+    },
+    "weapon_skins_asval_wolf": {
+      "name": "Smygvarg",
+      "rarity": "rare"
+    },
+    "weapon_skins_uzi_burn": {
+      "name": "Spewer",
+      "rarity": "rare"
+    },
+    "weapon_skins_aug_smosh": {
+      "name": "Spinal Tap",
+      "rarity": "rare"
+    },
+    "weapon_skins_m134_bloodsplat": {
+      "name": "Spraying Roses",
+      "rarity": "rare"
+    },
+    "weapon_skins_x_1911_baaah": {
+      "name": "Stampede",
+      "rarity": "rare"
+    },
+    "weapon_skins_ak5_same": {
+      "name": "Technology",
+      "rarity": "rare"
+    },
+    "weapon_skins_galil_sfs": {
+      "name": "The Boss",
+      "rarity": "rare"
+    },
+    "weapon_skins_sparrow_cs3": {
+      "name": "The Colonel",
+      "rarity": "rare"
+    },
+    "weapon_skins_new_raging_bull_cs4": {
+      "name": "The Jezebelle",
+      "rarity": "rare"
+    },
+    "weapon_skins_colt_1911_dss": {
+      "name": "The King",
+      "rarity": "rare"
+    },
+    "weapon_skins_lemming_css": {
+      "name": "The Master",
+      "rarity": "rare"
+    },
+    "weapon_skins_chinchilla_cs4": {
+      "name": "The Preacher",
+      "rarity": "rare"
+    },
+    "weapon_skins_scar_skf": {
+      "name": "The Royal Flush",
+      "rarity": "rare"
+    },
+    "weapon_skins_striker_cs4": {
+      "name": "The Spear of War",
+      "rarity": "rare"
+    },
+    "weapon_skins_m95_css": {
+      "name": "The Tempest",
+      "rarity": "rare"
+    },
+    "weapon_skins_g36_bloodsplat": {
+      "name": "The Torch",
+      "rarity": "rare"
+    },
+    "weapon_skins_p226_buck": {
+      "name": "Trimmad Moppe",
+      "rarity": "rare"
+    },
+    "weapon_skins_polymer_smosh": {
+      "name": "Urban Camo",
+      "rarity": "rare"
+    },
+    "weapon_skins_rpk_grunt": {
+      "name": "Zulu",
+      "rarity": "rare"
+    },
+    "armor_skins_ast_armor5": {
+      "name": "Bomber Jacket",
+      "rarity": "rare"
+    },
+    "armor_skins_cas_m90": {
+      "name": "M90 Camo",
+      "rarity": "rare"
+    },
+    "armor_skins_cas_police": {
+      "name": "Police",
+      "rarity": "rare"
+    },
+    "armor_skins_cvc_swat": {
+      "name": "SWAT Armor",
+      "rarity": "rare"
+    },
+    "armor_skins_ast_armor4": {
+      "name": "Sherman Tank",
+      "rarity": "rare"
+    },
+    "armor_skins_cvc_avenger": {
+      "name": "Skull Armor",
+      "rarity": "rare"
+    },
+    "weapon_skins_model70_same": {
+      "name": "Airship",
+      "rarity": "epic"
+    },
+    "weapon_skins_scorpion_burn": {
+      "name": "Angry Silence",
+      "rarity": "epic"
+    },
+    "weapon_skins_gre_m79_cola": {
+      "name": "AtomAtom",
+      "rarity": "epic"
+    },
+    "weapon_skins_amcar_nin": {
+      "name": "Baldwin's Armament",
+      "rarity": "epic"
+    },
+    "weapon_skins_glock_17_burn": {
+      "name": "BarbWire",
+      "rarity": "epic"
+    },
+    "weapon_skins_china_lones": {
+      "name": "Blockbuster",
+      "rarity": "epic"
+    },
+    "weapon_skins_flint_cs4": {
+      "name": "Bloodline",
+      "rarity": "epic"
+    },
+    "weapon_skins_famas_hypno": {
+      "name": "Breaching Owl",
+      "rarity": "epic"
+    },
+    "weapon_skins_b92fs_wooh": {
+      "name": "Brown River",
+      "rarity": "epic"
+    },
+    "weapon_skins_huntsman_hypno": {
+      "name": "Bullet Bear Gun",
+      "rarity": "epic"
+    },
+    "weapon_skins_serbu_stunner": {
+      "name": "Carpet Bombing",
+      "rarity": "epic"
+    },
+    "weapon_skins_mateba_sfs": {
+      "name": "Chico",
+      "rarity": "epic"
+    },
+    "weapon_skins_g36_dallas": {
+      "name": "Chromed Strangler",
+      "rarity": "epic"
+    },
+    "weapon_skins_famas_bloodsplat": {
+      "name": "Commemore",
+      "rarity": "epic"
+    },
+    "weapon_skins_ppk_bloodsplat": {
+      "name": "Crimson Kiss",
+      "rarity": "epic"
+    },
+    "weapon_skins_m16_ait": {
+      "name": "Croupier",
+      "rarity": "epic"
+    },
+    "weapon_skins_r870_sfs": {
+      "name": "Cuban",
+      "rarity": "epic"
+    },
+    "weapon_skins_m37_smosh": {
+      "name": "Damascus",
+      "rarity": "epic"
+    },
+    "weapon_skins_b682_cola": {
+      "name": "Dax CQC",
+      "rarity": "epic"
+    },
+    "weapon_skins_flint_css": {
+      "name": "EVA",
+      "rarity": "epic"
+    },
+    "weapon_skins_erma_cat": {
+      "name": "Eclipse",
+      "rarity": "epic"
+    },
+    "weapon_skins_deagle_nin": {
+      "name": "Equilibrium",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_raging_bull_bloodsplat": {
+      "name": "Extra Vaganza",
+      "rarity": "epic"
+    },
+    "weapon_skins_g36_skf": {
+      "name": "Flames of Passion",
+      "rarity": "epic"
+    },
+    "weapon_skins_akmsu_grunt": {
+      "name": "Gray Hunter",
+      "rarity": "epic"
+    },
+    "weapon_skins_r93_wooh": {
+      "name": "Grenade Repellant",
+      "rarity": "epic"
+    },
+    "weapon_skins_x_1911_grunt": {
+      "name": "Grim Reapers",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_m14_bloodsplat": {
+      "name": "Heart Attack",
+      "rarity": "epic"
+    },
+    "weapon_skins_m16_wolf": {
+      "name": "Helvete",
+      "rarity": "epic"
+    },
+    "weapon_skins_mateba_smosh": {
+      "name": "High Stakes",
+      "rarity": "epic"
+    },
+    "weapon_skins_rpg7_cs4": {
+      "name": "Hope of Ashes",
+      "rarity": "epic"
+    },
+    "weapon_skins_s552_wolf": {
+      "name": "Howl",
+      "rarity": "epic"
+    },
+    "weapon_skins_x_usp_cat": {
+      "name": "Hyperion",
+      "rarity": "epic"
+    },
+    "weapon_skins_ak74_bloodsplat": {
+      "name": "Little Brother",
+      "rarity": "epic"
+    },
+    "weapon_skins_x_usp_mxs": {
+      "name": "Los Mariachis",
+      "rarity": "epic"
+    },
+    "weapon_skins_famas_skf": {
+      "name": "Oathbreaker",
+      "rarity": "epic"
+    },
+    "weapon_skins_r93_css": {
+      "name": "Opposition",
+      "rarity": "epic"
+    },
+    "weapon_skins_komodo_ait": {
+      "name": "Orange Splashes Sydney",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_raging_bull_cs3": {
+      "name": "Outlaw",
+      "rarity": "epic"
+    },
+    "weapon_skins_akm_mxs": {
+      "name": "Pancho Villa",
+      "rarity": "epic"
+    },
+    "weapon_skins_par_lones": {
+      "name": "Party Crasher",
+      "rarity": "epic"
+    },
+    "weapon_skins_g36_bloodbath": {
+      "name": "Perimeter Secure",
+      "rarity": "epic"
+    },
+    "weapon_skins_m95_dallas": {
+      "name": "Piercing Patriot",
+      "rarity": "epic"
+    },
+    "weapon_skins_msr_wac": {
+      "name": "Prussian",
+      "rarity": "epic"
+    },
+    "weapon_skins_ksg_baaah": {
+      "name": "Raging Goat",
+      "rarity": "epic"
+    },
+    "weapon_skins_m1928_buck": {
+      "name": "Rake",
+      "rarity": "epic"
+    },
+    "weapon_skins_striker_waves": {
+      "name": "Riptide",
+      "rarity": "epic"
+    },
+    "weapon_skins_m1928_wwt": {
+      "name": "Royal Order",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_m4_payday": {
+      "name": "Safe Crasher",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_raging_bull_same": {
+      "name": "Shooting Star",
+      "rarity": "epic"
+    },
+    "weapon_skins_x_mp5_wac": {
+      "name": "Sioux",
+      "rarity": "epic"
+    },
+    "weapon_skins_model70_lones": {
+      "name": "Star Spawn",
+      "rarity": "epic"
+    },
+    "weapon_skins_b682_dss": {
+      "name": "The Ash Stain",
+      "rarity": "epic"
+    },
+    "weapon_skins_huntsman_dss": {
+      "name": "The Five Brass",
+      "rarity": "epic"
+    },
+    "weapon_skins_plainsrider_linked": {
+      "name": "The Link",
+      "rarity": "epic"
+    },
+    "weapon_skins_new_mp5_buck": {
+      "name": "Torque",
+      "rarity": "epic"
+    },
+    "weapon_skins_x_g22c_waves": {
+      "name": "Tribal Feud",
+      "rarity": "epic"
+    },
+    "weapon_skins_akmsu_ginger": {
+      "name": "Wintry Wonder",
+      "rarity": "epic"
+    },
+    "weapon_skins_huntsman_cs3": {
+      "name": "Wolfpack",
+      "rarity": "epic"
+    },
+    "weapon_skins_famas_golddigger": {
+      "name": "Yggdrasil",
+      "rarity": "epic"
+    },
+    "armor_skins_cvc_bone": {
+      "name": "Bone Armor",
+      "rarity": "epic"
+    },
+    "armor_skins_ast_armor6": {
+      "name": "Navy Admiral",
+      "rarity": "epic"
+    },
+    "armor_skins_cas_slayer": {
+      "name": "Slayer",
+      "rarity": "epic"
+    },
+    "weapon_skins_ksg_same": {
+      "name": "Admiral",
+      "rarity": "legendary"
+    },
+    "weapon_skins_p90_dallas_sallad": {
+      "name": "Alamo Dallas",
+      "rarity": "legendary"
+    },
+    "weapon_skins_judge_burn": {
+      "name": "Anarcho",
+      "rarity": "legendary"
+    },
+    "weapon_skins_boot_buck": {
+      "name": "Apex",
+      "rarity": "legendary"
+    },
+    "weapon_skins_x_akmsu_wac": {
+      "name": "Assassin",
+      "rarity": "legendary"
+    },
+    "weapon_skins_m16_cola": {
+      "name": "Astatoz",
+      "rarity": "legendary"
+    },
+    "weapon_skins_r870_waves": {
+      "name": "Big Kahuna",
+      "rarity": "legendary"
+    },
+    "weapon_skins_colt_1911_wwt": {
+      "name": "Big Time Operator",
+      "rarity": "legendary"
+    },
+    "weapon_skins_ppk_cs3": {
+      "name": "City of Gold",
+      "rarity": "legendary"
+    },
+    "weapon_skins_serbu_lones": {
+      "name": "Demon",
+      "rarity": "legendary"
+    },
+    "weapon_skins_model70_baaah": {
+      "name": "Don Pastrami",
+      "rarity": "legendary"
+    },
+    "weapon_skins_flamethrower_mk2_fire": {
+      "name": "Dragon Lord",
+      "rarity": "legendary"
+    },
+    "weapon_skins_shrew_dss": {
+      "name": "Duke's Glimmer",
+      "rarity": "legendary"
+    },
+    "weapon_skins_new_raging_bull_smosh": {
+      "name": "El Toro Furioso",
+      "rarity": "legendary"
+    },
+    "weapon_skins_p226_cat": {
+      "name": "Firmament",
+      "rarity": "legendary"
+    },
+    "weapon_skins_rpg7_boom": {
+      "name": "Green Grin",
+      "rarity": "legendary"
+    },
+    "weapon_skins_mac10_skf": {
+      "name": "Headhunter",
+      "rarity": "legendary"
+    },
+    "weapon_skins_par_wolf": {
+      "name": "Hungry Wolf",
+      "rarity": "legendary"
+    },
+    "weapon_skins_contraband_sfs": {
+      "name": "Mansion Mauler",
+      "rarity": "legendary"
+    },
+    "weapon_skins_tecci_grunt": {
+      "name": "Mars Ultor",
+      "rarity": "legendary"
+    },
+    "weapon_skins_deagle_bling": {
+      "name": "Midas Touch",
+      "rarity": "legendary"
+    },
+    "weapon_skins_x_chinchilla_mxs": {
+      "name": "Monterrey",
+      "rarity": "legendary"
+    },
+    "weapon_skins_p90_cs4": {
+      "name": "Oil Spill",
+      "rarity": "legendary"
+    },
+    "weapon_skins_new_m14_lones": {
+      "name": "Plush Phoenix",
+      "rarity": "legendary"
+    },
+    "weapon_skins_scar_ait": {
+      "name": "Protector",
+      "rarity": "legendary"
+    },
+    "weapon_skins_x_1911_ginger": {
+      "name": "Santa's Slayers",
+      "rarity": "legendary"
+    },
+    "weapon_skins_m134_bulletstorm": {
+      "name": "The Gimp",
+      "rarity": "legendary"
+    },
+    "weapon_skins_saw_nin": {
+      "name": "The Lucky Gambler",
+      "rarity": "legendary"
+    },
+    "weapon_skins_polymer_css": {
+      "name": "Vanguard",
+      "rarity": "legendary"
+    },
+    "weapon_skins_ak74_rodina": {
+      "name": "Vlad's Rodina",
+      "rarity": "legendary"
+    }
+  }
 }

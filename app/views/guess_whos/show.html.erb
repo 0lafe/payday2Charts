@@ -1,11 +1,13 @@
-<div>
-  <div style="padding: 0 4rem;">
-    <div style="display:grid;grid-template-columns: repeat(8, 1fr);">
+<div style="height:90vh" class="guess_who_board">
+  <div style="padding: 0 4rem;height:70%;">
+    <div style="display:grid;grid-template-columns: <%= ["weapon", "melee"].include?(@guess_who.game_type) ? "repeat(6, 1fr)" : "repeat(8, 1fr)" %>;">
       <% @guess_who.items.each do |item| %>
-        <div style="margin:2rem;">
+        <div style="margin:1rem;">
           <div style="border-radius:0.5rem;display:flex;justify-content:center;" class="gameplay-item unturned">
             <% if @guess_who.game_type == "heist" %>
               <%= image_tag("guess_who/heists/#{item}", style: "width:120px;padding: 1rem 0;", class: "guess_who_card") %>
+            <% elsif @guess_who.game_type == "skins" %>
+              <%= image_tag("https://www.overkillsoftware.com/ovk-media/economy42gF2Y/#{item}.png", style: "max-width:100%;padding: 1rem 0;", class: "guess_who_card rarity-background #{GuessWho.skin_data(item)["rarity"]}") %>
             <% elsif @guess_who.game_type == "content_creators" %>
               <%= image_tag("guess_who/content_creators/#{item}", style: "width:120px;height:140px;padding: 1rem 0;", class: "guess_who_card") %>
             <% elsif @guess_who.game_type == "characters" %>
@@ -16,6 +18,8 @@
           </div>
           <% if @guess_who.game_type == "content_creators" || @guess_who.game_type == "characters" %>
             <p style="color:white"><%= item.gsub(".png", "").gsub(".jpg", "").gsub(".PNG", "") %></p>
+          <% elsif @guess_who.game_type == "skins" %>
+            <p style="color:white"><%= GuessWho.skin_data(item)["name"] %></p>
           <% end %>
         </div>
       <% end %>
@@ -29,6 +33,8 @@
     <div style="background:white;border-radius:0.5rem;">
       <% if ["heist", "content_creators"].include?(@guess_who.game_type) %>
         <img id="your-pick" style="width:120px;padding:1rem" class="guess_who_card"/>
+      <% elsif @guess_who.game_type == "skins" %>
+        <img id="your-pick" style="width:160px;" class="guess_who_card rarity-background"/>
       <% else %>
         <img id="your-pick" style="width:160px;" class="guess_who_card"/>
       <% end %>
@@ -37,9 +43,16 @@
 </div>
 
 <script>
-  $(document).ready(() => {
-    const imageSource = $(".gameplay-item")[[Math.floor(Math.random() * $(".gameplay-item").length)]].children[0].src
+  const setChosenImage = () => {
+    const chosenImage = document.getElementsByClassName("gameplay-item")[Math.floor(Math.random() * $(".gameplay-item").length)].children[0]
+    const imageSource = chosenImage.src
     $("#your-pick").attr("src", imageSource)
+    <% if @guess_who.game_type == "skins" %>
+      document.getElementById("your-pick").classList = chosenImage.classList
+    <% end %>
+  }
+  $(document).ready(() => {
+    setChosenImage()
 
     $(".gameplay-item").on("click", (e) => {
       if (e.currentTarget.classList.contains("turned")) {
@@ -52,31 +65,9 @@
     })
 
     $("#reset-button").on("click", () => {
-      const imageSource = $(".gameplay-item")[[Math.floor(Math.random() * $(".gameplay-item").length)]].children[0].src
-      $("#your-pick").attr("src", imageSource)
+      setChosenImage()
       $(".gameplay-item").removeClass("turned")
       $(".gameplay-item").addClass("unturned")
     })
   })
 </script>
-
-<style>
-  .turned {
-    background: #222222;
-  }
-  
-  .unturned {
-    background: white;
-  }
-
-  .guess_who_card {
-    -webkit-user-drag: none;
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-        -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
-  }
-</style>

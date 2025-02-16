@@ -1,0 +1,53 @@
+.guess_who_board .common {
+  background-image: url("https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-1.png")
+}
+
+.guess_who_board .uncommon {
+  background-image: url("https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-2.png")
+}
+
+.guess_who_board .rare {
+  background-image: url("https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-3.png")
+}
+
+.guess_who_board .epic {
+  background-image: url("https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-4.png")
+}
+
+.guess_who_board .legendary {
+  background-image: url("https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-5.png")
+}
+
+.rarity-background {
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.turned {
+  background: #222222;
+}
+
+.unturned {
+  background: white;
+}
+
+.guess_who_card {
+  cursor: pointer;
+
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
