@@ -34,7 +34,18 @@
           </button>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to("Sign Out", sessions_path, method: "delete", data: { turbo: false }, class: "dropdown-item") %>
+              <%= button_to "Sign Out",
+                {
+                  controller: :sessions,
+                  action: 'destroy',
+                  id: 123
+                },
+                :method => :delete,
+                data: {
+                  turbo: false
+                },
+                class: "dropdown-item" 
+              %>
             </li>
           </ul>
         </li>

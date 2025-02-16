@@ -10,6 +10,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:steam_id] = nil
-    redirect_to root_path
+    redirect_to root_path, alert: "Logged Out Successfully"
   end
 end
