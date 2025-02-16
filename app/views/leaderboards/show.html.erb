@@ -45,7 +45,7 @@
         </thead>
         <tbody>
           <% @data.each_with_index do |stat, index| %>
-            <tr>
+            <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "current_user" : "" %>">
               <td><%= index + 1 %></td>
               <td>
                 <%= image_tag(stat[:avatar], class: "steam-avatar") %>

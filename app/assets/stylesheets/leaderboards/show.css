@@ -1,0 +1,4 @@
+#leaderboard-table .current_user {
+  background-color: limegreen;
+  transform: scale(101%)
+}
