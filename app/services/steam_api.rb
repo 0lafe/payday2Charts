@@ -42,6 +42,7 @@ class SteamApi
     if response.code == 429
       SteamApiKey.increment_key
     end
+    ApiLog.create(resource:, params:, code: response.code)
     response
   end
 

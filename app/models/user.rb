@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   def steam_data
     response = SteamApi.get(
-      "ISteamUser/GetPlayerSummaries/v0002/",
+      "ISteamUser/GetPlayerSummaries/v2/",
       {
         steamids: steam_id
       }
@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   def self.steam_data(steam_ids)
     response = SteamApi.get(
-      "ISteamUser/GetPlayerSummaries/v0002/",
+      "ISteamUser/GetPlayerSummaries/v2/",
       {
         steamids: steam_ids.join(',')
       }
