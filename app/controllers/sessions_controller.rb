@@ -1,9 +1,14 @@
 class SessionsController < ApplicationController
   def index
     identity = params["openid.identity"]
-    steam_id = identity && identity.gsub("https://steamcommunity.com/openid/id/", "")
-    session[:steam_id] = steam_id
-    redirect_to root_path, notice: "Logged In Successfully"
+    if identity
+      @steam_id = identity && identity.gsub("https://steamcommunity.com/openid/id/", "")
+      session[:steam_id] = @steam_id
+      update_user
+      redirect_to root_path, notice: "Logged In Successfully"
+    else
+      redirect_to root_path, alert: "Failed To Log In"
+    end
   end
 
   def new; end
@@ -11,5 +16,15 @@ class SessionsController < ApplicationController
   def destroy
     session[:steam_id] = nil
     redirect_to root_path, alert: "Logged Out Successfully"
+  end
+
+  private
+
+  def update_user
+    user = User.find_by(steam_id: @steam_id)
+    steam_data = user.steam_data
+    if steam_data["avatar"] || user.steam_name.nil?
+      user.update(steam_name: steam_data["personaname"], steam_avatar: steam_data["avatar"])
+    end
   end
 end
