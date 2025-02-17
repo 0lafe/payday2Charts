@@ -7,7 +7,7 @@ class Leaderboard
       store_top_100s(stat)
     end
     @updated_at = Time.now.to_formatted_s(:short)
-    get_user_names
+    # get_user_names
   end
 
   def get_user_names

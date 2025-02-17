@@ -20,7 +20,6 @@ class LeaderboardsController < ApplicationController
   end
 
   def top_100_index
-    @rankings = Leaderboard.rankings
   end
 
   def top_100

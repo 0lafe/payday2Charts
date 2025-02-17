@@ -35,36 +35,6 @@
       <% end %>
     </div>
   </div>
-
-  <div style="margin:auto;">
-    <div class="statistic-choice portlet-container" style="padding:2rem;">
-      <h1>Most #1 Stats</h1>
-      <table style="min-width:60%" id="top_100">
-        <thead>
-          <tr>
-            <th data-dt-order="disable">Position</th>
-            <th data-dt-order="disable">User</th>
-            <th data-dt-order="disable">Count</th>
-            <th data-dt-order="disable">View</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @rankings.each_with_index do |ranking, index| %>
-            <tr>
-              <td><%= index + 1 %></td>
-              <td><%= ranking[:username] %></td>
-              <td><%= ranking[:count] %></td>
-              <td>
-                <%= link_to(top_100_leaderboard_path(ranking[:steam_id]), class: "btn btn-primary") do %>
-                  <div style="display:flex;align-items:center;">Top 100 <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i></div>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -73,13 +43,5 @@
     if ($('#user_steam_id').val().length) {
       window.location.href = `/leaderboards/${$('#user_steam_id').val()}/top_100`
     }
-  })
-
-  $(document).ready(() => {
-    let table = $("#top_100").DataTable({
-      paging: false,
-      info: false,
-      ordering: false
-    })
   })
 </script>
