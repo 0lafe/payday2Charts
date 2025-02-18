@@ -8,7 +8,7 @@
         <%= link_to "Community Charts", charts_path, data: { turbo: false } %>
       </li>
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
-        <a href="/leaderboards/top_100_index" data-turbo="false">Top 100</a>
+        <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
       </li>
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
         <%= link_to "Guess Who", guess_whos_path, data: { turbo: false } %>
