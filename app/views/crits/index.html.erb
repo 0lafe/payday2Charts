@@ -1,95 +1,40 @@
-<style>
-  .calculator-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2rem;
-  }
-  .calculator-input {
-    display: block;
-    padding: 1rem;
-  }
-  .calculator-chart {
-    margin: 2rem;
-  }
-  .calculator-page-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-    margin-top: 1rem;
-  }
-</style>
-
-<div class="calculator-page-grid">
-  <div class="calculator-container">
-    <div class="data-table calculator-inputs">
-      <turbo-frame id="calculation_form">
-        <%= form_with url: calculate_crits_path, remote: true do |f| %>
-          <div class="calculator-input">
-            <%= f.label :base_weapon_damage, 'Base Weapon Damage' %>
-            <%= f.text_field :base_weapon_damage %>
-          </div>
-          <div class="calculator-input">
-            <%= f.label :headshot_mul, 'Headshot Multiplier' %>
-            <%= f.text_field :headshot_mul %>
-          </div>
-          <div class="calculator-input">
-            <%= f.label :additional_mul, 'Additional Multiplier' %>
-            <%= f.text_field :additional_mul %>
-          </div>
-          <div class="calculator-input">
-            <%= f.label :crit_chance, 'Crit Chance' %>
-            <%= f.text_field :crit_chance %>
-          </div>
-          <div class="calculator-input">
-            <%= f.label :enemy_health, 'Enemy Health' %>
-            <%= f.text_field :enemy_health %>
-          </div>
-          <div class="calculator-input">
-            <%= f.label :crit_mul, 'Crit Multiplier' %>
-            <%= f.text_field :crit_mul %>
-          </div>
-          <div class="calculator-input">
-            <%= f.submit 'Calculate', style: 'float:right;' %>
-          </div>
-        <% end %>
-      </turbo-frame>
-    </div>
-    <turbo-frame id="crit_calculator_result"></turbo-frame>
+<div class="calculator-page-grid" data-controller="crits">
+  <div class="calculator-container portlet-container">
+    <%= simple_form_for :calculation do |f| %>
+      <div class="calculator-input">
+        <%= f.label :base_weapon_damage, 'Base Weapon Damage' %>
+        <%= f.number_field :base_weapon_damage %>
+      </div>
+      <div class="calculator-input">
+        <%= f.label :crit_chance, 'Crit Chance (ex. 65 for 65%)' %>
+        <%= f.number_field :crit_chance %>
+      </div>
+      <div class="calculator-input">
+        <%= f.label :crit_mul, 'Crit Multiplier' %>
+        <%= f.number_field :crit_mul %>
+      </div>
+      <div class="calculator-input">
+        <%= f.label :enemy_health, 'Enemy Health' %>
+        <%= f.number_field :enemy_health %>
+      </div>
+      <div class="calculator-input">
+        <%= f.label :headshot_mul, '(Optional) Headshot Multiplier' %>
+        <%= f.number_field :headshot_mul %>
+      </div>
+      <div class="calculator-input">
+        <%= f.label :additional_mul, '(Optional) Additional Multiplier (Zerk, Overkill, etc)' %>
+        <%= f.number_field :additional_mul %>
+      </div>
+      <div class="calculator-input">
+        <%= f.submit 'Calculate', class: "btn btn-primary", id: "calculate" %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="data-table calculator-chart">
-    <turbo-frame id="crit_chart"></turbo-frame>
+  <div class="calculator-chart portlet-container">
+    <canvas id="calculation_chart"></canvas>
+    <div class="calculator-output">
+      <h1 id="calculation_values"></h1>
+    </div>
   </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const renderChart = (labels, values) => {
-    const ctx = document.getElementById(`calculation_chart`);
-  
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Shot Distribution',
-          data: values,
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: Math.max(...values),
-            min: 0
-          },
-          x: {
-            
-          }
-        }
-      }
-    });
-  }
-</script>

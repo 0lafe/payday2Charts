@@ -13,8 +13,11 @@
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
         <a href="/guess_whos" data-turbo="false">Guess Who</a>
       </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'gifs_controller' && %w(index show).include?(params[:action]) %>">
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'gifs' && %w(index show).include?(params[:action]) %>">
         <a href="/gifs" data-turbo="false">Gifs</a>
+      </li>
+      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'crits' %>">
+        <%= link_to "Crit Calculator", crits_path, data: { turbo: false } %>
       </li>
     </div>
 

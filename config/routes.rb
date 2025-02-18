@@ -12,11 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :users, only: ['create']
-  resources :crits, only: ['index'] do
-    collection do
-      post :calculate
-    end
-  end
+  resources :crits, only: ['index']
   resources :gifs, only: ['index', 'show']
   resources :oauth, only: ['index']
 
