@@ -8,18 +8,15 @@
 
   $('#statistic_choice').on('select2:select', function (e) {
     const grouping = $("#statistic_choice").find(":selected").data("grouping")
+
     let route
     if (grouping) {
       route = `${e.target.value}?grouping=${grouping}`
     } else {
       route = e.target.value
     }
-    
-    if (window.location.pathname === '/leaderboards') {
-      window.location.href = `leaderboards/${route}`
-    } else {
-      window.location.href = `${route}`
-    }
+
+    window.location.href = `/leaderboards/${route}`
   });
 
   $(document).on('select2:open', () => {
