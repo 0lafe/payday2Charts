@@ -4,21 +4,21 @@ class User < ApplicationRecord
   has_one :misc_stat, dependent: :destroy
 
   def steam_data
-    # response = SteamApi.get(
-    #   "ISteamUser/GetPlayerSummaries/v2/",
-    #   {
-    #     steamids: steam_id
-    #   }
-    # )
-    # if response.ok?
-    #   data = JSON.parse(response.body)
-    #   data['response']['players'].first
-    # else
+    response = SteamApi.get(
+      "ISteamUser/GetPlayerSummaries/v2/",
+      {
+        steamids: steam_id
+      }
+    )
+    if response.ok?
+      data = JSON.parse(response.body)
+      data['response']['players'].first
+    else
       return {
         "personaname" => steam_id,
         "avatar" => ""
       }
-    # end
+    end
   end
 
   def name
@@ -52,31 +52,31 @@ class User < ApplicationRecord
   end
 
   def self.steam_data(steam_ids)
-    # response = SteamApi.get(
-    #   "ISteamUser/GetPlayerSummaries/v2/",
-    #   {
-    #     steamids: steam_ids.join(',')
-    #   }
-    # )
+    response = SteamApi.get(
+      "ISteamUser/GetPlayerSummaries/v2/",
+      {
+        steamids: steam_ids.join(',')
+      }
+    )
 
-    # if response.ok?
-    #   out = Array.new(steam_ids.length)
-    #   data = JSON.parse(response.body)
-    #   data['response']['players'].map do |player|
-    #     out[steam_ids.index(player['steamid'])] = {
-    #       name: player['personaname'],
-    #       avatar: player["avatar"]
-    #     }
-    #   end
-    #   out
-    # else
+    if response.ok?
+      out = Array.new(steam_ids.length)
+      data = JSON.parse(response.body)
+      data['response']['players'].map do |player|
+        out[steam_ids.index(player['steamid'])] = {
+          name: player['personaname'],
+          avatar: player["avatar"]
+        }
+      end
+      out
+    else
       steam_ids.map do |user|
         {
           name: user,
           avatar: ""
         }
       end
-    # end
+    end
   end
 
   def self.me
