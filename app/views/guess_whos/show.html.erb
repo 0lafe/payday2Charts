@@ -26,10 +26,13 @@
     </div>
   </div>
   <hr/>
-  <div style="display:flex;justify-content:space-between;padding: 2rem 4rem;width:60%;margin:auto;">
-    <h2 style="color:white;">Your lobby code is <%= params[:id] %></h2>
+  <div style="display:flex;justify-content:space-between;padding: 2rem 4rem;width:60%;margin:auto;color:white;">
+    <h2>
+      Your lobby code is <%= params[:id] %>
+      <i style="margin-left:1rem;" class="fa-solid fa-clipboard copy-link" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top" data-link="<%= "https://payday-charts.com/guess_whos/#{@guess_who.id}" %>"></i>
+    </h2>
     <button class="btn btn-primary" style="padding:0.5rem 1rem;height:20%;" id="reset-button">Reset</button>
-    <h2 style="color:white;">Your Card:</h2>
+    <h2>Your Card:</h2>
     <div style="background:white;border-radius:0.5rem;">
       <% if ["heist", "content_creators"].include?(@guess_who.game_type) %>
         <img id="your-pick" style="width:120px;padding:1rem" class="guess_who_card"/>
@@ -51,6 +54,7 @@
       document.getElementById("your-pick").classList = chosenImage.classList
     <% end %>
   }
+
   $(document).ready(() => {
     setChosenImage()
 
@@ -68,6 +72,16 @@
       setChosenImage()
       $(".gameplay-item").removeClass("turned")
       $(".gameplay-item").addClass("unturned")
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  
+    $('.copy-link').on('click', (e) => {
+      const link = e.currentTarget.dataset.link
+      navigator.clipboard.writeText(link)
     })
   })
 </script>

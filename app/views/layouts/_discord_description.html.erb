@@ -11,5 +11,9 @@
     <meta property="og:description" content="Payday 2 Leaderboards">
   <% end %>
 <% elsif params[:controller] == "guess_whos" %>
+  <% if params[:action] == "index" %>
     <meta property="og:description" content="Payday 2 Guess Who">
+  <% else %>
+    <meta property="og:description" content="Guess Who: <%= @guess_who.game_type.titleize %>">
+  <% end %>
 <% end %>

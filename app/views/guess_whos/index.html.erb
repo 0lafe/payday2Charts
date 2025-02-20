@@ -2,10 +2,14 @@
   <div class="portlet-container" style="display:flex;justify-content:center;flex-direction:column;padding:1rem 3rem 2rem 3rem;margin-top:2rem;border-radius:0.5rem;">
     <h1>Guess Who!</h1>
     <div style="border-bottom: 1px solid #000000 !important;margin-bottom:1rem;margin-top:0.5rem;"></div>
-    <label>Game ID:</label>
-    <input style="margin-top:1rem;" id="game_id"/>
-    <button style="margin-top:1rem;" class="btn btn-primary" id="join_game">Join Game</button>
+
+    <%= simple_form_for :search, url: "#", method: :get, html: { id: "search-form" } do |f| %>
+      <%= f.input :id, as: :numeric, label: "Game ID:", input_html: { id: "game_id", style: "display:block;width:100%;margin:1rem 0;" } %>
+      <%= f.submit "Join Game", class: "btn btn-primary", style: "width:100%" %>
+    <% end %>
+
     <div style="border-bottom: 1px solid #000000 !important;margin-top:1rem;"></div>
+    
     <button style="margin-top:1rem;" class="btn btn-primary" id="open_create_game">New Game</button>
     <div hidden id="create_game" style="margin-top:1rem;">
       <%= simple_form_for GuessWho.new do |f| %>
@@ -18,7 +22,8 @@
 
 <script>
   $(document).ready(() => {
-    $("#join_game").on("click", () => {
+    $("#search-form").on("submit", (e) => {
+      e.preventDefault()
       window.location.href = `guess_whos/${$("#game_id").val()}`
     })
 

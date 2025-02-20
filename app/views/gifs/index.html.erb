@@ -22,8 +22,8 @@
         </div>
         <div class="col-md-4">
           <h2>
-            <i class="fa-solid fa-clipboard gif-link" style="color:white" data-id="<%= gif.id %>" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top"></i>
-            <span style="color:white;overflow-wrap:anywhere;" id="gif-link-<%= gif.id %>">
+            <i class="fa-solid fa-clipboard copy-link" style="color:white" data-id="<%= gif.id %>" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top"></i>
+            <span style="color:white;overflow-wrap:anywhere;" id="copy-link-<%= gif.id %>">
               <%= "https://payday-charts.com/gifs/#{gif.name}.gif" %>
             </span>
           </h2>
@@ -33,13 +33,3 @@
     <% end %>
   </div>
 </div>
-
-<script>
-
-</script>
-
-<style>
-  .gif-link:hover {
-    transform: scale(1.3)
-  }
-</style>

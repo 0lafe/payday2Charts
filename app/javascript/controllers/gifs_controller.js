@@ -8,8 +8,8 @@ export default class extends Controller {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
   
-    $('.gif-link').on('click', (e) => {
-      const link = $(`#gif-link-${e.target.dataset.id}`)
+    $('.copy-link').on('click', (e) => {
+      const link = $(`#copy-link-${e.target.dataset.id}`)
       navigator.clipboard.writeText(link.text())
     })
   }
