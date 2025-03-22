@@ -18,10 +18,19 @@ class JeopardyGamesController < ApplicationController
 
   def new
     @jeopardy_game = JeopardyGame.new
-    6.times do
-      category = @jeopardy_game.jeopardy_categories.build
-      5.times { |i| category.jeopardy_questions.build(value: 200 * (i + 1)) }
+
+    if params[:double_jeopardy] == "true"
+      6.times do
+        category = @jeopardy_game.jeopardy_categories.build
+        5.times { |i| category.jeopardy_questions.build(value: 400 * (i + 1)) }
+      end
+    else
+      6.times do
+        category = @jeopardy_game.jeopardy_categories.build
+        5.times { |i| category.jeopardy_questions.build(value: 200 * (i + 1)) }
+      end
     end
+
   end
 
   def update

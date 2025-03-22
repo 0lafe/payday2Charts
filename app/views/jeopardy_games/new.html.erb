@@ -3,7 +3,7 @@
 <div class="page">
   <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
     <div style="background:white;border-radius:0.25rem;width:90%;margin-top:1rem;display:flex;flex-direction:column;align-items:center">
-      <h1>Create New Jeopardy Game</h1>
+      <h1>Create New <%= "Double" if params[:double_jeopardy] %> Jeopardy Game</h1>
       <%= simple_form_for @jeopardy_game, html: {style: 'width:100%'} do |f| %>
         <%= f.input :name, input_html: {  }, label_html: {style: 'margin:1rem 0.5rem 1rem 2rem;'} %>
         <table style="width:95%;margin:auto;">
@@ -11,21 +11,39 @@
             <th>
               Category Name
             </th>
-            <th>
-              Question 200
-            </th>
-            <th>
-              Question 400
-            </th>
-            <th>
-              Question 600
-            </th>
-            <th>
-              Question 800
-            </th>
-            <th>
-              Question 1000
-            </th>
+            <% if params[:double_jeopardy] %>
+              <th>
+                Question 400
+              </th>
+              <th>
+                Question 800
+              </th>
+              <th>
+                Question 1200
+              </th>
+              <th>
+                Question 1600
+              </th>
+              <th>
+                Question 2000
+              </th>
+            <% else %>
+              <th>
+                Question 200
+              </th>
+              <th>
+                Question 400
+              </th>
+              <th>
+                Question 600
+              </th>
+              <th>
+                Question 800
+              </th>
+              <th>
+                Question 1000
+              </th>
+            <% end %>
           </tr>
           <%= f.simple_fields_for :jeopardy_categories do |ff| %>
             <tr>
