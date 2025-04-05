@@ -202,7 +202,7 @@
   <div style="display:flex;justify-content:space-between;">
     <%= image_tag('Jeopardy!_logo.png', id: 'logo') %>
     <div style="display:flex;flex-direction:column;justify-content:space-around;">
-      <%= link_to 'Reset Game', reset_jeopardy_game_path(@game), class: 'btn btn-danger', style: 'color:white', data: { controller: 'turbo' } %>
+      <%= link_to 'Reset Game', reset_jeopardy_game_path(@game), class: 'btn btn-danger', style: 'color:white', data: { controller: 'turbo', turbo_prefetch: false } %>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_new_player">
         Add New Player
       </button>
