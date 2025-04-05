@@ -1,2 +1,7 @@
-<%= turbo_stream.replace('jeopardy_questions', partial: 'jeopardy_games/questions_frame', locals: { game: @game }) %>
-<%= turbo_stream.replace('jeopardy_players', partial: 'jeopardy_games/players_frame', locals: { game: @game }) %>
+<% if @correct %>
+  <%= turbo_stream.replace('jeopardy_questions', partial: 'jeopardy_games/questions_frame', locals: { game: @game }) %>
+  <%= turbo_stream.replace('jeopardy_players', partial: 'jeopardy_games/players_frame', locals: { game: @game }) %>
+<% else %>
+  <%= turbo_stream.replace('remove_player_from_question', partial: 'jeopardy_games/remove_player_from_question', locals: { player_id: @player.id }) %>
+  <%= turbo_stream.replace('jeopardy_players', partial: 'jeopardy_games/players_frame', locals: { game: @game }) %>
+<% end %>

@@ -25,12 +25,15 @@
           <%= ff.input :player, as: :radio_buttons, collection: game.jeopardy_players.order('created_at DESC').map {|player| [player.name, player.id] }, label: false %>
         <% end %>
         <hr/>
-        <%= f.submit 'Wrong', class: 'danger-button', value: 'wrong' %>
-        <%= f.submit 'Right', style: 'background:greenyellow;border-radius:0.25rem;margin-left:1rem;', value: 'right' %>
+        <div style="display:flex;justify-content:space-between;width:30%;margin:auto;">
+          <%= f.submit "Right", class: "btn btn-success", value: "Right" %>
+          <%= f.submit "Wrong", class: "btn btn-danger", value: "Wrong" %>
+          <%= f.submit "Complete", class: "btn btn-warning", value: "Complete", formnovalidate: true %>
+        </div>
         <% if question.variable_points %>
           <%= f.simple_fields_for :variable_points do |ff| %>
             <span>Points: </span>
-            <%= ff.input :variable_points, input_html: { class: 'form-control', style: 'width: 10%;display:inline;' }, label: false %>
+            <%= ff.input :variable_points, input_html: { class: "form-control", style: "width: 10%;display:inline;" }, label: false %>
           <% end %>
         <% end %>
       <% end %>
@@ -76,4 +79,7 @@
       }
     })
   </script>
+<% end %>
+
+<%= turbo_frame_tag :remove_player_from_question do %>
 <% end %>

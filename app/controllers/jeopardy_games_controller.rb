@@ -47,19 +47,25 @@ class JeopardyGamesController < ApplicationController
   def answer_question
     @game = JeopardyGame.find(params[:id])
     @question = JeopardyQuestion.find(params[:question_id])
-    @player = JeopardyPlayer.find(params['jeopardy_game']['player']['player'])
+    @correct = params[:commit] == "Right" || params[:commit] == "Complete"
+    if params['jeopardy_game']['player']['player'].present?
+      @player = JeopardyPlayer.find(params['jeopardy_game']['player']['player'])
+    end
 
-    @question.update(answered: true)
-    if params[:commit] == 'right'
-      if @question.variable_points?
-        @player.score += params[:jeopardy_game][:variable_points][:variable_points].to_i
-      else
-        @player.score += @question.value
+    if @correct
+      @question.update(answered: true)
+      if @player
+        if @question.variable_points?
+          @player.score += params[:jeopardy_game][:variable_points][:variable_points].to_i
+        else
+          @player.score += @question.value
+        end
       end
     else
       @player.score -= @question.value
     end
-    @player.save
+
+    @player.save if @player
   end
 
   private

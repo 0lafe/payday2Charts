@@ -1,0 +1,5 @@
+<%= turbo_frame_tag :remove_player_from_question do %>
+  <script>
+    $("[for='jeopardy_game_player_player_<%= player_id %>']").remove()
+  </script>
+<% end %>

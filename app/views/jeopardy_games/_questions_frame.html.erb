@@ -8,7 +8,7 @@
         <% category.jeopardy_questions.order('value').each do |question| %>
           <div class="clue-bubble">
             <% if !question.answered %>
-              <%= link_to "$#{question.value}", jeopardy_question_path(question, game_id: game.id), 'data-controller': 'turbo' %>
+              <%= link_to "$#{question.value}", jeopardy_question_path(question, game_id: game.id), 'data-controller': 'turbo', data: { turbo_prefetch: false } %>
             <% end %>
           </div>
         <% end %>
