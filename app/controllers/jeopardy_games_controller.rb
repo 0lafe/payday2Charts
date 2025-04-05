@@ -1,11 +1,9 @@
 class JeopardyGamesController < ApplicationController
-  def index
+  before_action :set_jeopardy_game, only: %i[show update reset answer_question next_game]
 
-  end
+  def index; end
 
-  def show
-    @game = JeopardyGame.find(params[:id])
-  end
+  def show; end
 
   def create
     @game = JeopardyGame.create(jeopardy_game_params)
@@ -34,18 +32,15 @@ class JeopardyGamesController < ApplicationController
   end
 
   def update
-    @game = JeopardyGame.find(params[:id])
     @game.update(jeopardy_game_params)
   end
 
   def reset
-    @game = JeopardyGame.find(params[:id])
     @game.jeopardy_questions.update_all(answered: false)
     @game.jeopardy_players.destroy_all
   end
 
   def answer_question
-    @game = JeopardyGame.find(params[:id])
     @question = JeopardyQuestion.find(params[:question_id])
     @correct = params[:commit] == "Right" || params[:commit] == "Complete"
     if params['jeopardy_game']['player']['player'].present?
@@ -66,6 +61,14 @@ class JeopardyGamesController < ApplicationController
     end
 
     @player.save if @player
+  end
+
+  def next_game
+    @next_game = @game.next_game
+
+    @game.move_players_to_next_game
+
+    redirect_to jeopardy_game_path(@next_game)
   end
 
   private
@@ -91,5 +94,9 @@ class JeopardyGamesController < ApplicationController
         ]
       ]
     )
+  end
+
+  def set_jeopardy_game
+    @game = JeopardyGame.find(params[:id])
   end
 end

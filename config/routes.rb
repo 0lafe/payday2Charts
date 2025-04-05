@@ -23,8 +23,9 @@ Rails.application.routes.draw do
 
   resources :jeopardy_games do
     member do
-      get 'reset'
-      patch 'answer_question'
+      get "reset"
+      post "next_game"
+      patch "answer_question"
     end
   end
 

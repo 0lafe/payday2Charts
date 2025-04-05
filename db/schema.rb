@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_17_190408) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_05_225012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_190408) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "next_game_id"
   end
 
   create_table "jeopardy_players", force: :cascade do |t|
@@ -2512,6 +2513,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_17_190408) do
     t.integer "mask_used_zoothat_red"
     t.integer "mask_used_zoothat_yellow"
     t.index ["user_id"], name: "index_player_stats_on_user_id"
+  end
+
+  create_table "steam_items", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "amount", null: false
+    t.string "class_id", null: false
+    t.index ["user_id"], name: "index_steam_items_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
