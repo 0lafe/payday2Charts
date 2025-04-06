@@ -3,66 +3,85 @@
 <div class="page">
   <div style="display:flex;flex-direction:column;align-items:center" class='page-container'>
     <div style="background:white;border-radius:0.25rem;width:90%;margin-top:1rem;display:flex;flex-direction:column;align-items:center">
-      <h1>Create New <%= "Double" if params[:double_jeopardy] %> Jeopardy Game</h1>
-      <%= simple_form_for @jeopardy_game, html: {style: 'width:100%'} do |f| %>
-        <%= f.input :name, input_html: {  }, label_html: {style: 'margin:1rem 0.5rem 1rem 2rem;'} %>
-        <table style="width:95%;margin:auto;">
-          <tr>
-            <th>
-              Category Name
-            </th>
-            <% if params[:double_jeopardy] %>
-              <th>
-                Question 400
-              </th>
-              <th>
-                Question 800
-              </th>
-              <th>
-                Question 1200
-              </th>
-              <th>
-                Question 1600
-              </th>
-              <th>
-                Question 2000
-              </th>
-            <% else %>
-              <th>
-                Question 200
-              </th>
-              <th>
-                Question 400
-              </th>
-              <th>
-                Question 600
-              </th>
-              <th>
-                Question 800
-              </th>
-              <th>
-                Question 1000
-              </th>
-            <% end %>
-          </tr>
-          <%= f.simple_fields_for :jeopardy_categories do |ff| %>
-            <tr>
-              <td>
-                <%= ff.input :title, as: :text, label: false, input_html: { style: 'width:100%;', rows: 6, class: 'form-control' } %>
-              </td>
-              <%= ff.simple_fields_for :jeopardy_questions do |fff| %>
-                <%= fff.hidden_field :value %>
+      <h1>Create New <%= "Double" if @double_jeopardy %><%= "Final" if @final_jeopardy %> Jeopardy Game</h1>
+      <% if @final_jeopardy %>
+        <div style="width:95%">
+          <%= simple_form_for @jeopardy_game, html: {style: 'width:100%'} do |f| %>
+            <%= f.hidden_field :final_jeopardy, value: true %>
+            <%= f.simple_fields_for :jeopardy_categories, JeopardyCategory.new do |ff| %>
+              <%= ff.hidden_field :title, value: "Final Jeopardy" %>
+              <%= ff.simple_fields_for :jeopardy_questions, JeopardyQuestion.new do |fff| %>
                 <td>
                   <%= fff.input :question, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
                   <%= fff.input :answer, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
                   <%= fff.file_field :image, input_html: { class: 'form-control' } %>
-                  <%= fff.input :variable_points %>
                 </td>
               <% end %>
-            </tr>
+            <% end %>
+            <%= f.button :submit, class: "btn btn-primary", style: 'float:right;margin:1rem' %>
           <% end %>
-        </table>
-        <%= f.button :submit, class: "btn btn-primary", style: 'float:right;margin:1rem' %>
+        </div>
+      <% else %>
+        <%= simple_form_for @jeopardy_game, html: {style: 'width:100%'} do |f| %>
+          <%= f.input :name, input_html: {  }, label_html: {style: 'margin:1rem 0.5rem 1rem 2rem;'} %>
+          <table style="width:95%;margin:auto;">
+            <tr>
+              <th>
+                Category Name
+              </th>
+              <% if @double_jeopardy %>
+                <th>
+                  Question 400
+                </th>
+                <th>
+                  Question 800
+                </th>
+                <th>
+                  Question 1200
+                </th>
+                <th>
+                  Question 1600
+                </th>
+                <th>
+                  Question 2000
+                </th>
+              <% else %>
+                <th>
+                  Question 200
+                </th>
+                <th>
+                  Question 400
+                </th>
+                <th>
+                  Question 600
+                </th>
+                <th>
+                  Question 800
+                </th>
+                <th>
+                  Question 1000
+                </th>
+              <% end %>
+            </tr>
+            <%= f.simple_fields_for :jeopardy_categories do |ff| %>
+              <tr>
+                <td>
+                  <%= ff.input :title, as: :text, label: false, input_html: { style: 'width:100%;', rows: 6, class: 'form-control' } %>
+                </td>
+                <%= ff.simple_fields_for :jeopardy_questions do |fff| %>
+                  <%= fff.hidden_field :value %>
+                  <td>
+                    <%= fff.input :question, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
+                    <%= fff.input :answer, as: :text, input_html: { style: 'width:100%', class: 'form-control' } %>
+                    <%= fff.file_field :image, input_html: { class: 'form-control' } %>
+                    <%= fff.input :variable_points %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </table>
+          <%= f.button :submit, class: "btn btn-primary", style: 'float:right;margin:1rem' %>
+        <% end %>
       <% end %>
     </div>
   </div>

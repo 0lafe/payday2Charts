@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     member do
       get "reset"
       post "next_game"
+      patch "answer_final_question"
       patch "answer_question"
     end
   end

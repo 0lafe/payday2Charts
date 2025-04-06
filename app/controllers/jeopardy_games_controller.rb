@@ -1,5 +1,5 @@
 class JeopardyGamesController < ApplicationController
-  before_action :set_jeopardy_game, only: %i[show update reset answer_question next_game]
+  before_action :set_jeopardy_game, only: %i[show update reset answer_question answer_final_question next_game]
 
   def index; end
 
@@ -18,10 +18,13 @@ class JeopardyGamesController < ApplicationController
     @jeopardy_game = JeopardyGame.new
 
     if params[:double_jeopardy] == "true"
+      @double_jeopardy = true
       6.times do
         category = @jeopardy_game.jeopardy_categories.build
         5.times { |i| category.jeopardy_questions.build(value: 400 * (i + 1)) }
       end
+    elsif params[:final_jeopardy] == "true"
+      @final_jeopardy = true
     else
       6.times do
         category = @jeopardy_game.jeopardy_categories.build
@@ -63,6 +66,21 @@ class JeopardyGamesController < ApplicationController
     @player.save if @player
   end
 
+  def answer_final_question
+    @player = JeopardyPlayer.find(params[:player_id])
+    @wager = params[:jeopardy_game][:wager].to_i
+
+    @correct = params[:commit] == "Right"
+    if @correct
+      @player.score += @wager
+    else
+      @player.score -= @wager
+    end
+    @player.save
+
+    redirect_back fallback_location: jeopardy_game_path(@game)
+  end
+
   def next_game
     @next_game = @game.next_game
 
@@ -76,6 +94,7 @@ class JeopardyGamesController < ApplicationController
   def jeopardy_game_params
     params.require(:jeopardy_game).permit(
       :name,
+      :final_jeopardy,
       jeopardy_players_attributes: [
         :id,
         :name,

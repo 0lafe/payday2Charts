@@ -7,6 +7,8 @@
     <hr/>
     <%= link_to 'Create Double Jeopardy Game', new_jeopardy_game_path(double_jeopardy: true), class: 'btn', style: 'background:lightblue' %>
     <hr/>
+    <%= link_to 'Create Final Jeopardy Game', new_jeopardy_game_path(final_jeopardy: true), class: 'btn', style: 'background:lightblue' %>
+    <hr/>
     <hr/>
     <% JeopardyGame.order('created_at DESC').limit(20).each do |jeopardy_game| %>
       <%= link_to jeopardy_game.name, jeopardy_game_path(jeopardy_game), class: 'btn', style: 'background:indianred;margin:1rem 0;' %>

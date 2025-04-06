@@ -1,0 +1,2 @@
+<%= turbo_stream.replace('jeopardy_players', partial: 'jeopardy_games/players_frame', locals: { game: @game }) %>
+<%= turbo_stream.replace('final_jeopardy_question', partial: 'jeopardy_games/final_jeopardy_question', locals: { game: @game }) %>

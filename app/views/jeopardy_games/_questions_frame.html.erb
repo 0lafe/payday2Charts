@@ -1,21 +1,25 @@
 <%= turbo_frame_tag :jeopardy_questions do %>
   <% if game.questions_left? %>
-    <div style="display:flex;flex-direction:row;">
-      <% game.jeopardy_categories.each do |category| %>
-        <div class="category-column">
-          <div class="category-bubble">
-            <p><%= category.title %></p>
-          </div>
-          <% category.jeopardy_questions.order('value').each do |question| %>
-            <div class="clue-bubble">
-              <% if !question.answered %>
-                <%= link_to "$#{question.value}", jeopardy_question_path(question, game_id: game.id), 'data-controller': 'turbo', data: { turbo_prefetch: false } %>
-              <% end %>
+    <% if game.final_jeopardy %>
+      <%= render "jeopardy_games/final_jeopardy_question", game: game %>
+    <% else %>
+      <div style="display:flex;flex-direction:row;">
+        <% game.jeopardy_categories.each do |category| %>
+          <div class="category-column">
+            <div class="category-bubble">
+              <p><%= category.title %></p>
             </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+            <% category.jeopardy_questions.order('value').each do |question| %>
+              <div class="clue-bubble">
+                <% if !question.answered %>
+                  <%= link_to "$#{question.value}", jeopardy_question_path(question, game_id: game.id), 'data-controller': 'turbo', data: { turbo_prefetch: false } %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% else %>
     <% if game.next_game.present? %>
       <div style="display:flex;justify-content:center;margin-top:10rem;">

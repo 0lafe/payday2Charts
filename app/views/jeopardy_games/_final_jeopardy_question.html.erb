@@ -1,0 +1,50 @@
+<%= turbo_frame_tag :final_jeopardy_question do %>
+  <% question = game.jeopardy_questions.first %>
+  <div class="bubble" id="selected-clue-bubble">
+    <a style="float:right;" class="btn" data-bs-toggle="modal" data-bs-target="#edit-question"><i class="fa-solid fa-pencil"></i></a>
+    <h2 id="question-title">Question:</h2>
+    <div class="question">
+      <p id="question-question">
+        <%= question.question %>
+      </p>
+      <% if question.image.present? %>
+        <%= image_tag(question.image, class: 'jeopardy-image') %>
+        <p id="image-answer"></p>
+      <% end %>
+    </div>
+    <% if question.answer.present? %>
+      <button id="question-answer" class="btn btn-warning">Answer</button>
+    <% end %>
+    <div>
+      <hr/>
+      <p>Players</p>
+      <div style="display:flex;justify-content:center;">
+        <% game.jeopardy_players.each do |player| %>
+          <div style="margin:1rem;display:inline;">
+            <h1><%= player.name %></h1>
+            <%= simple_form_for game, url: answer_final_question_jeopardy_game_path(game, player_id: player.id), data: { turbo: false } do |f| %>
+              <%= f.input :wager, as: :numeric %>
+              <div style="display:flex;justify-content:space-between;width:30%;margin:auto;margin-top:1rem;">
+                <%= f.submit "Right", class: "btn btn-success", value: "Right" %>
+                <%= f.submit "Wrong", class: "btn btn-danger", value: "Wrong" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $('#question-answer').on('click', () => {
+      $('#question-title').text('Answer')
+      $('#question-answer').remove()
+      if ($('.jeopardy-image').length) {
+        $('#question-question').text('')
+        $('#image-answer').text('<%= question.answer %>')
+      } else {
+        $('#question-question').text('<%= question.answer %>')
+      }
+    })
+  </script>
+<% end %>

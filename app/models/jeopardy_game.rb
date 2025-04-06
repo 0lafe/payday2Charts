@@ -1,4 +1,6 @@
 class JeopardyGame < ApplicationRecord
+  attr_accessor :wager
+  
   has_many :jeopardy_categories, dependent: :destroy
   has_many :jeopardy_questions, through: :jeopardy_categories, dependent: :destroy
   has_many :jeopardy_players, dependent: :destroy

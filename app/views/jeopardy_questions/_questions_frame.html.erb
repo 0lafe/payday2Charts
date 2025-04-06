@@ -19,7 +19,7 @@
     <% end %>
     <div>
       <hr/>
-      <p>Player</p>
+      <p>Players</p>
       <%= simple_form_for game, url: answer_question_jeopardy_game_path(game, question_id: question.id) do |f| %>
         <%= f.simple_fields_for :player do |ff| %>
           <%= ff.input :player, as: :radio_buttons, collection: game.jeopardy_players.order('created_at DESC').map {|player| [player.name, player.id] }, label: false %>
