@@ -27,6 +27,7 @@
   </head>
   <body>
     <%= render(NavBarComponent.new) %>
+    <%= render "layouts/maintenance_banner" %>
     <% flash.each do |type, msg| %>
       <div class="<%= type %>">
         <%= msg %>
