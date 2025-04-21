@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     if identity
       @steam_id = identity && identity.gsub("https://steamcommunity.com/openid/id/", "")
       session[:steam_id] = @steam_id
-      update_user
+      create_if_new_user
       redirect_to root_path, notice: "Logged In Successfully"
     else
       redirect_to root_path, alert: "Failed To Log In"
@@ -20,11 +20,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def update_user
-    user = User.find_by(steam_id: @steam_id)
-    steam_data = user.steam_data
-    if steam_data["avatar"] || user.steam_name.nil?
-      user.update(steam_name: steam_data["personaname"], steam_avatar: steam_data["avatar"])
-    end
+  def create_if_new_user
+    User.find_or_create_by(steam_id: @steam_id)
   end
 end

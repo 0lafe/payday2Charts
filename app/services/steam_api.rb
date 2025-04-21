@@ -152,30 +152,38 @@ class SteamApi
     end
 
     if missing_ids.present?
-      response = get(
-        "ISteamUser/GetPlayerSummaries/v2/",
-        {
-          steamids: missing_ids.join(',')
-        }
-      )
+      # response = get(
+      #   "ISteamUser/GetPlayerSummaries/v2/",
+      #   {
+      #     steamids: missing_ids.join(',')
+      #   }
+      # )
   
-      new_data = if response.ok?
-        data = JSON.parse(response.body)
-        data['response']['players'].map do |player|
-          {
-            name: player['personaname'],
-            avatar: player["avatar"],
-            steam_id: player["steamid"]
-          }
-        end
-      else
-        missing_ids.map do |user_id|
-          {
-            name: user_id,
-            avatar: "",
-            steam_id: user_id
-          }
-        end
+      # new_data = if response.ok?
+      #   data = JSON.parse(response.body)
+      #   data['response']['players'].map do |player|
+      #     {
+      #       name: player['personaname'],
+      #       avatar: player["avatar"],
+      #       steam_id: player["steamid"]
+      #     }
+      #   end
+      # else
+      #   missing_ids.map do |user_id|
+      #     {
+      #       name: user_id,
+      #       avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
+      #       steam_id: user_id
+      #     }
+      #   end
+      # end
+
+      new_data = missing_ids.map do |user_id|
+        {
+          name: user_id,
+          avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
+          steam_id: user_id
+        }
       end
 
       new_data.each do |user_data|
@@ -202,28 +210,34 @@ class SteamApi
     if cached_data
       JSON.parse(cached_data, symbolize_names: true)
     else
-      response = SteamApi.get(
-        "ISteamUser/GetPlayerSummaries/v2/",
-        {
-          steamids: steam_id
-        }
-      )
+      # response = SteamApi.get(
+      #   "ISteamUser/GetPlayerSummaries/v2/",
+      #   {
+      #     steamids: steam_id
+      #   }
+      # )
 
-      new_data = if response.ok?
-        data = JSON.parse(response.body)
-        user_data = data['response']['players'].first
-        {
-          name: user_data['personaname'],
-          avatar: user_data["avatar"],
-          steam_id: user_data["steamid"]
-        }
-      else
-        {
-          name: steam_id,
-          avatar: "",
-          steam_id: steam_id
-        }
-      end
+      # new_data = if response.ok?
+      #   data = JSON.parse(response.body)
+      #   user_data = data['response']['players'].first
+      #   {
+      #     name: user_data['personaname'],
+      #     avatar: user_data["avatar"],
+      #     steam_id: user_data["steamid"]
+      #   }
+      # else
+      #   {
+      #     name: steam_id,
+      #     avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
+      #     steam_id: steam_id
+      #   }
+      # end
+
+      new_data = {
+        name: steam_id,
+        avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
+        steam_id: steam_id
+      }
 
       REDIS_CLIENT.setex("steam_player_summary:#{steam_id}", 24.hours.to_i, new_data.to_json)
 

@@ -31,7 +31,7 @@
       <% if current_user %>
         <li class="nav-element nav-element-right">
           <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= image_tag(current_user.steam_avatar || "", class: "steam-avatar") %>
+            <%= image_tag(current_user.avatar || "", class: "steam-avatar", style: "max-height:90%") %>
             <%= current_user.steam_name %>
           </button>
           <ul class="dropdown-menu">
