@@ -3,7 +3,7 @@ class MiscStat < ApplicationRecord
 
   def self.get_top_100(name)
     users = MiscStat.where.not({name => nil}).order("#{name} DESC").includes(:user).limit(100)
-    names = User.steam_data(users.map {|player| player.user.steam_id })
+    names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
     users.map.with_index do |a, index|
       {
         name: names[index][:name],

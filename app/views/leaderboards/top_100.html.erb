@@ -5,9 +5,8 @@
       <% if @stats.length %>
         <div class="portlet-container" style="display:flex;flex-direction:column;padding:1rem;align-items:center;">
           <h1 style="display:flex;align-items:center;">
-            <% user_data = @user.steam_data %>
-            <%= image_tag(user_data["avatar"], class: "steam-avatar") %>
-            <%= user_data["personaname"] %>
+            <%= image_tag(@user.avatar, class: "steam-avatar") %>
+            <%= @user.name %>
           </h1>
           <h2>
              has <%= @stats.length %> top 100 stats!

@@ -137,4 +137,97 @@ class SteamApi
       p "add_column :misc_stats, :#{key}, :integer"
     end
   end
+
+  def self.get_multiple_user_data(user_ids)
+    cached_data = get_cached_user_data(user_ids)
+    existing_data = {}
+    missing_ids = []
+  
+    user_ids.each_with_index do |id, index|
+      if cached_data[index]
+        existing_data[id] = JSON.parse(cached_data[index], symbolize_names: true)
+      else
+        missing_ids << id
+      end
+    end
+
+    if missing_ids.present?
+      response = get(
+        "ISteamUser/GetPlayerSummaries/v2/",
+        {
+          steamids: missing_ids.join(',')
+        }
+      )
+  
+      new_data = if response.ok?
+        data = JSON.parse(response.body)
+        data['response']['players'].map do |player|
+          {
+            name: player['personaname'],
+            avatar: player["avatar"],
+            steam_id: player["steamid"]
+          }
+        end
+      else
+        missing_ids.map do |user_id|
+          {
+            name: user_id,
+            avatar: "",
+            steam_id: user_id
+          }
+        end
+      end
+
+      new_data.each do |user_data|
+        REDIS_CLIENT.setex("steam_player_summary:#{user_data[:steam_id]}", 24.hours.to_i, user_data.to_json)
+        existing_data[user_data[:steam_id]] = user_data
+      end
+    end
+
+    vals = user_ids.map do |user_id|
+      existing_data[user_id]
+    end
+
+    vals
+  end
+
+  def self.get_cached_user_data(user_ids)
+    keys = user_ids.map { |id| "steam_player_summary:#{id}" }
+    REDIS_CLIENT.mget(*keys)
+  end
+
+  def self.get_user_data(steam_id)
+    cached_data = REDIS_CLIENT.get("steam_player_summary:#{steam_id}")
+
+    if cached_data
+      JSON.parse(cached_data, symbolize_names: true)
+    else
+      response = SteamApi.get(
+        "ISteamUser/GetPlayerSummaries/v2/",
+        {
+          steamids: steam_id
+        }
+      )
+
+      new_data = if response.ok?
+        data = JSON.parse(response.body)
+        user_data = data['response']['players'].first
+        {
+          name: user_data['personaname'],
+          avatar: user_data["avatar"],
+          steam_id: user_data["steamid"]
+        }
+      else
+        {
+          name: steam_id,
+          avatar: "",
+          steam_id: steam_id
+        }
+      end
+
+      REDIS_CLIENT.setex("steam_player_summary:#{steam_id}", 24.hours.to_i, new_data.to_json)
+
+      new_data
+    end
+  end
 end

@@ -6,7 +6,7 @@ class WeaponStat < ApplicationRecord
       top_100_filter(record_name, filter)
     else
       users = WeaponStat.where.not({record_name => nil}).order("#{record_name} DESC").includes(:user).limit(100)
-      names = User.steam_data(users.map {|player| player.user.steam_id })
+      names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
       users.map.with_index do |a, index|
         {
           name: names[index][:name],
@@ -94,7 +94,7 @@ class WeaponStat < ApplicationRecord
     end
 
     users = WeaponStat.where.not({record => nil}).order("#{record} DESC").includes(:user).limit(100)
-    names = User.steam_data(users.map {|player| player.user.steam_id })
+    names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
 
     users.map.with_index do |a, index|
       {

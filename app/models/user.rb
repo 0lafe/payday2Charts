@@ -4,29 +4,17 @@ class User < ApplicationRecord
   has_one :misc_stat, dependent: :destroy
 
   def steam_data
-    response = SteamApi.get(
-      "ISteamUser/GetPlayerSummaries/v2/",
-      {
-        steamids: steam_id
-      }
-    )
-    if response.ok?
-      data = JSON.parse(response.body)
-      data['response']['players'].first
-    else
-      return {
-        "personaname" => steam_id,
-        "avatar" => ""
-      }
-    end
+    @steam_user_data = SteamApi.get_user_data(steam_id) unless @steam_user_data
+
+    @steam_user_data
   end
 
   def name
-    steam_data["personaname"]
+    steam_data[:name]
   end
 
   def avatar
-    steam_data["avatar"]
+    steam_data[:avatar]
   end
 
   def fetch_new_stats
@@ -48,34 +36,6 @@ class User < ApplicationRecord
       misc_stat.update(misc_stats)
     else
       MiscStat.create(misc_stats.merge({user_id: id}))
-    end
-  end
-
-  def self.steam_data(steam_ids)
-    response = SteamApi.get(
-      "ISteamUser/GetPlayerSummaries/v2/",
-      {
-        steamids: steam_ids.join(',')
-      }
-    )
-
-    if response.ok?
-      out = Array.new(steam_ids.length)
-      data = JSON.parse(response.body)
-      data['response']['players'].map do |player|
-        out[steam_ids.index(player['steamid'])] = {
-          name: player['personaname'],
-          avatar: player["avatar"]
-        }
-      end
-      out
-    else
-      steam_ids.map do |user|
-        {
-          name: user,
-          avatar: ""
-        }
-      end
     end
   end
 

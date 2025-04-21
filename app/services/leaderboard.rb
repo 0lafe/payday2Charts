@@ -25,7 +25,7 @@ class Leaderboard
     users = User.where(id: names)
     @usernames = {}
     users.each_slice(100) do |users|
-      steam_data = User.steam_data(users.map(&:steam_id))
+      steam_data = SteamApi.get_multiple_user_data(users.map(&:steam_id))
       users.each_with_index do |user, index|
         @usernames[user.steam_id] = steam_data[index][:name]
       end
