@@ -97,8 +97,8 @@ class WeaponStat < ApplicationRecord
     names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
     users.map.with_index do |a, index|
       {
-        name: names[index] ? names[index][:name] : "Deleted User",
-        avatar: names[index] ? names[index][:avatar] : nil,
+        name: names[index][:name],
+        avatar: names[index][:avatar],
         steam_id: a.user.steam_id,
         kills: a[record.gsub("#{type}#{filter}", "#{type}kills")],
         uses: a[record.gsub("#{type}#{filter}", "#{type}used")],

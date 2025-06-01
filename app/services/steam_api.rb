@@ -170,21 +170,19 @@ class SteamApi
         end
       else
         missing_ids.map do |user_id|
-          {
-            name: user_id,
-            avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
-            steam_id: user_id
-          }
+          missing_data_profile(user_id)
         end
       end
 
+      missing_ids.each do |missing_id|
+        unless new_data.any? { |data| data[:steam_id] == missing_id }
+          new_data << missing_data_profile(missing_id)
+        end
+      end
+      
       # # Uncomment when disabling API requests
       # new_data = missing_ids.map do |user_id|
-      #   {
-      #     name: user_id,
-      #     avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
-      #     steam_id: user_id
-      #   }
+      #   missing_data_profile(user_id)
       # end
 
       new_data.each do |user_data|
@@ -227,23 +225,23 @@ class SteamApi
           steam_id: user_data["steamid"]
         }
       else
-        {
-          name: steam_id,
-          avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
-          steam_id: steam_id
-        }
+        missing_data_profile(steam_id)
       end
 
       # # Uncomment when disabling API requests
-      # new_data = {
-      #   name: steam_id,
-      #   avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
-      #   steam_id: steam_id
-      # }
+      # new_data = missing_data_profile(steam_id)
 
       REDIS_CLIENT.setex("steam_player_summary:#{steam_id}", 48.hours.to_i, new_data.to_json)
 
       new_data
     end
+  end
+
+  def self.missing_data_profile(steam_id)
+    {
+      name: steam_id,
+      avatar: "https://fbi-files.s3.us-east-1.amazonaws.com/steam_logo.png",
+      steam_id: steam_id
+    }
   end
 end
