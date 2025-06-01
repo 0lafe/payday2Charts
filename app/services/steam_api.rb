@@ -188,7 +188,7 @@ class SteamApi
       # end
 
       new_data.each do |user_data|
-        REDIS_CLIENT.setex("steam_player_summary:#{user_data[:steam_id]}", 24.hours.to_i, user_data.to_json)
+        REDIS_CLIENT.setex("steam_player_summary:#{user_data[:steam_id]}", 48.hours.to_i, user_data.to_json)
         existing_data[user_data[:steam_id]] = user_data
       end
     end
@@ -241,7 +241,7 @@ class SteamApi
       #   steam_id: steam_id
       # }
 
-      REDIS_CLIENT.setex("steam_player_summary:#{steam_id}", 24.hours.to_i, new_data.to_json)
+      REDIS_CLIENT.setex("steam_player_summary:#{steam_id}", 48.hours.to_i, new_data.to_json)
 
       new_data
     end
