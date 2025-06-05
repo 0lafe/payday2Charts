@@ -5,7 +5,11 @@ class UsersController < ApplicationController
     else
       flash[:alert] = "Error, make sure the ID is correct and the player's stats are public and try again"
     end
-    redirect_back fallback_location: '/'
+    if params[:return_to]
+      redirect_to params[:return_to], fallback_location: "/"
+    else
+      redirect_back fallback_location: '/'
+    end
   end
 
   private
