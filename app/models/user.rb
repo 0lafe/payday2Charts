@@ -3,6 +3,12 @@ class User < ApplicationRecord
   has_one :player_stat, dependent: :destroy
   has_one :misc_stat, dependent: :destroy
 
+  scope :unbanned, -> { where(banned: false) }
+  scope :banned, -> { where(banned: true) }
+
+  validates :steam_id, presence: true
+  validates :banned, inclusion: { in: [true, false] }
+
   def steam_data
     @steam_user_data = SteamApi.get_user_data(steam_id) unless @steam_user_data
 

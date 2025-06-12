@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_05_231750) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2516,6 +2516,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_231750) do
     t.index ["user_id"], name: "index_player_stats_on_user_id"
   end
 
+  create_table "steam_item_data", force: :cascade do |t|
+    t.text "icon_url", null: false
+    t.string "name", null: false
+    t.string "name_color", null: false
+    t.boolean "tradable", null: false
+    t.boolean "marketable", null: false
+    t.boolean "commodity", null: false
+    t.string "item_type", null: false
+    t.string "quality"
+    t.string "rarity"
+    t.string "bonus"
+    t.string "collection"
+  end
+
   create_table "steam_items", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "amount", null: false
@@ -2530,6 +2544,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_05_231750) do
     t.string "discord_id"
     t.string "steam_name"
     t.string "steam_avatar"
+    t.boolean "banned", default: false, null: false
+  end
+
+  create_table "users_to_imports", force: :cascade do |t|
+    t.string "steam_id", null: false
+    t.string "status", default: "waiting", null: false
   end
 
   create_table "weapon_stats", force: :cascade do |t|

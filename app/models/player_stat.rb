@@ -2,7 +2,17 @@ class PlayerStat < ApplicationRecord
   belongs_to :user
 
   def self.get_top_100(name)
-    users = PlayerStat.where.not({name => nil}).order("#{name} DESC").includes(:user).limit(100)
+    users = PlayerStat.includes(:user)
+      .where.not(user: { banned: true })
+      .where.not({name => nil})
+      .order("#{name} DESC")
+      .limit(100)
+      .select(
+        :user_id,
+        :updated_at,
+        name
+      )
+
     names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
     users.map.with_index do |a, index|
       {

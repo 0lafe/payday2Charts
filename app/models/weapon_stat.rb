@@ -93,18 +93,36 @@ class WeaponStat < ApplicationRecord
       record = name.gsub("bm_throwable", "grenade_#{filter}")
     end
 
-    users = WeaponStat.where.not({record => nil}).order("#{record} DESC").includes(:user).limit(100)
-    names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
-    users.map.with_index do |a, index|
+    kill_stat = record.gsub("#{type}#{filter}", "#{type}kills")
+    uses_stat = record.gsub("#{type}#{filter}", "#{type}used")
+    shots_stat = record.gsub("#{type}#{filter}", "#{type}shots")
+    hits_stat = record.gsub("#{type}#{filter}", "#{type}hits")
+
+    select_list = [:user_id, :updated_at]
+    select_list << kill_stat if WeaponStat.column_names.include?(kill_stat)
+    select_list << uses_stat if WeaponStat.column_names.include?(uses_stat)
+    select_list << shots_stat if WeaponStat.column_names.include?(shots_stat)
+    select_list << hits_stat if WeaponStat.column_names.include?(hits_stat)
+
+    stats = WeaponStat.includes(:user)
+      .where.not(user: { banned: true })
+      .where.not({record => nil})
+      .order("#{record} DESC")
+      .limit(100)
+      .select(select_list)
+
+    names = SteamApi.get_multiple_user_data(stats.map {|stat| stat.user.steam_id })
+
+    stats.map.with_index do |stat, index|
       {
         name: names[index][:name],
         avatar: names[index][:avatar],
-        steam_id: a.user.steam_id,
-        kills: a[record.gsub("#{type}#{filter}", "#{type}kills")],
-        uses: a[record.gsub("#{type}#{filter}", "#{type}used")],
-        shots: a[record.gsub("#{type}#{filter}", "#{type}shots")],
-        hits: a[record.gsub("#{type}#{filter}", "#{type}hits")],
-        updated_at: a.updated_at
+        steam_id: stat.user.steam_id,
+        kills: stat[kill_stat],
+        uses: stat[uses_stat],
+        shots: stat[shots_stat],
+        hits: stat[hits_stat],
+        updated_at: stat.updated_at
       }
     end
   end
