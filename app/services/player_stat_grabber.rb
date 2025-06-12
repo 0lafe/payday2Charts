@@ -126,7 +126,11 @@ class PlayerStatGrabber
         else
           user.fetch_new_stats
         end
-        true
+        if user.banned
+          "banned"
+        else
+          "success"
+        end
       else
         false
       end

@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   def create
-    if PlayerStatGrabber.store_individual(params[:user][:steam_id].gsub(/\D/, ''))
+    result = PlayerStatGrabber.store_individual(params[:user][:steam_id].gsub(/\D/, ''))
+    if result == "success"
       flash[:notice] = "User added successfully"
+    elsif result == "banned"
+      flash[:warning] = "User is currently banned. Reach out if this seems like an error"
     else
       flash[:alert] = "Error, make sure the ID is correct and the player's stats are public and try again"
     end

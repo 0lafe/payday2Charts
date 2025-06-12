@@ -175,24 +175,26 @@ table {
   border-collapse: collapse;
 }
 
-.alert {
+.flash-notification {
   color: white;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
+}
+
+.alert {
   background: red;
 }
 
 .notice {
-  color: white;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
   background: limegreen;
+}
+
+.warning {
+  color: #212529;
+  background: #ffc107;
 }
 
 .leaderboard-icon {

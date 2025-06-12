@@ -46,22 +46,24 @@ class Leaderboard
   end
 
   def store_top_100s(table)
-    i = 1
-    max = table.column_names.length
-    @top_100s[table.name.underscore] = table.column_names.map do |column|
-      p "Working on #{i} out of #{max}"
-      i += 1
-      {
-        name: column,
-        values: table.where.not({column => nil}).order("#{column} DESC").limit(100).pluck(:user_id)
-      }
+    first_filter = table.column_names.filter do |col|
+      !blacklist_single().include?(col)
     end
-    @top_100s[table.name.underscore].filter! do |stat|
-      !blacklist_single().include?(stat[:name])
+
+    second_filter = first_filter.filter do |col|
+      !blacklist_multiple().any? do |blacklist_stub|
+        col.starts_with?(blacklist_stub)
+      end
     end
-    blacklist_multiple().each do |blacklisted_stat|
-      @top_100s[table.name.underscore].filter! do |stat|
-        !stat[:name].start_with?(blacklisted_stat)
+
+    ActiveRecord::Base.connection.unprepared_statement do
+      @top_100s[table.name.underscore] = second_filter.each_with_index.map do |column, i|
+        GC.start if i % 100 == 0
+        p "Working on #{i + 1} out of #{second_filter.length}"
+        {
+          name: column,
+          values: table.joins(:user).where.not(user: { banned: true }).where.not({column => nil}).order("#{column} DESC").limit(100).select(:user_id).pluck(:user_id)
+        }
       end
     end
   end
