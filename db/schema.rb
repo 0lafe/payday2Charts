@@ -2552,6 +2552,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
     t.string "status", default: "waiting", null: false
   end
 
+  create_table "users_to_imports", force: :cascade do |t|
+    t.string "steam_id", null: false
+    t.string "status", default: "waiting", null: false
+  end
+
   create_table "weapon_stats", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "weapon_used_new_m4"

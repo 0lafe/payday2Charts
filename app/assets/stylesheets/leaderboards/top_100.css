@@ -1,0 +1,31 @@
+.top-100-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.top-100-header {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+#top_100_wrapper a {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .top-100-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #top_100_wrapper {
+    max-width: 100%;
+    font-size: 80%;  
+  }
+}

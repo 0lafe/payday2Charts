@@ -34,3 +34,18 @@
   justify-content: center;
   padding: 1rem;
 }
+
+@media (max-width: 768px) {
+  .calculator-container {
+    margin: 0;
+  }
+
+  .calculator-page-grid {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+
+  .calculator-chart {
+    margin: 0;
+  }
+}

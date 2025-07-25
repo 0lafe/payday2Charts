@@ -1,0 +1,61 @@
+<table id="leaderboard-table">
+    <thead>
+      <tr>
+        <th data-dt-order="disable">Rank</th>
+        <th data-dt-order="disable">Player</th>
+        <th data-dt-order="disable">FBI Files</th>
+        <th data-dt-order="disable">Steam Profile</th>
+        <th data-dt-order="disable">Top 100s</th>
+        <% if @grouping %>
+          <th>Kills</th>
+          <th>Uses</th>
+          <% if @grouping == "weapon" %>
+            <th>Shots</th>
+            <th>Shots Hit</th>
+          <% end %>
+        <% else %>
+          <th>Value</th>
+        <% end %>
+        <th data-dt-order="disable">Last Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @data.each_with_index do |stat, index| %>
+        <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "current_user" : "" %>">
+          <td>
+            <%= index + 1 %>
+          </td>
+          <td>
+            <%= image_tag(stat[:avatar], class: "steam-avatar") if stat[:avatar].present? %>
+            <%= stat[:name] %>
+          </td>
+          <td class="centered-td">
+            <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+              <%= image_tag("fbi-files.ico", class: "leaderboard-icon image-grow") %>
+            </a>
+          </td>
+          <td class="centered-td">
+            <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+              <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+            </a>
+          </td>
+          <td>
+            <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
+              <%= image_tag("fbi-logo.png", class: "leaderboard-icon image-grow") %>
+            </a>
+          </td>
+          <% if @grouping %>
+            <td><%= number_with_delimiter(stat[:kills]) %></td>
+            <td><%= number_with_delimiter(stat[:used]) %></td>
+            <% if @grouping == "weapon" %>
+              <td><%= number_with_delimiter(stat[:shots]) %></td>
+              <td><%= number_with_delimiter(stat[:hits]) %></td>
+            <% end %>
+          <% else %>
+            <td><%= number_with_delimiter(stat[:value]) %></td>
+          <% end %>
+          <td><%= stat[:updated_at].strftime("%b %d %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

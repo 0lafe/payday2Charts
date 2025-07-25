@@ -1,0 +1,54 @@
+.gifs-page {
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.gifs-container {
+  color: white;
+  margin-top: 1rem;
+}
+
+.gif-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px white solid;
+}
+
+.gif-title {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.gif-title span {
+  overflow-wrap: break-word;
+}
+
+.gif-image {
+  width: 40%;
+  display: flex;
+  justify-content: end;
+}
+
+@media (max-width: 768px) {
+  .gifs-page {
+    width: 100%;
+    margin: 0;
+  }
+
+  .gif-row {
+    flex-direction: column;
+  }
+
+  .gif-title {
+    width: 100%;
+  }
+
+  .gif-image {
+    width: 100%;
+    justify-content: center;
+  }
+}

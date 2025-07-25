@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_one :weapon_stat, dependent: :destroy
   has_one :player_stat, dependent: :destroy
   has_one :misc_stat, dependent: :destroy
+  has_many :steam_items
 
   scope :unbanned, -> { where(banned: false) }
   scope :banned, -> { where(banned: true) }
@@ -46,6 +47,10 @@ class User < ApplicationRecord
   end
 
   def self.me
-    User.find_by(steam_id: 76561198043378601)
+    find_by(steam_id: 76561198043378601)
+  end
+
+  def self.top_10_items
+    joins(:steam_items).select("users.*, SUM(steam_items.amount) AS total_items").group("users.id").order("total_items DESC").limit(10)
   end
 end

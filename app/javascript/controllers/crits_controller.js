@@ -4,6 +4,7 @@ import { Chart, registerables } from "chart.js"
 // Connects to data-controller="crits"
 export default class extends Controller {
   connect() {
+    $("#calculation-container").hide()
     $("#calculate").on("click", (e) => {
       e.preventDefault()
       this.calculate()
@@ -17,9 +18,14 @@ export default class extends Controller {
       this.distribution.map(item => item[0]),
       this.distribution.map(item => item[1])
     )
+    
     $("#calculation_values").text(
       `Average ${parseFloat(this.shots).toFixed(3)} shots`
     )
+    
+    $("#calculation-container").show()
+
+    $("html, body").animate({ scrollTop: $(document).height() }, 100);
   }
 
   async setVals() {

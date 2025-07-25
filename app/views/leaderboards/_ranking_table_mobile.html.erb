@@ -1,0 +1,113 @@
+<table id="leaderboard-table-mobile">
+  <thead>
+    <tr>
+      <th data-dt-order="disable">#</th>
+      <th data-dt-order="disable">Player</th>
+      <th data-dt-order="disable"><%= @filter&.titleize || "Value" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each_with_index do |stat, index| %>
+      <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "current_user" : "" %>">
+        <td>
+          <%= index + 1 %>
+        </td>
+        <td>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#view_profiles_<%= stat[:steam_id] %>">
+            <div>
+              <%= image_tag(stat[:avatar], class: "steam-avatar") if stat[:avatar].present? %>
+              <span>
+                <%= stat[:name] %>
+              </span>
+            </div>
+            <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <% if @grouping %>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#view_stats_<%= stat[:steam_id] %>">
+              <%= number_with_delimiter(stat[params[:filter]&.to_sym || :kills]) %>
+              <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;" aria-hidden="true"></i>
+            </button>
+          <% else %>
+            <%= number_with_delimiter(stat[:value]) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% @data.each do |stat| %>
+  <div class="modal fade" id="view_profiles_<%= stat[:steam_id] %>" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Profiles for <%= stat[:name] %>
+        </div>
+        <div class="modal-body">
+          <ul class="profile-links">
+            <li>
+              <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+                <%= image_tag("fbi-files.ico", class: "leaderboard-icon image-grow") %>
+                FBI Files
+              </a>
+            </li>
+            <li>
+              <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+                <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                Steam
+              </a>
+            </li>
+            <li>
+              <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
+                <%= image_tag("fbi-logo.png", class: "leaderboard-icon image-grow") %>
+                Top 100s
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="view_stats_<%= stat[:steam_id] %>" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Stats
+        </div>
+        <div class="modal-body">
+          <ul class="profile-links">
+            <% if @grouping %>
+              <li>
+                Kills: <%= number_with_delimiter(stat[:kills]) %>
+              </li>
+              <li>
+                Uses: <%= number_with_delimiter(stat[:used]) %>
+              </li>
+              <% if @grouping == "weapon" %>
+                <li>
+                  Shots: <%= number_with_delimiter(stat[:shots]) %>
+                </li>
+                <li>
+                  Hits: <%= number_with_delimiter(stat[:hits]) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

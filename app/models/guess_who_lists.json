@@ -1,9 +1,5 @@
 {
-  "content_creators_list": [
-    "0lafe.PNG",
-    "APX.PNG",
-    "AZ.PNG",
-    "Ace.PNG",
+  "content_creators_list_bak": [
     "Amke.PNG",
     "Arthrad.PNG",
     "BOI.PNG",
@@ -88,6 +84,51 @@
     "staufackar.PNG",
     "tuanbomb.PNG",
     "unknownknight.PNG"
+  ],
+  "content_creators_list": [
+    {
+      "name": "0lafe",
+      "id": "UC6_yRCglkuLrCxQ9s-oSa-A",
+      "platform": "yt",
+      "avatar_url": "https://yt3.ggpht.com/ytc/AIdro_ldbv_nB4VFOrQTjcrZ-AJgG2hKup7vz2b_G9fVF2kLKSU=s800-c-k-c0x00ffffff-no-rj"
+    },
+    {
+      "name": "Apxry",
+      "id": "UCH6F6L1UGi0XavzZfAd4yZg",
+      "platform": "yt",
+      "avatar_url": "https://yt3.ggpht.com/LMRwjtXnmLQHd2NXPzVG0DaJFeKBXHyYYFb-J3o3qFl81znEqZWaODxYD8_l6Wr4gJi0MQLNE8g=s800-c-k-c0x00ffffff-no-rj"
+    },
+    {
+      "name": "A.K. A.Z",
+      "id": "UCV8IovtMsgEoiZsGGHMr3TA",
+      "platform": "yt",
+      "avatar_url": "https://yt3.ggpht.com/ytc/AIdro_mazJ2FYjpCnxEwykwyVUoDAzywr09ZBaoMpyUn-axM1bE=s800-c-k-c0x00ffffff-no-rj"
+    },
+    {
+      "name": "Ace",
+      "id": "UCUAIwNi2O_YhFwY0fbNkV2g",
+      "platform": "yt"
+    },
+    {
+      "name": "",
+      "id": "",
+      "platform": "yt"
+    },
+    {
+      "name": "",
+      "id": "",
+      "platform": "yt"
+    },
+    {
+      "name": "",
+      "id": "",
+      "platform": "yt"
+    },
+    {
+      "name": "",
+      "id": "",
+      "platform": "yt"
+    }
   ],
   "heist_list": [
     "aftershockpng.png",

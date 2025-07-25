@@ -3,6 +3,8 @@ class GuessWho < ApplicationRecord
 
   validates :game_type, presence: true
 
+  @lists ||= JSON.parse(File.read("./app/models/guess_who_lists.json"))
+
   def self.game_types
     [
       ["Heist", "heist"],
@@ -16,7 +18,7 @@ class GuessWho < ApplicationRecord
   end
 
   def get_stat_names(stat_type)
-    black_list = JSON.parse(File.read("./app/models/guess_who_lists.json"))["black_list"]
+    black_list = @lists["black_list"]
 
     stats = SteamApi.schema.filter do |stat|
       stat["name"].starts_with?(stat_type) && !black_list.include?(stat["name"])
@@ -28,15 +30,16 @@ class GuessWho < ApplicationRecord
   end
 
   def set_items
-    lists = JSON.parse(File.read("./app/models/guess_who_lists.json"))
+    @lists ||= JSON.parse(File.read("./app/models/guess_who_lists.json"))
+
     if game_type == "heist"
-      self.items = lists["heist_list"].sample(24)
+      self.items = @lists["heist_list"].sample(24)
     elsif game_type == "content_creators"
-      self.items = lists["content_creators_list"].sample(24)
+      self.items = @lists["content_creators_list_bak"].sample(24)
     elsif game_type == "characters"
-      self.items = lists["characters_list"].sample(24)
+      self.items = @lists["characters_list"].sample(24)
     elsif game_type == "skins"
-      self.items = lists["skins"].keys.sample(24)
+      self.items = @lists["skins"].keys.sample(24)
     else
       item_stats = []
       if game_type == "mask"
@@ -51,7 +54,6 @@ class GuessWho < ApplicationRecord
   end
 
   def self.skin_data(skin_id)
-    @lists ||= JSON.parse(File.read("./app/models/guess_who_lists.json"))
     @lists["skins"][skin_id]
   end
 
@@ -69,5 +71,33 @@ class GuessWho < ApplicationRecord
     when "legendary"
       "https://fbi.paydaythegame.com/assets/img/weapons/skins/rarity-5.png"
     end
+  end
+
+  def self.update_avatars
+    @creator_list = @lists["content_creators_list"]
+
+    @youtube = @creator_list.filter {|creator| creator["platform"] == "yt" }
+    @twitch = @creator_list - @youtube
+
+
+    ids = @youtube.map do |creator|
+      creator["id"]
+    end
+    
+    reply = YoutubeApi.get_avatars(ids)
+    
+    youtube_results = {}
+    reply["items"].each do |user|
+      id = user["id"]
+      avatar_url = user["snippet"]["thumbnails"]["high"]["url"]
+      youtube_results[id] = avatar_url
+    end
+
+    youtube_out = @youtube.map do |user|
+      user["avatar_url"] = youtube_results[user["id"]]
+      user
+    end
+
+    byebug
   end
 end

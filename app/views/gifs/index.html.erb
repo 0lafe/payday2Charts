@@ -1,35 +1,32 @@
-<div class="background-image"></div>
-
-<div style="display:flex;flex-direction:row;justify-content:center;padding:2rem;">
-  <div class="portlet-container" style="padding: 1rem;">
-    <h1>Gifs</h1>
-    <hr/>
-    <p>Paste these links into discord for a silly method of sharing files</p>
-    <p>They display as gifs when embeded in discord, but visiting the link will prompt a download</p>
-  </div>
-</div>
-<div data-controller="gifs" style="display:flex;justify-content:center;">
-  <div style="width:80%">
-    <% DownloadGif.all.each do |gif| %>
-      <div class="row" style="margin-top:2rem;">
-        <div class="col-md-4">
-          <h1 style="color:white;float:left;"><%= gif.name.titleize %></h1>
-        </div>
-        <div class="col-md-4">
-          <div>
-            <%= image_tag("gifs/#{gif.name}.gif") %>
+<div class="page">
+  <div class="gifs-page">
+    <div class="portlet-container">
+      <div>
+        <h1>Gifs</h1>
+        <hr/>
+        <p>Paste these links into discord for a silly method of sharing files</p>
+        <p>They display as gifs when embeded in discord, but visiting the link will prompt a download</p>
+      </div>
+    </div>
+    <div data-controller="gifs" class="gifs-container">
+      <% DownloadGif.all.each do |gif| %>
+        <div class="gif-row">
+          <div class="gif-title">
+            <h1><%= gif.name.titleize %></h1>
+            <h3 data-bs-toggle="tooltip" title="Copy" data-bs-placement="top">
+              <i class="fa-solid fa-clipboard copy-link"></i>
+              <span>
+                <%= "https://payday-charts.com/gifs/#{gif.name}.gif" %>
+              </span>
+            </h3>
+          </div>
+          <div class="gif-image">
+            <div>
+              <%= image_tag("gifs/#{gif.name}.gif") %>
+            </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <h2>
-            <i class="fa-solid fa-clipboard copy-link" style="color:white" data-id="<%= gif.id %>" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top"></i>
-            <span style="color:white;overflow-wrap:anywhere;" id="copy-link-<%= gif.id %>">
-              <%= "https://payday-charts.com/gifs/#{gif.name}.gif" %>
-            </span>
-          </h2>
-        </div>
-      </div>
-      <hr style="background-color:white;color:white;height:4px;border:none;opacity:100;"/>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

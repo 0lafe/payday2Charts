@@ -1,6 +1,6 @@
 <% if !(params[:controller] == 'jeopardy_games') %>
   <ul class="nav-bar-container">
-    <div style="display:flex;">
+    <div class="nav-bar-item">
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
         <%= link_to "Leaderboards", root_path, data: { turbo: false } %>
       </li>
@@ -21,43 +21,59 @@
       </li>
     </div>
 
-    <div style="display:flex;">
+    <div class="nav-bar-item">
       <li class="nav-element nav-element-right">
         <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">
           Report Bugs Here
           <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i>
         </a>
       </li>
-      <% if current_user %>
-        <li class="nav-element nav-element-right">
-          <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= image_tag(current_user.avatar || "", class: "steam-avatar", style: "max-height:90%") %>
-            <%= current_user.steam_name %>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <%= button_to "Sign Out",
-                {
-                  controller: :sessions,
-                  action: 'destroy',
-                  id: 123
-                },
-                :method => :delete,
-                data: {
-                  turbo: false
-                },
-                class: "dropdown-item"
-              %>
-            </li>
-          </ul>
-        </li>
-      <% else %>
-        <li class="nav-element nav-element-right">
-          <%= link_to(new_session_path) do %>
-            <%= image_tag("steam_login.png") %>
-          <% end %>
-        </li>
-      <% end %>
+      <%= render "shared/nav_bar_profile" %>
+    </div>
+
+    <div class="mobile-nav-bar-item">
+      <li>
+        <button class="mobile-side-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-menu" aria-controls="sidebar-menu">
+          <%= image_tag("icons/bar-menu.svg") %>
+        </button>
+      </li>
+      <%= render "shared/nav_bar_profile" %>
     </div>
   </ul>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar-menu" aria-labelledby="sidebar-menu-label">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="sidebar-menu-label">Pages</h5>
+      <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="sidebar-links-container">
+        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
+          <%= link_to "Leaderboards", root_path, data: { turbo: false } %>
+        </li>
+        <li class="sidebar-nav-item <%= 'active-nav' if current_page?(controller: 'charts', action: 'index') %>" >
+          <%= link_to "Community Charts", charts_path, data: { turbo: false } %>
+        </li>
+        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
+          <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
+        </li>
+        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
+          <%= link_to "Guess Who", guess_whos_path, data: { turbo: false } %>
+        </li>
+        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'gifs' && %w(index show).include?(params[:action]) %>">
+          <%= link_to "Gifs", gifs_path, data: { turbo: false } %>
+        </li>
+        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'crits' %>">
+          <%= link_to "Crit Calculator", crits_path, data: { turbo: false } %>
+        </li>
+        <hr/>
+        <li class="sidebar-nav-item">
+          <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank" class="github-nav">
+            <%= image_tag("icons/github-white.svg", class: "github-nav-item") %>
+            Report Bugs Here
+            <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 <% end %>

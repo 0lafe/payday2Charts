@@ -1,6 +1,5 @@
-<div class="background-image"></div>
 <div class="page">
-  <div style="display:flex;flex-direction:row;align-items:stretch;justify-content:center;margin-top:4rem;margin-bottom:2rem;" class='page-container'>
+  <div class='top-100-container'>
     <div class='portlet-container'>
       <p class='add-user-form'>Input a user's steam ID to find which leaderboards they are on</p>
       <p class='add-user-form'>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
@@ -10,22 +9,14 @@
         <%= f.button :submit, 'Check Stats', class: 'add-user-form submit-button btn btn-primary', id: 'submit-button' %>
       <% end %>
     </div>
-    <div class='portlet-container' style="margin: 0 4rem;display:flex;flex-direction:column;justify-content:space-between;">
+    <div class='portlet-container' style="display:flex;flex-direction:column;justify-content:space-between;">
       <p class='add-user-form'>Logged in users are able to check their own stats without inputting their id</p>
       <% if current_user %>
         <p class='add-user-form'>Check your own stats</p>
         <hr style="width:90%;margin:auto;"/>
-        <div style="display:flex;justify-content:center;">
-          <%= simple_form_for :logged_in_user do |f| %>
-            <%= f.button :submit, 'Check Personal Stats', class: 'add-user-form submit-button btn btn-primary', id: 'logged-in-submit-button' %>
-          <% end %>
+        <div style="display:flex;justify-content:center;margin-top: 0.5rem;">
+          <%= link_to "Check Personal Stats", top_100_leaderboard_path(current_user.steam_id), class: "btn btn-primary", data: { turbo: false } %>
         </div>
-        <script>
-          $('#logged-in-submit-button').on('click', (e) => {
-            e.preventDefault()
-            window.location.href = `/leaderboards/<%= current_user.steam_id %>/top_100`
-          })
-        </script>
       <% else %>
         <div style="display:flex;justify-content:center;margin: 2rem;">
           <%= link_to(new_session_path) do %>

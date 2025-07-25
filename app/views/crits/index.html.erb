@@ -1,40 +1,42 @@
-<div class="calculator-page-grid" data-controller="crits">
-  <div class="calculator-container portlet-container">
-    <%= simple_form_for :calculation do |f| %>
-      <div class="calculator-input">
-        <%= f.label :base_weapon_damage, 'Base Weapon Damage' %>
-        <%= f.number_field :base_weapon_damage %>
-      </div>
-      <div class="calculator-input">
-        <%= f.label :crit_chance, 'Crit Chance (ex. 65 for 65%)' %>
-        <%= f.number_field :crit_chance %>
-      </div>
-      <div class="calculator-input">
-        <%= f.label :crit_mul, 'Crit Multiplier' %>
-        <%= f.number_field :crit_mul %>
-      </div>
-      <div class="calculator-input">
-        <%= f.label :enemy_health, 'Enemy Health' %>
-        <%= f.number_field :enemy_health %>
-      </div>
-      <div class="calculator-input">
-        <%= f.label :headshot_mul, '(Optional) Headshot Multiplier' %>
-        <%= f.number_field :headshot_mul %>
-      </div>
-      <div class="calculator-input">
-        <%= f.label :additional_mul, '(Optional) Additional Multiplier (Zerk, Overkill, etc)' %>
-        <%= f.number_field :additional_mul %>
-      </div>
-      <div class="calculator-input">
-        <%= f.submit 'Calculate', class: "btn btn-primary", id: "calculate" %>
-      </div>
-    <% end %>
-  </div>
+<div class="page">
+  <div class="calculator-page-grid" data-controller="crits">
+    <div class="calculator-container portlet-container">
+      <%= simple_form_for :calculation do |f| %>
+        <div class="calculator-input">
+          <%= f.label :base_weapon_damage, 'Base Weapon Damage' %>
+          <%= f.number_field :base_weapon_damage %>
+        </div>
+        <div class="calculator-input">
+          <%= f.label :crit_chance, 'Crit Chance (ex. 65 for 65%)' %>
+          <%= f.number_field :crit_chance %>
+        </div>
+        <div class="calculator-input">
+          <%= f.label :crit_mul, 'Crit Multiplier' %>
+          <%= f.number_field :crit_mul %>
+        </div>
+        <div class="calculator-input">
+          <%= f.label :enemy_health, 'Enemy Health' %>
+          <%= f.number_field :enemy_health %>
+        </div>
+        <div class="calculator-input">
+          <%= f.label :headshot_mul, '(Optional) Headshot Multiplier' %>
+          <%= f.number_field :headshot_mul %>
+        </div>
+        <div class="calculator-input">
+          <%= f.label :additional_mul, '(Optional) Additional Multiplier (Zerk, Overkill, etc)' %>
+          <%= f.number_field :additional_mul %>
+        </div>
+        <div class="calculator-input">
+          <%= f.submit 'Calculate', class: "btn btn-primary", id: "calculate" %>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="calculator-chart portlet-container">
-    <canvas id="calculation_chart"></canvas>
-    <div class="calculator-output">
-      <h1 id="calculation_values"></h1>
+    <div id="calculation-container" class="calculator-chart portlet-container">
+      <canvas id="calculation_chart"></canvas>
+      <div class="calculator-output">
+        <h1 id="calculation_values"></h1>
+      </div>
     </div>
   </div>
 </div>

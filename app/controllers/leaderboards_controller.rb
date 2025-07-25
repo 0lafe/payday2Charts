@@ -19,17 +19,16 @@ class LeaderboardsController < ApplicationController
     end
   end
 
-  def top_100_index
-  end
+  def top_100_index; end
 
   def top_100
-    @user = User.find_by(steam_id: params[:id].gsub(/\D/, ''))
-    return if @user.nil?
+    @leaderboard_user = User.find_by(steam_id: params[:id].gsub(/\D/, ''))
+    return if @leaderboard_user.nil?
 
-    @stats = Leaderboard.user_positions(@user).sort_by { |item| item[:value] }
-    @weapon_stats = WeaponStat.find_by(user_id: @user.id)
-    @player_stats = PlayerStat.find_by(user_id: @user.id)
-    @misc_stats = MiscStat.find_by(user_id: @user.id)
+    @stats = Leaderboard.user_positions(@leaderboard_user).sort_by { |item| item[:value] }
+    @weapon_stats = WeaponStat.find_by(user_id: @leaderboard_user.id)
+    @player_stats = PlayerStat.find_by(user_id: @leaderboard_user.id)
+    @misc_stats = MiscStat.find_by(user_id: @leaderboard_user.id)
   end
 
   private

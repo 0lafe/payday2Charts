@@ -93,6 +93,7 @@ gem "bootstrap"
 gem "sassc-rails"
 gem "oauth2"
 gem "down"
+gem "async"
 gem 'ruby-openid', '~> 2.9', '>= 2.9.2'
 gem 'rexml'
 gem 'sentry-ruby'

@@ -1,23 +1,22 @@
-<div class="background-image"></div>
 <div class="page">
-  <div style="display:flex;flex-direction:column;align-items:center;padding-top:2rem;" class='page-container'>
-    <% if @user.present? %>
+  <div class='page-container'>
+    <% if @leaderboard_user.present? %>
       <% if @stats.length %>
-        <div class="portlet-container" style="display:flex;flex-direction:column;padding:1rem;align-items:center;">
+        <div class="portlet-container top-100-header">
           <h1 style="display:flex;align-items:center;">
-            <%= image_tag(@user.avatar, class: "steam-avatar") %>
-            <%= @user.name %>
+            <%= image_tag(@leaderboard_user.avatar, class: "steam-avatar") %>
+            <%= @leaderboard_user.name %>
           </h1>
           <h2>
-             has <%= @stats.length %> top 100 stats!
+            Top 100 in <%= @stats.length %> stats
           </h2>
         </div>
-        <div class="statistic-choice portlet-container">
+        <div class="portlet-container top-100-table">
           <table style="min-width:60%" id="top_100">
             <thead>
               <tr>
                 <th data-dt-order="disable">Stat name</th>
-                <th data-dt-order="disable">Position</th>
+                <th data-dt-order="disable">Rank</th>
                 <th data-dt-order="disable">Value</th>
               </tr>
             </thead>
@@ -25,6 +24,7 @@
               <% @stats.each do |stat| %>
                 <tr>
                   <td>
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
                     <% if WeaponStat.has_filtering?(stat[:name]) %>
                       <%= link_to(
                         Localizer.localize_from_statistic(stat[:name]),
@@ -48,7 +48,7 @@
         </div>
       <% else %>
         <h1 style="color:white">
-          <%= @user.name %> is not in the top 100 for any stats
+          <%= @leaderboard_user.name %> is not in the top 100 for any stats
         </h1>
       <% end %>
     <% else %>

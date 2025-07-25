@@ -7,10 +7,10 @@ export default class extends Controller {
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-  
-    $('.copy-link').on('click', (e) => {
-      const link = $(`#copy-link-${e.target.dataset.id}`)
-      navigator.clipboard.writeText(link.text())
+
+    $(".gif-title h3").click(function() {
+      const link = $(this).find("span").text().replace(/\s+/g, '')
+      navigator.clipboard.writeText(link)
     })
   }
 }

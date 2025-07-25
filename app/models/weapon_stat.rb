@@ -119,7 +119,7 @@ class WeaponStat < ApplicationRecord
         avatar: names[index][:avatar],
         steam_id: stat.user.steam_id,
         kills: stat[kill_stat],
-        uses: stat[uses_stat],
+        used: stat[uses_stat],
         shots: stat[shots_stat],
         hits: stat[hits_stat],
         updated_at: stat.updated_at

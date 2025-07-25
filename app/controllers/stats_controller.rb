@@ -1,6 +1,8 @@
 class StatsController < ApplicationController
   def show
-    render json: {data: generate_data(params[:id])}
+    render json: {
+      data: generate_data(params[:id])
+    }
   end
 
   private
