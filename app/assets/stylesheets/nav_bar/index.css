@@ -128,6 +128,10 @@ a.github-nav {
   padding: 0;
 }
 
+.steam-signin-icon {
+  max-height: 80%;
+}
+
 @media (max-width: 768px) {
   .nav-bar-container .nav-bar-item {
     display: none;

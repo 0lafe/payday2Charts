@@ -25,6 +25,11 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
+# Ignore openid storage
+/tmp/openid/*
+!/tmp/openid/
+!/tmp/openid/.keep
+
 /public/assets
 
 # Ignore master key for decrypting credentials and more.

@@ -36,7 +36,12 @@ Rails.application.routes.draw do
 
   resources :jeopardy_players, only: [:update]
 
-  resources :sessions, only: [:index, :new, :destroy]
+  resources :sessions, only: [:new, :destroy] do
+    collection do
+      post "redirect_to_steam"
+      get "process_openid_return"
+    end
+  end
 
   resources :charts, only: [:index]
 
