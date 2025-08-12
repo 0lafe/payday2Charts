@@ -1,4 +1,6 @@
 class SkinsController < ApplicationController
+  before_action :validate_user
+
   def index
     @median_list = JSON.parse(REDIS_CLIENT.get("inventory_value_lb_median"))
     @item_count_list = JSON.parse(REDIS_CLIENT.get("top_item_lb"))
@@ -11,5 +13,11 @@ class SkinsController < ApplicationController
 
   def show
     @user = User.find_by(steam_id: params[:id])
+  end
+
+  private
+
+  def validate_user
+    redirect_to root_path, alert: "Page is currently a WiP" unless current_user && current_user.me?
   end
 end

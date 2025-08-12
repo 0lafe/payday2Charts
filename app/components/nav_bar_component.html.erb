@@ -10,9 +10,11 @@
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
         <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
       </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'skins' %>">
-        <%= link_to "Skins", skins_path, data: { turbo: false } %>
-      </li>
+      <% if current_user && current_user.me? %>
+        <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'skins' %>">
+          <%= link_to "Skins", skins_path, data: { turbo: false } %>
+        </li>
+      <% end %>
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
         <%= link_to "Guess Who", guess_whos_path, data: { turbo: false } %>
       </li>
@@ -56,6 +58,11 @@
         <li class="sidebar-nav-item <%= 'active-nav' if current_page?(controller: 'charts', action: 'index') %>" >
           <%= link_to "Community Charts", charts_path, data: { turbo: false } %>
         </li>
+        <% if current_user && current_user.me? %>
+          <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'skins' %>">
+            <%= link_to "Skins", skins_path, data: { turbo: false } %>
+          </li>
+        <% end %>
         <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
           <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
         </li>
