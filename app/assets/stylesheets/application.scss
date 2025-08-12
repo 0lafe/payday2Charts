@@ -227,6 +227,16 @@ form input {
   margin: 0.5rem;
 }
 
+.nav-tabs .nav-link {
+  color: black;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #0085b6;
+  border-color: #0085b6;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .flash-notification {
     margin-top: 1rem;

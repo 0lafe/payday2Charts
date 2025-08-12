@@ -45,5 +45,13 @@ Rails.application.routes.draw do
 
   resources :charts, only: [:index]
 
+  resources :skins, only: [:index, :show] do
+    collection do
+      get "top_inventories"
+      get "inventory_search"
+      get "item_search"
+    end
+  end
+
   root "leaderboards#index"
 end

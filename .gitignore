@@ -42,3 +42,6 @@ app/assets/builds/*
 node_modules/
 .rake_tasks~
 inventory_req_headers.json
+market_history_req_headers.json
+
+notes.md

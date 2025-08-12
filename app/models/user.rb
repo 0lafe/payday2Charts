@@ -8,6 +8,7 @@ class User < ApplicationRecord
   scope :banned, -> { where(banned: true) }
 
   validates :steam_id, presence: true
+  validates :steam_id, uniqueness: true
   validates :banned, inclusion: { in: [true, false] }
 
   def steam_data
@@ -46,11 +47,35 @@ class User < ApplicationRecord
     end
   end
 
+  def me?
+    ["76561199634345752", "76561198043378601"].include?(steam_id)
+  end
+
   def self.me
     find_by(steam_id: 76561198043378601)
   end
 
-  def self.top_10_items
-    joins(:steam_items).select("users.*, SUM(steam_items.amount) AS total_items").group("users.id").order("total_items DESC").limit(10)
+  def self.top_item_count
+    joins(:steam_items)
+      .select("users.*, SUM(steam_items.amount) AS total_items")
+      .group("users.id")
+      .order("total_items DESC")
+      .limit(25)
+  end
+  
+  def self.top_individual_item_count
+    joins(:steam_items)
+      .select("users.*, MAX(steam_items.amount) AS max_quantity")
+      .group("users.id")
+      .order("max_quantity DESC")
+      .limit(25)
+  end
+
+  def self.top_worth_median
+    joins(steam_items: :steam_item_data)
+      .select("users.*, SUM(steam_items.amount * steam_item_data.median_price) AS total_value")
+      .group("users.id")
+      .order("total_value DESC")
+      .limit(25)
   end
 end

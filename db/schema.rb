@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_213517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2528,12 +2528,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
     t.string "rarity"
     t.string "bonus"
     t.string "collection"
+    t.integer "item_nameid"
+    t.decimal "average_price", precision: 8, scale: 2
+    t.decimal "median_price", precision: 8, scale: 2
+    t.decimal "lowest_price", precision: 8, scale: 2
+    t.decimal "highest_price", precision: 8, scale: 2
   end
 
   create_table "steam_items", force: :cascade do |t|
     t.bigint "user_id"
     t.integer "amount", null: false
-    t.string "class_id", null: false
+    t.bigint "steam_item_data_id", null: false
+    t.index ["steam_item_data_id"], name: "index_steam_items_on_steam_item_data_id"
     t.index ["user_id"], name: "index_steam_items_on_user_id"
   end
 
@@ -2545,11 +2551,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
     t.string "steam_name"
     t.string "steam_avatar"
     t.boolean "banned", default: false, null: false
-  end
-
-  create_table "users_to_imports", force: :cascade do |t|
-    t.string "steam_id", null: false
-    t.string "status", default: "waiting", null: false
+    t.index ["steam_id"], name: "index_users_on_steam_id", unique: true
   end
 
   create_table "users_to_imports", force: :cascade do |t|
@@ -3914,4 +3916,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_213905) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "steam_items", "steam_item_data", column: "steam_item_data_id"
 end

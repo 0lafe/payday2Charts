@@ -1,0 +1,375 @@
+<div class="page">
+  <div class='top-100-container'>
+    <div class='portlet-container'>
+      <h2>Check the value of a User's Inventory</h2>
+      <span class='add-user-form'>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></span>
+      <hr style="width:90%;margin:auto;"/>
+      <%= simple_form_for :user_search, url: inventory_search_skins_path do |f| %>
+        <%= f.input :steam_id, label: 'Steam 64 ID' %>
+        <%= f.button :submit, 'Check Value', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+    <div class='portlet-container' style="display:flex;flex-direction:column;justify-content:space-between;">
+      <p class='add-user-form'>Logged in users are able to check their own inventory without inputting their ID</p>
+      <% if current_user %>
+        <div style="display:flex;justify-content:center;margin-top: 0.5rem;">
+          <%= link_to "Check Personal Inventory", skin_path(current_user.steam_id), class: "btn btn-primary", data: { turbo: false } %>
+        </div>
+      <% else %>
+        <div style="display:flex;justify-content:center;margin: 2rem;">
+          <%= link_to(new_session_path) do %>
+            <%= image_tag("steam_login.png") %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="skin-lb-container">
+    <div class='portlet-container'>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="inventory-worth-tab" data-bs-toggle="tab" data-bs-target="#inventory-worth" type="button" role="tab" aria-controls="inventory-worth" aria-selected="true">Inventories Worth</button>
+          <button class="nav-link" id="total-item-count-tab" data-bs-toggle="tab" data-bs-target="#total-item-count" type="button" role="tab" aria-controls="total-item-count" aria-selected="false">Total Item Count</button>
+          <button class="nav-link" id="individual-item-count-tab" data-bs-toggle="tab" data-bs-target="#individual-item-count" type="button" role="tab" aria-controls="individual-item-count" aria-selected="false">Individual Item Count</button>
+          <button class="nav-link" id="average-item-price-tab" data-bs-toggle="tab" data-bs-target="#average-item-price" type="button" role="tab" aria-controls="average-item-price" aria-selected="false">Item Price (Average Sale)</button>
+          <button class="nav-link" id="median-item-price-tab" data-bs-toggle="tab" data-bs-target="#median-item-price" type="button" role="tab" aria-controls="median-item-price" aria-selected="false">Item Price (Median sale)</button>
+          <button class="nav-link" id="highest-item-price-tab" data-bs-toggle="tab" data-bs-target="#highest-item-price" type="button" role="tab" aria-controls="highest-item-price" aria-selected="false">Item Price (Highest Sale)</button>
+          <button class="nav-link" id="existance-tab" data-bs-toggle="tab" data-bs-target="#existance" type="button" role="tab" aria-controls="existance" aria-selected="false">Total Existing Items</button>
+        </div>
+      </nav>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="inventory-worth" role="tabpanel" aria-labelledby="inventory-worth-tab">
+          <table id="median-table">
+            <thead>
+              <th>
+                Inventory Value*
+              </th>
+              <th>
+                Player
+              </th>
+              <th>
+                Steam Profile
+              </th>
+            </thead>
+            <tbody>
+              <% @median_list.each do |user| %>
+                <tr>
+                  <td>
+                    $<%= user["total_value"].round(2) %>
+                  </td>
+                  <td>
+                    <%= image_tag(user["avatar"], class: "steam-avatar") if user["avatar"].present? %>
+                    <%= user["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <a href="https://steamcommunity.com/profiles/<%= user["steam_id"] %>" target="_blank">
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    </a>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="total-item-count" role="tabpanel" aria-labelledby="total-item-count-tab">
+          <table id="total-item-count-table">
+            <thead>
+              <th>
+                Item Count
+              </th>
+              <th>
+                Player
+              </th>
+              <th>
+                Steam Profile
+              </th>
+            </thead>
+            <tbody>
+              <% @item_count_list.each do |user| %>
+                <tr>
+                  <td>
+                    <%= user["total_items"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(user["avatar"], class: "steam-avatar") if user["avatar"].present? %>
+                    <%= user["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <a href="https://steamcommunity.com/profiles/<%= user["steam_id"] %>" target="_blank">
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    </a>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="individual-item-count" role="tabpanel" aria-labelledby="individual-item-count-tab">
+          <table id="individual-item-count-table">
+            <thead>
+              <th>
+                Item Count
+              </th>
+              <th>
+                Item
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Player
+              </th>
+              <th>
+                Steam Profile
+              </th>
+            </thead>
+            <tbody>
+              <% @individual_item_count_list.each do |user| %>
+                <tr>
+                  <td>
+                    <%= user["total_items"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(user["item_image_url"]) if user["item_image_url"].present? %>
+                  </td>
+                  <td>
+                    <%= user["item_name"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(user["avatar"], class: "steam-avatar") if user["avatar"].present? %>
+                    <%= user["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <a href="https://steamcommunity.com/profiles/<%= user["steam_id"] %>" target="_blank">
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    </a>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="average-item-price" role="tabpanel" aria-labelledby="average-item-price-tab">
+          <table id="average-item-price-table">
+            <thead>
+              <th>
+                Item Price
+              </th>
+              <th>
+                Total Quantity
+              </th>
+              <th>
+                Item
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Steam Market Link
+              </th>
+            </thead>
+            <tbody>
+              <% @average_price_lb.each do |item| %>
+                <tr>
+                  <td>
+                    $<%= item["price"].round(2) %>
+                  </td>
+                  <td>
+                    <%= item["amount"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(item["image_url"]) if item["image_url"].present? %>
+                  </td>
+                  <td>
+                    <%= item["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <%= link_to item["link"], target: :_blank do %>
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="median-item-price" role="tabpanel" aria-labelledby="median-item-price-tab">
+          <table id="median-item-price-table">
+            <thead>
+              <th>
+                Item Price
+              </th>
+              <th>
+                Total Quantity
+              </th>
+              <th>
+                Item
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Steam Market Link
+              </th>
+            </thead>
+            <tbody>
+              <% @median_price_lb.each do |item| %>
+                <tr>
+                  <td>
+                    $<%= item["price"].round(2) %>
+                  </td>
+                  <td>
+                    <%= item["amount"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(item["image_url"]) if item["image_url"].present? %>
+                  </td>
+                  <td>
+                    <%= item["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <%= link_to item["link"], target: :_blank do %>
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="highest-item-price" role="tabpanel" aria-labelledby="highest-item-price-tab">
+          <table id="highest-item-price-table">
+            <thead>
+              <th>
+                Item Price
+              </th>
+              <th>
+                Total Quantity
+              </th>
+              <th>
+                Item
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Steam Market Link
+              </th>
+            </thead>
+            <tbody>
+              <% @highest_price_lb.each do |item| %>
+                <tr>
+                  <td>
+                    $<%= item["price"].round(2) %>
+                  </td>
+                  <td>
+                    <%= item["amount"] %>
+                  </td>
+                  <td>
+                    <%= image_tag(item["image_url"]) if item["image_url"].present? %>
+                  </td>
+                  <td>
+                    <%= item["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <%= link_to item["link"], target: :_blank do %>
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="existance" role="tabpanel" aria-labelledby="existance-tab">
+          <table id="existance-table">
+            <thead>
+              <th>
+                Total Quantity
+              </th>
+              <th>
+                Median Sale Price
+              </th>
+              <th>
+                Item
+              </th>
+              <th>
+                Item Name
+              </th>
+              <th>
+                Steam Market Link
+              </th>
+            </thead>
+            <tbody>
+              <% @item_existance_lb.each do |item| %>
+                <tr>
+                  <td>
+                    <%= item["amount"] %>
+                  </td>
+                  <td>
+                    $<%= item["price"].round(4) %>
+                  </td>
+                  <td>
+                    <%= image_tag(item["image_url"]) if item["image_url"].present? %>
+                  </td>
+                  <td>
+                    <%= item["name"] %>
+                  </td>
+                  <td class="centered-td">
+                    <%= link_to item["link"], target: :_blank do %>
+                      <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#median-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#total-item-count-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#individual-item-count-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#average-item-price-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#median-item-price-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#highest-item-price-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+
+  $("#existance-table").DataTable({
+    paging: false,
+    info: false,
+    ordering: false
+  })
+</script>

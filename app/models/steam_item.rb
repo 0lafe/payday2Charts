@@ -1,6 +1,6 @@
 class SteamItem < ApplicationRecord
   belongs_to :user
-  belongs_to :steam_item_data, foreign_key: :class_id, primary_key: :id
+  belongs_to :steam_item_data
 
   validates :class_id, presence: true
   validates :amount, presence: true
