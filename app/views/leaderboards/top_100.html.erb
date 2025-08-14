@@ -10,6 +10,9 @@
           <h2>
             Top 100 in <%= @stats.length %> stats
           </h2>
+          <p>
+            Last LB reset at <%= Leaderboard.read["updated_at"] %>
+          </p>
         </div>
         <div class="portlet-container top-100-table">
           <table style="min-width:60%" id="top_100">

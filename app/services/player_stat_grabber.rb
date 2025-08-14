@@ -121,8 +121,8 @@ class PlayerStatGrabber
       if data['playerstats'] && data['playerstats']['stats']
         user = User.find_by(steam_id: id)
         if !user.present?
-          user = User.create(steam_id: id).id
-          store_data(data['playerstats']['stats'], user)
+          user = User.create(steam_id: id)
+          store_data(data['playerstats']['stats'], user.id)
         else
           user.fetch_new_stats
         end
@@ -137,4 +137,3 @@ class PlayerStatGrabber
     end
   end
 end
-

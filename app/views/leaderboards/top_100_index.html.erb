@@ -1,6 +1,17 @@
 <div class="page">
   <div class='top-100-container'>
     <div class='portlet-container'>
+      <h2>
+        Global Top 100 Leaderboards
+      </h2>
+      <p>
+        Data on how many leaderboards an individual user is within the top 100 players for
+      </p>
+      <p>
+        Top 100 leaderboards are reset roughly every 8 hours. The last reset was at <%= Leaderboard.read["updated_at"] %>
+      </p>
+    </div>
+    <div class='portlet-container'>
       <p class='add-user-form'>Input a user's steam ID to find which leaderboards they are on</p>
       <p class='add-user-form'>Steam ID's can be found <a href='https://steamid.xyz/' target='_blank'>here</a></p>
       <hr style="width:90%;margin:auto;"/>

@@ -22,8 +22,20 @@ class LeaderboardsController < ApplicationController
   def top_100_index; end
 
   def top_100
-    @leaderboard_user = User.find_by(steam_id: params[:id].gsub(/\D/, ''))
-    return if @leaderboard_user.nil?
+    steam_id = params[:id].gsub(/\D/, '')
+    @leaderboard_user = User.find_by(steam_id:)
+
+    if @leaderboard_user.nil?
+      status = PlayerStatGrabber.store_individual(steam_id)
+      case status
+      when "success"
+        @leaderboard_user = User.find_by(steam_id:)
+      when "banned"
+        redirect_to(top_100_index_leaderboards_path, alert: "User is currently banned") && return
+      when false
+        redirect_to(top_100_index_leaderboards_path, alert: "Error, make sure the ID is correct and the player's stats are public and try again") && return
+      end
+    end
 
     @stats = Leaderboard.user_positions(@leaderboard_user).sort_by { |item| item[:value] }
     @weapon_stats = WeaponStat.find_by(user_id: @leaderboard_user.id)
