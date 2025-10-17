@@ -1,0 +1,22 @@
+<% if params[:controller] == "leaderboards" %>
+  <% if params[:action] == "show" %>
+    <% if params[:grouping].present? %>
+      <title>
+        <%= @name %>
+        <% if params[:filter].present? %>
+          <%= params[:filter].titleize %>
+        <% else %>
+          Kills
+        <% end %>
+      </title>
+    <% else %>
+      <title><%= @name %></title>
+    <% end %>
+  <% elsif params[:action] == "top_100_index" %>
+    <meta property="og:description" content="Payday 2 Top 100">
+  <% elsif params[:action] == "top_100" %>
+    <meta property="og:description" content="Top 100 for <%= @leaderboard_user.name %>">
+  <% end %>
+<% else  %>
+  <title>Payday Charts</title>
+<% end %>

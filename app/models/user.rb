@@ -78,4 +78,12 @@ class User < ApplicationRecord
       .order("total_value DESC")
       .limit(25)
   end
+
+  def self.has_item(name)
+    joins(steam_items: :steam_item_data)
+      .where("steam_item_data.name ilike ?", "%#{name}%")
+      .select("users.*, SUM(steam_items.amount) AS total_amount")
+      .group("users.id")
+      .order("total_amount DESC")
+  end
 end
