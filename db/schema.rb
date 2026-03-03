@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_03_225058) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_03_230107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2513,6 +2513,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_03_225058) do
     t.integer "mask_used_zoothat_blue"
     t.integer "mask_used_zoothat_red"
     t.integer "mask_used_zoothat_yellow"
+    t.integer "mask_used_mega_richard_returns"
     t.index ["user_id"], name: "index_player_stats_on_user_id"
   end
 
