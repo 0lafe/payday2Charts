@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_09_213517) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_03_225058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -3911,6 +3911,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_213517) do
     t.integer "melee_kills_piggy_hammer"
     t.integer "weapon_charm_used_wpn_fps_upg_charm_deadgame"
     t.integer "weapon_charm_used_wpn_fps_upg_charm_deadgame_alt"
+    t.integer "melee_used_funder_strike"
+    t.integer "melee_kills_funder_strike"
     t.index ["user_id"], name: "index_weapon_stats_on_user_id"
   end
 
