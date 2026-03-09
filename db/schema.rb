@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_03_230107) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_09_171837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2552,6 +2552,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_03_230107) do
     t.string "steam_name"
     t.string "steam_avatar"
     t.boolean "banned", default: false, null: false
+    t.boolean "can_host_jeopardy", default: false
     t.index ["steam_id"], name: "index_users_on_steam_id", unique: true
   end
 

@@ -6,10 +6,14 @@ class JeopardyGamesController < ApplicationController
   def show; end
 
   def create
-    @game = JeopardyGame.create(jeopardy_game_params)
-    respond_to do |format|
-      format.turbo_stream do
-        redirect_to jeopardy_game_path(@game)
+    if !current_user&.can_host_jeopardy?
+      redirect_back alert: "User can not create jeopardy board", fallback_location: jeopardy_games_url
+    else
+      @game = JeopardyGame.create(jeopardy_game_params)
+      respond_to do |format|
+        format.turbo_stream do
+          redirect_to jeopardy_game_path(@game)
+        end
       end
     end
   end

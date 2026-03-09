@@ -8,8 +8,12 @@
         <%= question.question %>
       </p>
       <% if question.image.present? %>
-        <%= image_tag(question.image, class: 'jeopardy-image') %>
-        <p id="image-answer"></p>
+        <% if question.image.content_type == "audio/mpeg" %>
+          <%= audio_tag url_for(question.image), controls: true, preload: "auto" %>
+        <% else %>
+          <%= image_tag(question.image, class: 'jeopardy-image') %>
+          <p id="image-answer"></p>
+        <% end %>
       <% end %>
     </div>
     <% if question.answer.present? %>
