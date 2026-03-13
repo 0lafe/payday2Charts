@@ -27,7 +27,7 @@
   </head>
   <body>
     <%= render(NavBarComponent.new) %>
-    <%= render "layouts/maintenance_banner" %>
+    <%= render "layouts/maintenance_banner" unless params[:controller] == 'jeopardy_games' %>
     <% flash.each do |type, msg| %>
       <div class="flash-notification <%= type %>">
         <%= msg %>

@@ -1,9 +1,11 @@
 class JeopardyGamesController < ApplicationController
-  before_action :set_jeopardy_game, only: %i[show update reset answer_question answer_final_question next_game]
+  before_action :set_jeopardy_game, only: %i[show edit update reset answer_question answer_final_question next_game]
 
   def index; end
 
   def show; end
+
+  def edit; end
 
   def create
     if !current_user&.can_host_jeopardy?

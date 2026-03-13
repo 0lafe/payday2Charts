@@ -1,4 +1,4 @@
-<% if !(params[:controller] == 'jeopardy_games') %>
+<% unless (params[:controller] == 'jeopardy_games') && (params[:action] != 'index') %>
   <ul class="nav-bar-container">
     <div class="nav-bar-item">
       <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
