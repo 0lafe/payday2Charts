@@ -18753,5 +18753,100 @@
         "name": "enemy_kills_piggydozer",
         "defaultvalue": 0,
         "displayName": ""
+    },
+    {
+        "name": "melee_used_funder_strike",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "melee_kills_funder_strike",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "mask_used_mega_richard_returns",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_used_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_kills_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_shots_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_hits_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_used_x_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_kills_x_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_shots_x_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_hits_x_pmm",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_used_dart",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_kills_dart",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_shots_dart",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_hits_dart",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_used_speen",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_kills_speen",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_shots_speen",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_hits_speen",
+        "defaultvalue": 0,
+        "displayName": ""
     }
 ]
