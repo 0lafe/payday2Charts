@@ -8,7 +8,10 @@ image: 0lafe/payday-charts
 servers:
   web:
     - 104.236.240.64
-
+  workers:
+    hosts:
+      - 104.236.240.64
+    cmd: bundle exec sidekiq -c 2
 
 proxy:
   ssl: true

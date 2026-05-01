@@ -22,4 +22,4 @@ COPY . .
 # Precompile assets (optional depending on setup)
 RUN bundle exec rails assets:precompile
 
-CMD ["bundle exec", "puma", "-C", "config/puma.rb"]
+CMD ["bash", "-lc", "bundle exec puma -C config/puma.rb"]
