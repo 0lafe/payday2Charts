@@ -13,9 +13,9 @@ servers:
       - 104.236.240.64
     cmd: bundle exec sidekiq -c 2
 
-proxy:
-  ssl: true
-  host: payday-charts.com
+# proxy:
+#   ssl: true
+#   host: payday-charts.com
 
 # Credentials for your image host.
 registry:
