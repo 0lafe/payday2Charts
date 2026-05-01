@@ -31,6 +31,8 @@ builder:
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 #
 env:
+  clear:
+    RAILS_ENV: production
   secret:
     - RAILS_MASTER_KEY
     - DATABASE_URL
