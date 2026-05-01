@@ -1,0 +1,43 @@
+# Name of your application. Used to uniquely configure containers.
+service: payday-charts
+
+# Name of the container image.
+image: lafe/payday-charts
+
+# Deploy to these servers.
+servers:
+  web:
+    - 104.236.240.64
+  workers:
+    hosts:
+      - 104.236.240.64
+    cmd: bundle exec sidekiq -c 2
+
+proxy:
+  ssl: true
+  host: payday-charts.com
+
+# Credentials for your image host.
+registry:
+  server: ghcr.io
+  username: 0lafe
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Configure builder setup.
+builder:
+  arch: amd64
+
+# Inject ENV variables into containers (secrets come from .kamal/secrets).
+#
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_URL
+    - REDIS_URL
+
+accessories:
+  redis:
+    image: redis:7
+    host: 104.236.240.64
+    port: 6379

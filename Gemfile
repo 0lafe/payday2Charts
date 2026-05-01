@@ -98,3 +98,4 @@ gem 'rexml'
 gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'ruby-openid2'
+gem "kamal", "~> 2.11"

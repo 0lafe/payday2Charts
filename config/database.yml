@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: pd2Charts_production
-  username: pd2Charts
-  password: <%= ENV["PD2CHARTS_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
