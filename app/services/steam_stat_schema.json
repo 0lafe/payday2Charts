@@ -18848,5 +18848,35 @@
         "name": "weapon_hits_speen",
         "defaultvalue": 0,
         "displayName": ""
+    },
+    {
+        "name": "weapon_used_welrod",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_kills_welrod",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_shots_welrod",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "weapon_hits_welrod",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "gadget_used_spy_camera",
+        "defaultvalue": 0,
+        "displayName": ""
+    },
+    {
+        "name": "grenade_used_laser_watch",
+        "defaultvalue": 0,
+        "displayName": ""
     }
 ]

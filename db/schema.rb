@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_09_171837) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_01_200744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -1150,6 +1150,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_09_171837) do
     t.integer "enemy_kills_deep_boss"
     t.integer "gloves_used_hackglove"
     t.integer "enemy_kills_piggydozer"
+    t.integer "gadget_used_spy_camera"
     t.index ["user_id"], name: "index_misc_stats_on_user_id"
   end
 
@@ -3915,6 +3916,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_09_171837) do
     t.integer "weapon_charm_used_wpn_fps_upg_charm_deadgame_alt"
     t.integer "melee_used_funder_strike"
     t.integer "melee_kills_funder_strike"
+    t.integer "weapon_used_pmm"
+    t.integer "weapon_kills_pmm"
+    t.integer "weapon_shots_pmm"
+    t.integer "weapon_hits_pmm"
+    t.integer "weapon_used_x_pmm"
+    t.integer "weapon_kills_x_pmm"
+    t.integer "weapon_shots_x_pmm"
+    t.integer "weapon_hits_x_pmm"
+    t.integer "weapon_used_dart"
+    t.integer "weapon_kills_dart"
+    t.integer "weapon_shots_dart"
+    t.integer "weapon_hits_dart"
+    t.integer "weapon_used_speen"
+    t.integer "weapon_kills_speen"
+    t.integer "weapon_shots_speen"
+    t.integer "weapon_hits_speen"
+    t.integer "weapon_used_welrod"
+    t.integer "weapon_kills_welrod"
+    t.integer "weapon_shots_welrod"
+    t.integer "weapon_hits_welrod"
+    t.integer "grenade_used_laser_watch"
     t.index ["user_id"], name: "index_weapon_stats_on_user_id"
   end
 
