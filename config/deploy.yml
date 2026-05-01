@@ -2,7 +2,7 @@
 service: payday-charts
 
 # Name of the container image.
-image: lafe/payday-charts
+image: 0lafe/payday-charts
 
 # Deploy to these servers.
 servers:

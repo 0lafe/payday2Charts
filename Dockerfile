@@ -22,5 +22,4 @@ COPY . .
 # Precompile assets (optional depending on setup)
 RUN bundle exec rails assets:precompile
 
-# Start server (Kamal overrides this anyway for roles)
 CMD ["bundle exec", "puma", "-C", "config/puma.rb"]
