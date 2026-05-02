@@ -44,3 +44,7 @@ accessories:
     image: redis:7
     host: 104.236.240.64
     port: 6379
+
+hooks:
+  after_deploy:
+    - docker exec $(docker ps --filter label=service=payday-charts --filter label=role=web -q | head -1) bundle exec rails db:migrate
