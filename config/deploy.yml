@@ -7,9 +7,8 @@ image: 0lafe/payday-charts
 # Deploy to these servers.
 servers:
   web:
-    hosts:
-      - 104.236.240.64
-    port: 3000
+    - 104.236.240.64
+    - port: 3000
   workers:
     hosts:
       - 104.236.240.64
