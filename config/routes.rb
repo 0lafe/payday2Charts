@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "/up", to: proc { [200, {}, ["OK"]] }
+  
   resources :stats, only: ['show']
   resources :leaderboards, only: ['index', 'show'] do
     member do
