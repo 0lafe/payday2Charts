@@ -12,6 +12,12 @@ servers:
     hosts:
       - 104.236.240.64
     cmd: bundle exec sidekiq -c 2
+  cron:
+    hosts:
+      - 104.236.240.64
+    cmd: bash -c "bundle exec whenever --update-crontab && env > /etc/environment && cron -f"
+    options:
+      user: root
 
 proxy:
   app_port: 3000
@@ -44,8 +50,3 @@ accessories:
     image: redis:7
     host: 104.236.240.64
     port: 6379
-
-cron:
-  cleanup:
-    schedule: "0 0,12 * * *"
-    command: "bin/rake init_lb"

@@ -8,6 +8,7 @@ RUN apt-get update -qq && apt-get install -y \
     libpq-dev \
     nodejs \
     yarn \
+    cron \
     git
 
 WORKDIR /app
