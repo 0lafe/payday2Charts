@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "/up", to: proc { [200, {}, ["OK"]] }
-  
+  get "up" => "rails/health#show"
+
   resources :stats, only: ['show']
   resources :leaderboards, only: ['index', 'show'] do
     member do
