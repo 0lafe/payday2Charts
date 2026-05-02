@@ -15,8 +15,8 @@ servers:
 
 proxy:
   app_port: 3000
-  # ssl: true
-  # host: payday-charts.com
+  ssl: true
+  host: payday-charts.com
 
 # Credentials for your image host.
 registry:
