@@ -1,4 +1,11 @@
+require "sidekiq/web"
+require Rails.root.join("lib/basic_rack_auth")
+
 Rails.application.routes.draw do
+  constraints BasicRackAuth.new do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
   get "up" => "rails/health#show"
 
   resources :stats, only: ['show']

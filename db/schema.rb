@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_01_200744) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_02_204955) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -2553,6 +2554,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_01_200744) do
     t.string "steam_avatar"
     t.boolean "banned", default: false, null: false
     t.boolean "can_host_jeopardy", default: false
+    t.boolean "admin"
     t.index ["steam_id"], name: "index_users_on_steam_id", unique: true
   end
 

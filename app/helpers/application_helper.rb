@@ -1,6 +1,6 @@
 module ApplicationHelper
   def current_user
-    @user ||= get_current_user
+    @current_user ||= get_current_user
   end
 
   def get_current_user
