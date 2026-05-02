@@ -44,3 +44,8 @@ accessories:
     image: redis:7
     host: 104.236.240.64
     port: 6379
+
+cron:
+  cleanup:
+    schedule: "0 0,12 * * *"
+    command: "bin/rake init_lb"
