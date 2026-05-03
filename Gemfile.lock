@@ -447,6 +447,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal (~> 2.11)
+  net-smtp
   nokogiri
   oauth2
   pagy

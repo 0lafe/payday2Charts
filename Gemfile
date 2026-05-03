@@ -99,5 +99,6 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'ruby-openid2'
 gem "kamal", "~> 2.11"
+gem "net-smtp"
 
 gem "whenever", "~> 1.1"
