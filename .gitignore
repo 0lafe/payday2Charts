@@ -46,3 +46,6 @@ market_history_req_headers.json
 
 notes.md
 ids.txt
+
+.kamal/database_url
+.kamal/registry_password
