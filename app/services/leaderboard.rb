@@ -1,9 +1,9 @@
 class Leaderboard
   attr_accessor :updated_at, :top_100s, :usernames
+
   def initialize
     @top_100s = {}
     [WeaponStat, PlayerStat, MiscStat].each do |stat|
-      p "Storing #{stat} in leaderboard"
       store_top_100s(stat)
     end
     @updated_at = Time.now.to_formatted_s(:short)
@@ -58,11 +58,17 @@ class Leaderboard
 
     ActiveRecord::Base.connection.unprepared_statement do
       @top_100s[table.name.underscore] = second_filter.each_with_index.map do |column, i|
-        GC.start if i % 100 == 0
         p "Working on #{i + 1} out of #{second_filter.length}"
+        
         {
           name: column,
-          values: table.joins(:user).where.not(user: { banned: true }).where.not({column => nil}).order("#{column} DESC").limit(100).select(:user_id).pluck(:user_id)
+          values: table.joins(:user)
+            .where.not(user: { banned: true })
+            .where.not({column => nil})
+            .order("#{column} DESC")
+            .limit(100)
+            .select(:user_id)
+            .pluck(:user_id)
         }
       end
     end

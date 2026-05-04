@@ -47,6 +47,8 @@ env:
 
 accessories:
   redis:
-    image: redis:7
+    image: redis:latest
     host: 104.236.240.64
     port: 6379
+    volumes:
+      - /var/lib/redis:/data
