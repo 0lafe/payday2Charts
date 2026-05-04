@@ -65,8 +65,17 @@ class SteamApi
 
   def self.retrieve_stats(stat_type)
     @stat_type = stat_type
+
+    cached_stats = REDIS_CLIENT.get("steam_stats_#{stat_type}")
+
+    return JSON.parse(cached_stats) if cached_stats.present?
+
     generate_urls
-    get_stats
+    stats = get_stats
+
+    REDIS_CLIENT.setex("steam_stats_#{stat_type}", 4.hours.to_i, stats.to_json)
+
+    stats
   end
 
   def self.get_stat_names

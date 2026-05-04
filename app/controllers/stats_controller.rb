@@ -10,6 +10,7 @@ class StatsController < ApplicationController
   def generate_data(type)
     data = []
     no_history = []
+
     SteamApi.retrieve_stats(type).each do |stat|
       history, labels = if stat[1]['history']
         [
@@ -36,6 +37,7 @@ class StatsController < ApplicationController
         no_history << item
       end
     end
+
     data = data.sort_by {|stat| stat[:value].reduce(0) {|sum, i| sum + i.to_i } }.reverse
     no_history = no_history.sort_by {|stat| stat[:value].reduce(0) {|sum, i| sum + i.to_i } }.reverse
     data.concat(no_history)
