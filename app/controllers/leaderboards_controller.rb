@@ -50,6 +50,11 @@ class LeaderboardsController < ApplicationController
 
   def handle_grouping
     @filter = ["kills", "used", "shots", "hits"].include?(params[:filter]) && params[:filter] || "kills"
+
+    if params[:id] == "bm_throwable_laser_watch"
+      @filter = "used"
+    end
+
     @data = WeaponStat.get_top_100(@name_id, @filter)
     @name = Localizer.localize(@name_id)
   end

@@ -208,8 +208,12 @@ class SteamApi
   end
 
   def self.get_cached_user_data(user_ids)
-    keys = user_ids.map { |id| "steam_player_summary:#{id}" }
-    REDIS_CLIENT.mget(*keys)
+    if user_ids.present?
+      keys = user_ids.map { |id| "steam_player_summary:#{id}" }
+      REDIS_CLIENT.mget(*keys)
+    else
+      []
+    end
   end
 
   def self.get_user_data(steam_id)
