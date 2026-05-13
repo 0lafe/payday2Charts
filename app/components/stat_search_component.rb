@@ -48,33 +48,29 @@ class StatSearchComponent < ViewComponent::Base
         [
           Localizer.localize_weapon_from_stat(unlocalized_name),
           Localizer.weapon_from_stat(unlocalized_name),
-          {
-            "data-grouping": "weapon"
-          }
+          "weapon"
         ]
       elsif WeaponStat.melee_stat?(unlocalized_name)
         [
           Localizer.localize_melee_from_stat(unlocalized_name),
           Localizer.melee_from_stat(unlocalized_name),
-          {
-            "data-grouping": "melee"
-          }
+          "melee"
         ]
       elsif WeaponStat.throwable_stat?(unlocalized_name)
         [
           Localizer.localize_throwable_from_stat(unlocalized_name),
           Localizer.throwable_from_stat(unlocalized_name),
-          {
-            "data-grouping": "throwable"
-          }
+          "throwable"
         ]
       else
         [Localizer.localize_from_statistic(unlocalized_name), unlocalized_name]
       end
     end
+
     ps = PlayerStat.column_names.map do |unlocalized_name|
       [Localizer.localize_from_statistic(unlocalized_name), unlocalized_name]
     end
+
     ms = MiscStat.column_names.map do |unlocalized_name|
       [Localizer.localize_from_statistic(unlocalized_name), unlocalized_name]
     end

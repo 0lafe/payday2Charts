@@ -1,113 +1,150 @@
-<table id="leaderboard-table-mobile">
-  <thead>
-    <tr>
-      <th data-dt-order="disable">#</th>
-      <th data-dt-order="disable">Player</th>
-      <th data-dt-order="disable"><%= @filter&.titleize || "Value" %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @data.each_with_index do |stat, index| %>
-      <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "current_user" : "" %>">
-        <td>
-          <%= index + 1 %>
-        </td>
-        <td>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#view_profiles_<%= stat[:steam_id] %>">
-            <div>
-              <%= image_tag(stat[:avatar], class: "steam-avatar") if stat[:avatar].present? %>
-              <span>
-                <%= stat[:name] %>
-              </span>
-            </div>
-            <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;" aria-hidden="true"></i>
-          </button>
-        </td>
-        <td>
-          <% if @grouping %>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#view_stats_<%= stat[:steam_id] %>">
-              <%= number_with_delimiter(stat[params[:filter]&.to_sym || :kills]) %>
-              <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;" aria-hidden="true"></i>
-            </button>
+<div data-controller="table-search" class="lg:hidden w-full">
+  <div class="flex flex-col justify-between gap-2 mb-2">
+    <div class="w-full">
+      <label>
+        Search:
+      </label>
+      <input
+        data-table-search-target="search"
+        data-action="input->table-search#handleSearch"
+        class="flex-1 rounded-xl border-2 border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30">
+    </div>
+    <% if @grouping %>
+      <div class="flex justify-between gap-2">
+        <% if @filter == "kills" %>
+          <button class="btn btn-primary" disabled>Kills</button>
+        <% else %>
+          <%= link_to "Kills", leaderboard_path(@name_id, grouping: @grouping, filter: "kills"), class: "btn btn-primary" %>
+        <% end %>
+
+        <% if @filter == "used" %>
+          <button class="btn btn-primary" disabled>Uses</button>
+        <% else %>
+          <%= link_to "Uses", leaderboard_path(@name_id, grouping: @grouping, filter: "used"), class: "btn btn-primary" %>
+        <% end %>
+
+        <% if @grouping == "weapon" %>
+          <% if @filter == "shots" %>
+            <button class="btn btn-primary" disabled>Shots</button>
           <% else %>
-            <%= number_with_delimiter(stat[:value]) %>
+            <%= link_to "Shots", leaderboard_path(@name_id, grouping: @grouping, filter: "shots"), class: "btn btn-primary" %>
           <% end %>
-        </td>
-      </tr>
+
+          <% if @filter == "hits" %>
+            <button class="btn btn-primary" disabled>Hits</button>
+          <% else %>
+            <%= link_to "Hits", leaderboard_path(@name_id, grouping: @grouping, filter: "hits"), class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<% @data.each do |stat| %>
-  <div class="modal fade" id="view_profiles_<%= stat[:steam_id] %>" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          Profiles for <%= stat[:name] %>
-        </div>
-        <div class="modal-body">
-          <ul class="profile-links">
-            <li>
-              <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
-                <%= image_tag("fbi-files.ico", class: "leaderboard-icon image-grow") %>
-                FBI Files
-              </a>
-            </li>
-            <li>
-              <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
-                <%= image_tag("steam_logo.svg", class: "leaderboard-icon image-grow") %>
-                Steam
-              </a>
-            </li>
-            <li>
-              <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
-                <%= image_tag("fbi-logo.png", class: "leaderboard-icon image-grow") %>
-                Top 100s
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
+  <table class="w-full table-auto border-collapse text-sm">
+    <thead>
+      <tr>
+        <th class="border-2 border-dark-inputs p-2">#</th>
+        <th class="border-2 border-dark-inputs p-2">Player</th>
+        <th class="border-2 border-dark-inputs p-2"><%= @filter&.titleize || "Value" %></th>
+      </tr>
+    </thead>
+    <tbody data-table-search-target="body">
+      <% @data.each_with_index do |stat, index| %>
+        <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "bg-green-700" : "" %>">
+          <td class="border-2 border-dark-inputs p-2">
+            <%= index + 1 %>
+          </td>
+          <td class="border-2 border-dark-inputs p-2" data-controller="modal">
+            <button data-action="click->modal#open" class="flex justify-between items-center w-full">
+              <div class="flex gap-2 items-center">
+                <%= image_tag(stat[:avatar], class: "inline") if stat[:avatar].present? %>
+                <span class="break-all">
+                  <%= stat[:name] %>
+                </span>
+              </div>
+              <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+            </button>
 
-  <div class="modal fade" id="view_stats_<%= stat[:steam_id] %>" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          Stats
-        </div>
-        <div class="modal-body">
-          <ul class="profile-links">
+            <div data-modal-target="container" class="modal">
+              <div
+                data-action="click->modal#close"
+                class="modal-backdrop"
+              ></div>
+              <div class="modal-content">
+                <div class="modal-header">
+                  Profiles for <%= stat[:name] %>
+                </div>
+                <div class="modal-body">
+                  <div class="flex flex-col gap-4">
+                    <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+                      <%= image_tag("fbi-files.ico", class: "inline h-8 w-8") %>
+                      FBI Files
+                    </a>
+                    <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+                      <%= image_tag("steam_logo.svg", class: "inline h-8 w-8") %>
+                      Steam
+                    </a>
+                    <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
+                      <%= image_tag("fbi-logo.png", class: "inline h-8 w-8") %>
+                      Top 100s
+                    </a>
+                  </div>
+                </div>
+                <div class="modal-footer flex justify-end">
+                  <button type="button" class="btn btn-secondary" data-action="click->modal#close">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td class="border-2 border-dark-inputs p-2" data-controller="modal">
             <% if @grouping %>
-              <li>
-                Kills: <%= number_with_delimiter(stat[:kills]) %>
-              </li>
-              <li>
-                Uses: <%= number_with_delimiter(stat[:used]) %>
-              </li>
-              <% if @grouping == "weapon" %>
-                <li>
-                  Shots: <%= number_with_delimiter(stat[:shots]) %>
-                </li>
-                <li>
-                  Hits: <%= number_with_delimiter(stat[:hits]) %>
-                </li>
-              <% end %>
+              <button data-action="click->modal#open" class="flex justify-between items-center w-full">
+                <%= number_with_delimiter(stat[params[:filter]&.to_sym || :kills]) %>
+                <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+              </button>
+
+              <div data-modal-target="container" class="modal">
+                <div
+                  data-action="click->modal#close"
+                  class="modal-backdrop"
+                ></div>
+                <div class="modal-content">
+                  <div class="modal-header">
+                    Stats
+                  </div>
+                  <div class="modal-body">
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        Kills: <%= number_with_delimiter(stat[:kills]) %>
+                      </div>
+                      <div>
+                        Uses: <%= number_with_delimiter(stat[:used]) %>
+                      </div>
+                      <% if @grouping == "weapon" %>
+                        <div>
+                          Shots: <%= number_with_delimiter(stat[:shots]) %>
+                        </div>
+                        <div>
+                          Hits: <%= number_with_delimiter(stat[:hits]) %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="modal-footer flex justify-end">
+                    <button type="button" class="btn btn-secondary" data-action="click->modal#close">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <%= number_with_delimiter(stat[:value]) %>
             <% end %>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

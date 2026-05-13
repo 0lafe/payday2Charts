@@ -1,0 +1,13 @@
+<% unless params[:controller] == 'jeopardy_games' %>
+  <% notification_banners.each do |banner| %>
+    <div class="<%= banner.notification_type %> flash-notification">
+      <%= banner.content %>
+    </div>
+  <% end %>
+<% end %>
+
+<% flash.each do |type, msg| %>
+  <div class="flash-notification <%= type %>">
+    <%= msg %>
+  </div>
+<% end %>

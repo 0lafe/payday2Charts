@@ -8,4 +8,10 @@ module ApplicationHelper
       User.find_by(steam_id: session[:steam_id])
     end
   end
+
+  def notification_banners
+    Rails.cache.fetch("notification_banners", expires_in: 1.hour) do
+      NotificationBanner.all
+    end
+  end
 end

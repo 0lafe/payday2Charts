@@ -1,33 +1,30 @@
 <% if current_user %>
-  <li class="nav-element nav-element-right">
-    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <%= image_tag(current_user.avatar || "", class: "steam-avatar", style: "max-height:90%") %>
+  <div class="relative inline-block" data-controller="dropdown">
+    <button data-action="click->dropdown#toggle" class="flex items-center gap-2 hover:bg-white hover:text-black px-4 h-full cursor-pointer">
+      <%= image_tag(current_user.avatar || "", style: "max-height:90%") %>
       <%= current_user.steam_name %>
     </button>
-    <ul class="dropdown-menu">
-      <li>
-        <%= link_to "Top 100s", top_100_leaderboard_path(current_user.steam_id), class: "dropdown-item", data: { turbo: false } %>
-      </li>
-      <li>
-        <%= button_to "Sign Out",
-          {
-            controller: :sessions,
-            action: 'destroy',
-            id: 123
-          },
-          :method => :delete,
-          data: {
-            turbo: false
-          },
-          class: "dropdown-item"
-        %>
-      </li>
-    </ul>
-  </li>
+    <div class="absolute right-0 mt-2 w-48 bg-dark-light rounded shadow-lg hidden z-50 flex flex-col py-2" data-dropdown-target="menu">
+      <%= link_to "Top 100s",
+        top_100_leaderboard_path(current_user.steam_id),
+        class: "hover:bg-branding-blue hover:text-white p-2 flex justify-center",
+        data: { turbo: false } %>
+      <%= button_to "Sign Out",
+        {
+          controller: :sessions,
+          action: 'destroy',
+          id: 123
+        },
+        :method => :delete,
+        data: {
+          turbo: false
+        },
+        class: "hover:bg-branding-blue hover:text-white cursor-pointer w-full p-2"
+      %>
+    </div>
+  </div>
 <% else %>
-  <li class="nav-element nav-element-right">
-    <%= link_to(new_session_path) do %>
-      <%= image_tag("steam_login.png", class: "steam-signin-icon") %>
-    <% end %>
-  </li>
+  <%= link_to new_session_path, class: "flex items-center" do %>
+    <%= image_tag("steam_login.png", class: "max-h-[90%]") %>
+  <% end %>
 <% end %>

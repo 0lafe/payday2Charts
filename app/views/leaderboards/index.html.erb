@@ -1,24 +1,89 @@
-<div class="page">
-  <div class="leaderboards-container">
-    <div class="statistic-choice" id="stat-choice">
-      <%= image_tag("fbi-logo.png") %>
-      <hr style="margin: 1rem 0;"/>
-      <h1>
-        Welcome To Payday Charts
-      </h1>
-      <hr style="margin: 2rem 0;"/>
-      <h4>
-        Pick a stat to view the leaderboard for it
-      </h4>
-      <hr style="margin: 0.5rem 0;"/>
-      <div style="min-width: 300px;max-width: 400px;">
-        <%= render(StatSearchComponent.new) %>
+<div class="bg-dark-main  flex items-center justify-center p-6">
+  <div class="w-full max-w-2xl space-y-6">
+
+    <div class="text-center space-y-4">
+      <%= image_tag("fbi-logo.png", class: "w-20 h-20 mx-auto") %>
+
+      <div class="space-y-2">
+        <h1 class="text-3xl font-semibold tracking-tight">
+          Payday Charts
+        </h1>
+
+        <p class="text-zinc-400 max-w-lg mx-auto text-sm leading-relaxed">
+          A website for tracking stats related to Payday 2
+        </p>
       </div>
-      <hr style="margin: 2rem 0;color:white;width:100%"/>
-      <span>
-        This website is not affiliated with Starbreeze or Steam in any way
-      </span>
-      <hr style="margin: 0.5rem 0;"/>
+    </div>
+
+    <div class="space-y-5">
+      <%= render TileComponent.new(title: "View a leaderboard") do %>
+        <div class="space-y-4">
+          <div class="text-sm text-zinc-400 mt-1">
+            Pick a specific stat to view rankings for
+          </div>
+
+          <%= render StatSearchComponent.new %>
+        </div>
+      <% end %>
+
+
+      <%= render TileComponent.new(title: "Top 100 Rankings") do %>
+        <div class="space-y-6">
+          <div class="space-y-4">
+            <div class="text-sm text-zinc-400 mt-1">
+              View how many leaderboards a user is on
+            </div>
+
+            <%= simple_form_for :user do |f| %>
+              <div class="lg:flex lg:justify-between gap-4">
+                <div class="flex-1">
+                  <%= f.input :steam_id,
+                    label: "Steam 64 ID (found <a href='https://steamid.xyz/' target='_blank' class='text-blue-500'>here</a>)".html_safe,
+                    placeholder: "Search..." %>
+                </div>
+                <div class="flex flex-col justify-end">
+                  <%= f.button :submit, 'Check Stats', class: 'btn btn-primary mb-2', id: 'submit-button' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="h-px bg-white/10"></div>
+
+          <div class="space-y-3">
+            <div>
+              <h2 class="text-lg font-medium text-white">
+                View your own stats
+              </h2>
+
+              <p class="text-sm text-zinc-400 mt-1">
+                Signed in users can directly access their own page
+              </p>
+            </div>
+
+            <% if current_user.present? %>
+              <%= link_to "Check Personal Stats",
+                top_100_leaderboard_path(current_user.steam_id),
+                class: "sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70",
+                data: { turbo: false } %>
+            <% else %>
+              <%= link_to(new_session_path) do %>
+                <%= image_tag("steam_login.png") %>
+              <% end %>
+            <% end %>
+          </div>
+
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  $('#submit-button').on('click', (e) => {
+    e.preventDefault()
+    if ($('#user_steam_id').val().length) {
+      window.location.href = `/leaderboards/${$('#user_steam_id').val()}/top_100`
+    }
+  })
+</script>

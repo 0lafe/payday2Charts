@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+    --color-dark-main: #0f0f0f;
+    --color-dark-light: #333;
+    --color-dark-highlight: #bbb;
+    --color-dark-inputs: #262626;
+    --color-branding-blue: #0085b6;
+    --color-branding-blue-alt: #0d6efd;
+    --breakpoint-3xl: 121rem;
+}
+
+.flash-notification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.flash-notification.alert {
+    background: red;
+}
+
+.flash-notification.notice {
+    background: limegreen;
+}
+
+body {
+    background: var(--color-dark-main);
+    font-family: 'Titillium Web', sans-serif;
+    min-height: 100vh;
+    @apply text-zinc-100
+}
+
+button {
+    @apply cursor-pointer disabled:cursor-not-allowed
+}
+
+.btn-primary {
+    @apply active:scale-[0.98] px-5 py-3 font-medium text-white transition rounded-xl bg-branding-blue hover:bg-[#009ad1] disabled:active:scale-none disabled:bg-gray-400
+}
+
+.btn-secondary {
+    @apply bg-gray-400 text-white p-2 rounded-md hover:bg-gray-700
+}
+
+.modal {
+    @apply fixed inset-0 hidden z-50 items-center justify-center
+}
+
+.modal.in {
+    @apply flex
+}
+
+.modal-content {
+    @apply text-dark-main text-lg relative z-10 w-full max-w-lg mx-4 max-h-[80vh] overflow-y-auto rounded-md bg-dark-highlight shadow-xl border border-dark-light p-2 divide-y divide-gray-400
+}
+
+.modal-backdrop {
+    @apply absolute inset-0 bg-black/60 backdrop-blur-sm
+}
+
+.modal-header, .modal-body, .modal-footer {
+    @apply p-2
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid var(--color-branding-blue);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+.pagination-number {
+    @apply hover:bg-dark-inputs h-8 w-8 rounded-md disabled:bg-branding-blue disabled:hover:bg-branding-blue
+}
+
+.pagination-arrow {
+    @apply hover:bg-dark-inputs h-8 w-8 rounded-md disabled:text-zinc-400 disabled:hover:bg-none
+}

@@ -13,7 +13,7 @@ SimpleForm.setup do |config|
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :default, class: :input,
+  config.wrappers :default, class: "flex flex-col gap-1 mb-2",
     hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
@@ -53,7 +53,10 @@ SimpleForm.setup do |config|
 
     ## Inputs
     # b.use :input, class: 'input', error_class: 'is-invalid', valid_class: 'is-valid'
-    b.use :label_input
+
+    b.use :label
+    b.use :input,
+      class: 'flex-1 rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30'
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
     b.use :error, wrap_with: { tag: :span, class: :error }
 

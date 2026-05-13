@@ -19,8 +19,6 @@ class LeaderboardsController < ApplicationController
     end
   end
 
-  def top_100_index; end
-
   def top_100
     steam_id = params[:id].gsub(/\D/, '')
     @leaderboard_user = User.find_by(steam_id:)
@@ -41,6 +39,8 @@ class LeaderboardsController < ApplicationController
     @weapon_stats = WeaponStat.find_by(user_id: @leaderboard_user.id)
     @player_stats = PlayerStat.find_by(user_id: @leaderboard_user.id)
     @misc_stats = MiscStat.find_by(user_id: @leaderboard_user.id)
+
+    @stats = []
   end
 
   private

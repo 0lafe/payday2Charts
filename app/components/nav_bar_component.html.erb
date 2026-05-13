@@ -1,89 +1,95 @@
 <% unless (params[:controller] == 'jeopardy_games') && (params[:action] != 'index') %>
-  <ul class="nav-bar-container">
-    <div class="nav-bar-item">
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
-        <%= link_to "Leaderboards", root_path, data: { turbo: false } %>
-      </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if current_page?(controller: 'charts', action: 'index') %>" >
-        <%= link_to "Community Charts", charts_path, data: { turbo: false } %>
-      </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
-        <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
-      </li>
-      <% if current_user && current_user.me? %>
-        <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'skins' %>">
-          <%= link_to "Skins", skins_path, data: { turbo: false } %>
-        </li>
-      <% end %>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
-        <%= link_to "Guess Who", guess_whos_path, data: { turbo: false } %>
-      </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'gifs' && %w(index show).include?(params[:action]) %>">
-        <%= link_to "Gifs", gifs_path, data: { turbo: false } %>
-      </li>
-      <li class="nav-element nav-element-left <%= 'active-nav' if params[:controller] == 'crits' %>">
-        <%= link_to "Crit Calculator", crits_path, data: { turbo: false } %>
-      </li>
-    </div>
+  <div data-controller="slideover">
+    <div class="bg-dark-light flex flex-row justify-between h-10 sticky top-0 z-10">
+      <div class="p-1 flex justify-between w-full lg:hidden">
+        <button data-action="click->slideover#open">
+          <%= image_tag("icons/bar-menu.svg", class: "w-8") %>
+        </button>
+        <%= render "shared/nav_bar_profile" %>
+      </div>
 
-    <div class="nav-bar-item">
-      <li class="nav-element nav-element-right">
-        <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank">
+      <div class="hidden lg:flex lg:flex-row">
+        <%= link_to "Leaderboards",
+          root_path,
+          data: { turbo: false },
+          class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'leaderboards'}" %>
+        <%= link_to "Community Charts",
+          charts_path,
+          data: { turbo: false },
+          class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if current_page?(controller: 'charts', action: 'index')}" %>
+        <% if current_user && current_user.me? %>
+          <%= link_to "Skins",
+            skins_path,
+            data: { turbo: false },
+            class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'skins'}" %>
+        <% end %>
+        <%= link_to "Guess Who",
+          guess_whos_path,
+          data: { turbo: false },
+          class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'guess_whos'}" %>
+        <%= link_to "Gifs",
+          gifs_path,
+          data: { turbo: false },
+          class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'gifs'}" %>
+        <%= link_to "Crit Calculator",
+          crits_path,
+          data: { turbo: false },
+          class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'crits'}" %>
+      </div>
+
+      <div class="hidden lg:flex lg:flex-row">
+        <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank" class="px-4 h-full flex items-center hover:bg-white hover:text-black">
           Report Bugs Here
           <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i>
         </a>
-      </li>
-      <%= render "shared/nav_bar_profile" %>
+        <%= render "shared/nav_bar_profile" %>
+      </div>
     </div>
+    
+    <div data-slideover-target="panel" class="flex flex-col justify-between w-3/4 p-4 z-30 bg-dark-light fixed inset-y-0 left-0 shadow-lg transform -translate-x-full transition-transform duration-150">
+      <div>
+        <div class="flex justify-between mb-4">
+          <div class="text-xl">Pages</div>
+          <button data-action="click->slideover#close">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="flex flex-col gap-1">
+          <%= link_to "Leaderboards",
+            root_path,
+            data: { turbo: false },
+            class: "p-2 #{'bg-branding-blue' if params[:controller] == 'leaderboards'}" %>
+          <%= link_to "Community Charts",
+            charts_path,
+            data: { turbo: false },
+            class: "p-2 #{'bg-branding-blue' if params[:controller] == 'charts'}" %>
+          <%= link_to "Guess Who",
+            guess_whos_path,
+            data: { turbo: false },
+            class: "p-2 #{'bg-branding-blue' if params[:controller] == 'guess_whos'}" %>
+          <%= link_to "Gifs",
+            gifs_path,
+            data: { turbo: false },
+            class: "p-2 #{'bg-branding-blue' if params[:controller] == 'gifs'}" %>
+          <%= link_to "Crit Calculator",
+            crits_path,
+            data: { turbo: false },
+            class: "p-2 #{'bg-branding-blue' if params[:controller] == 'crits'}" %>
+          <% if current_user && current_user.me? %>
+            <%= link_to "Skins",
+              skins_path,
+              data: { turbo: false },
+              class: "p-2 #{'bg-branding-blue' if params[:controller] == 'skins'}" %>
+          <% end %>
+        </div>
+      </div>
 
-    <div class="mobile-nav-bar-item">
-      <li>
-        <button class="mobile-side-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-menu" aria-controls="sidebar-menu">
-          <%= image_tag("icons/bar-menu.svg") %>
-        </button>
-      </li>
-      <%= render "shared/nav_bar_profile" %>
+      <%= link_to "https://github.com/0lafe/payday2Charts/issues", target: "_blank", class: "flex gap-2 items-center p-2 justify-center" do %>
+        <%= image_tag("icons/github-white.svg", class: "h-8") %>
+        Report Bugs Here
+        <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i>
+      <% end %>
     </div>
-  </ul>
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar-menu" aria-labelledby="sidebar-menu-label">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="sidebar-menu-label">Pages</h5>
-      <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="sidebar-links-container">
-        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(index show).include?(params[:action]) %>">
-          <%= link_to "Leaderboards", root_path, data: { turbo: false } %>
-        </li>
-        <li class="sidebar-nav-item <%= 'active-nav' if current_page?(controller: 'charts', action: 'index') %>" >
-          <%= link_to "Community Charts", charts_path, data: { turbo: false } %>
-        </li>
-        <% if current_user && current_user.me? %>
-          <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'skins' %>">
-            <%= link_to "Skins", skins_path, data: { turbo: false } %>
-          </li>
-        <% end %>
-        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'leaderboards' && %w(top_100 top_100_index).include?(params[:action]) %>">
-          <%= link_to "Top 100", top_100_index_leaderboards_path, data: { turbo: false } %>
-        </li>
-        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'guess_whos' && %w(index show).include?(params[:action]) %>">
-          <%= link_to "Guess Who", guess_whos_path, data: { turbo: false } %>
-        </li>
-        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'gifs' && %w(index show).include?(params[:action]) %>">
-          <%= link_to "Gifs", gifs_path, data: { turbo: false } %>
-        </li>
-        <li class="sidebar-nav-item <%= 'active-nav' if params[:controller] == 'crits' %>">
-          <%= link_to "Crit Calculator", crits_path, data: { turbo: false } %>
-        </li>
-        <hr/>
-        <li class="sidebar-nav-item">
-          <a href="https://github.com/0lafe/payday2Charts/issues" target="_blank" class="github-nav">
-            <%= image_tag("icons/github-white.svg", class: "github-nav-item") %>
-            Report Bugs Here
-            <i class="fa-solid fa-up-right-from-square" style="margin-left: 0.5rem;"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <div data-slideover-target="backdrop" class="fixed inset-0 z-20 bg-black/50 hidden"></div>
   </div>
 <% end %>

@@ -13,9 +13,6 @@ Rails.application.routes.draw do
     member do
       get 'top_100'
     end
-    collection do
-      get 'top_100_index'
-    end
   end
   resources :users, only: ['create']
   resources :crits, only: ['index']

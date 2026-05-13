@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_02_204955) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_04_210219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -1152,6 +1152,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_02_204955) do
     t.integer "enemy_kills_piggydozer"
     t.integer "gadget_used_spy_camera"
     t.index ["user_id"], name: "index_misc_stats_on_user_id"
+  end
+
+  create_table "notification_banners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "notification_type", null: false
+    t.text "content", null: false
   end
 
   create_table "player_stats", force: :cascade do |t|

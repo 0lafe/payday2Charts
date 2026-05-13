@@ -11,7 +11,7 @@ class StatsController < ApplicationController
     data = []
     no_history = []
 
-    SteamApi.retrieve_stats(type).each do |stat|
+    SteamApi.retrieve_stats(type).each_with_index do |stat, index|
       history, labels = if stat[1]['history']
         [
           stat[1]['history'].map {|history_item| history_item['total'] },
@@ -25,7 +25,7 @@ class StatsController < ApplicationController
       end
       item = {
         name: stat[0],
-        value: history,
+        values: history,
         localized_name: Localizer.localize_from_statistic(stat[0]),
         labels: labels,
         item_name: Localizer.remove_stat(stat[0]),
@@ -38,8 +38,8 @@ class StatsController < ApplicationController
       end
     end
 
-    data = data.sort_by {|stat| stat[:value].reduce(0) {|sum, i| sum + i.to_i } }.reverse
-    no_history = no_history.sort_by {|stat| stat[:value].reduce(0) {|sum, i| sum + i.to_i } }.reverse
+    data = data.sort_by {|stat| stat[:values].reduce(0) {|sum, i| sum + i.to_i } }.reverse
+    no_history = no_history.sort_by {|stat| stat[:values].reduce(0) {|sum, i| sum + i.to_i } }.reverse
     data.concat(no_history)
     data
   end

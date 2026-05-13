@@ -1,0 +1,12 @@
+<section class="rounded-3xl
+  border border-white/10
+  bg-dark-light
+  shadow-2xl shadow-black/30
+  p-4 lg:p-6 <%= @classes %>">
+  <% if @title %>
+    <div class="text-lg font-medium text-white">
+      <%= @title %>
+    </div>
+  <% end %>
+  <%= content %>
+</section>

@@ -135,6 +135,86 @@ class Localizer
     descriptor + localize(name + uuid) + suffix
   end
 
+  def self.return_unlocalized(statistic)
+    setup_files
+    suffix = ""
+
+    name = 
+      if statistic.include?("melee_")
+        "bm_melee_"
+      elsif statistic.include?("weapon_charm_used_")
+        ""
+      elsif statistic.include?("weapon_color_used_")
+        "bm_wskn_"
+      elsif statistic.include?("weapon_")
+        "bm_w_"
+      elsif statistic.include?("mask_")
+        "bm_msk_"
+      elsif statistic.include?("gadget_")
+        "bm_equipment_"
+      elsif statistic.include?("grenade_")
+        "bm_throwable_"
+      elsif statistic.include?("gloves_used_")
+        "bm_gloves_"
+      elsif statistic.include?("suit_used")
+        "bm_suit_"
+      elsif statistic.include?("difficulty_")
+        ""
+      elsif statistic.include?("character_used")
+        suffix = " (Character)"
+        "bm_character_"
+      elsif statistic.include?("armor_used")
+        "bm_armor_"
+      elsif statistic.include?("enemy_kills_")
+        "enemy_"
+      elsif statistic.include?("contract_")
+        statistic = statistic.gsub("_prof", "")
+
+        if statistic.include?("skm_")
+          suffix += " Holdout"
+          statistic = statistic.gsub("skm_", "")
+        end
+
+        if statistic.include?("_win_dropin")
+          suffix += " Win (drop in)"
+          statistic = statistic.gsub("_win_dropin", "")
+        elsif statistic.include?("_win")
+          suffix += " Win"
+          statistic = statistic.gsub("_win", "")
+        elsif statistic.include?("_fail")
+          suffix += " Lose"
+          statistic = statistic.gsub("_fail", "")
+        end
+
+        if statistic.end_with?("_night")
+          suffix += " Night"
+          statistic = statistic.gsub("_night", "")
+        end
+
+        "heist_"
+      end
+
+    name = name || ""
+
+    uuid = statistic
+    descriptor = ""
+    @stats.keys.each do |stat|
+      uuid = uuid.gsub(stat.to_s, "")
+      descriptor = @stats[stat] if statistic.include?(stat.to_s)
+    end
+    begin
+      name + uuid
+    rescue
+      false
+    end
+
+    name = name + uuid
+
+    name = @overkill_goofs[name.to_sym] if @overkill_goofs[name.to_sym]
+
+    @localization_file[name]
+  end
+
   def self.weapon_from_stat(stat)
     stat
       .gsub("weapon_used", "bm_w")

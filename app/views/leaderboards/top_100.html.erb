@@ -1,32 +1,48 @@
-<div class="page">
-  <div class='page-container'>
-    <% if @leaderboard_user.present? %>
-      <% if @stats.length %>
-        <div class="portlet-container top-100-header">
-          <h1 style="display:flex;align-items:center;">
+<% if @leaderboard_user.present? %>
+  <% if @stats.present? %>
+    <div class="w-full max-w-2xl space-y-6 mx-auto mt-4 px-2">
+      <%= render TileComponent.new do %>
+        <div class="space-y-4">
+          <div class="flex gap-2 items-center text-3xl">
             <%= image_tag(@leaderboard_user.avatar, class: "steam-avatar") %>
             <%= @leaderboard_user.name %>
-          </h1>
+          </div>
           <h2>
-            Top 100 in <%= @stats.length %> stats
+            Top 100 in
+            <span class="text-branding-blue">
+              <%= @stats.length %>
+            </span>
+            stats
           </h2>
           <p>
             Last LB reset at <%= Leaderboard.read["updated_at"] %>
           </p>
         </div>
-        <div class="portlet-container top-100-table">
-          <table style="min-width:60%" id="top_100">
+      <% end %>
+
+      <%= render TileComponent.new do %>
+        <div data-controller="table-search">
+          <div class="flex justify-end items-center gap-4 mb-4">
+            <label>
+              Search:
+            </label>
+            <input
+              data-table-search-target="search"
+              data-action="input->table-search#handleSearch"
+              class="rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30">
+          </div>
+          <table class="w-full table-auto border-collapse">
             <thead>
               <tr>
-                <th data-dt-order="disable">Stat name</th>
-                <th data-dt-order="disable">Rank</th>
-                <th data-dt-order="disable">Value</th>
+                <th class="border-2 border-dark-inputs p-2">Stat name</th>
+                <th class="border-2 border-dark-inputs p-2">Rank</th>
+                <th class="border-2 border-dark-inputs p-2">Value</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody data-table-search-target="body">
               <% @stats.each do |stat| %>
                 <tr>
-                  <td>
+                  <td class="border-2 border-dark-inputs p-2">
                     <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
                     <% if WeaponStat.has_filtering?(stat[:name]) %>
                       <%= link_to(
@@ -42,32 +58,37 @@
                       ) %>
                     <% end %>
                   </td>
-                  <td><%= stat[:value] + 1 %></td>
-                  <td><%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %></td>
+                  <td class="border-2 border-dark-inputs p-2">
+                    <%= stat[:value] + 1 %>
+                  </td>
+                  <td class="border-2 border-dark-inputs p-2">
+                    <%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
-      <% else %>
-        <h1 style="color:white">
-          <%= @leaderboard_user.name %> is not in the top 100 for any stats
-        </h1>
       <% end %>
-    <% else %>
-      <h1 style="color:white">
-        No user could be found with that ID
-      </h1>
-    <% end %>
-  </div>
-</div>
+    </div>
+  <% else %>
+    <div class="flex justify-center mt-4">
 
-<script>
-  $(document).ready(() => {
-    let table = $("#top_100").DataTable({
-      paging: false,
-      info: false,
-      ordering: false
-    })
-  })
-</script>
+      <%= render TileComponent.new do %>
+        <div class="space-y-4">
+          <div class="flex gap-2 items-center text-3xl">
+            <%= image_tag(@leaderboard_user.avatar, class: "steam-avatar") %>
+            <%= @leaderboard_user.name %>
+          </div>
+          <div>
+            User is not in the top 100 for any stats
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="flex justify-center mt-4">
+    No user could be found with that ID
+  </div>
+<% end %>

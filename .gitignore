@@ -49,3 +49,5 @@ ids.txt
 
 .kamal/database_url
 .kamal/registry_password
+/app/assets/builds/*
+!/app/assets/builds/.keep

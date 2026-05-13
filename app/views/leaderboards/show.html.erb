@@ -1,94 +1,30 @@
-<div class="page">
-  <div class='page-container leaderboards'>
-    <div class="leaderboard-header">
-      <div class="new-user-container portlet-container">
-        <h2><%= @name %></h2>
-        <div class="leaderboard-image">
-          <%= image_tag(Localizer.generate_image_url(@name_id, "full"), style: "object-fit: contain;height:100%;width:100%") %>
-        </div>
-        <div class="statistic-choice-container">
-          <span>Change Statistic</span>
-          <%= render(StatSearchComponent.new) %>
-        </div>
-      </div>
-      <div id="add-player-container" class='new-user-container portlet-container'>
-        <h2>Add Player</h2>
-        <%= image_tag("icons/new-user.svg", class: "add-user-icon") %>
-        <%= simple_form_for(User.new) do |f| %>
-          <%= hidden_field_tag :return_to, request.fullpath %>
-          <%= f.input :steam_id,
-            label: "Steam 64 ID (find ID <a href='https://steamid.xyz/' target='_blank'>here</a>)".html_safe,
-            input_html: { class: "add-user-text-field" },
-            as: :numeric
-          %>
-          <%= f.button :submit, 'Add Player To Leaderboard', class: 'add-user-button submit-button btn-primary' %>
-        <% end %>
-      </div>
-    </div>
-
-    <div id="add-player-mobile" class="portlet-container">
-      <button class="add-player-dropdown" type="button" data-bs-toggle="collapse" data-bs-target="#add-player">
-        <%= image_tag("icons/down-arrow.svg", class: "dropdown-arrow") %>
-        <h2>
-          Add Player
-        </h2>
-        <%= image_tag("icons/down-arrow.svg", class: "dropdown-arrow") %>
-      </button>
-
-      <div class="collapse" id="add-player">
-        <%= simple_form_for(User.new) do |f| %>
-          <%= hidden_field_tag :return_to, request.fullpath %>
-          <%= f.input :steam_id,
-            label: "Steam 64 ID (find ID <a href='https://steamid.xyz/' target='_blank'>here</a>)".html_safe,
-            input_html: { class: "add-user-text-field" },
-            as: :numeric
-          %>
-          <%= f.button :submit, 'Add Player To Leaderboard', class: 'add-user-button submit-button btn-primary' %>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="leaderboard-container">
-      <div class="portlet-container">
-        <%= render "leaderboards/ranking_table" %>
-        <%= render "leaderboards/ranking_table_mobile" %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  $(document).ready(() => {
-    let table = $("#leaderboard-table").DataTable({
-      paging: false,
-      info: false
-    })
-
-    let mobileTable = $("#leaderboard-table-mobile").DataTable({
-      paging: false,
-      info: false
-    })
-    
-    <% if @grouping %>
-      $("<span>Filter By:</span>").appendTo($('.dt-layout-start').first())
-      $("<button class='filter-button btn btn-primary <%= @filter == "kills" ? "disabled" : nil %>' data-filter='kills'>Kills</button>").appendTo($('.dt-layout-start').first())
-      $("<button class='filter-button btn btn-primary <%= @filter == "used" ? "disabled" : nil %>' data-filter='used'>Uses</button>").appendTo($('.dt-layout-start').first())
-
-      $("<button class='filter-button btn btn-primary <%= @filter == "kills" ? "disabled" : nil %>' data-filter='kills'>Kills</button>").appendTo($('#leaderboard-table-mobile_wrapper .dt-layout-start').first())
-      $("<button class='filter-button btn btn-primary <%= @filter == "used" ? "disabled" : nil %>' data-filter='used'>Uses</button>").appendTo($('#leaderboard-table-mobile_wrapper .dt-layout-start').first())
-      <% if @grouping == "weapon" %>
-        $("<button class='filter-button btn btn-primary <%= @filter == "shots" ? "disabled" : nil %>' data-filter='shots'>Shots</button>").appendTo($('.dt-layout-start').first())
-        $("<button class='filter-button btn btn-primary <%= @filter == "hits" ? "disabled" : nil %>' data-filter='hits'>Shots Hit</button>").appendTo($('.dt-layout-start').first())
-        
-        $("<button class='filter-button btn btn-primary <%= @filter == "shots" ? "disabled" : nil %>' data-filter='shots'>Shots</button>").appendTo($('#leaderboard-table-mobile_wrapper .dt-layout-start').first())
-        $("<button class='filter-button btn btn-primary <%= @filter == "hits" ? "disabled" : nil %>' data-filter='hits'>Shots Hit</button>").appendTo($('#leaderboard-table-mobile_wrapper .dt-layout-start').first())
-      <% end %>
+<div>
+  <div class="p-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <%= render TileComponent.new(title: @name) do %>
+        <%= image_tag(
+          Localizer.generate_image_url(@name_id, "full"),
+          class: "hidden lg:block max-h-32 mx-auto"
+        ) %>
+        <span>Change Statistic</span>
+        <%= render(StatSearchComponent.new) %>
     <% end %>
 
-    $(".filter-button").on("click", (e) => {
-      let filter = e.target.dataset.filter
-      let grouping = new URLSearchParams(window.location.search).get("grouping")
-      window.location.href = `${location.pathname}?grouping=${grouping}&filter=${filter}`
-    })
-  })
-</script>
+    <%= render TileComponent.new(title: "Add Player") do %>
+      <%= image_tag("icons/new-user.svg", class: "h-32 hidden lg:block mx-auto") %>
+      <%= simple_form_for User.new, html: {class: "w-full flex flex-col"} do |f| %>
+        <%= hidden_field_tag :return_to, request.fullpath %>
+        <%= f.input :steam_id,
+          label: "Steam 64 ID (find ID <a href='https://steamid.xyz/' target='_blank' class='text-branding-blue'>here</a>)".html_safe,
+          as: :numeric
+        %>
+        <%= f.button :submit, 'Add Player To Leaderboard', class: 'btn-primary' %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='p-4'>
+    <%= render TileComponent.new() do %>
+      <%= render "leaderboards/ranking_table" %>
+      <%= render "leaderboards/ranking_table_mobile" %>
+    <% end %>
+  </div>
+</div>

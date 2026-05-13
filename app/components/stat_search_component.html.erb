@@ -1,26 +1,37 @@
-<%= select_tag('statistic_choice', options_for_select(@options), include_blank: true, class: @class_name, style: "width: 100%;min-width: 300px;") %>
+<div data-controller="dropdown-search stat-search" class="relative text-white">
+  <button
+    data-action="click->dropdown-search#toggle"
+    data-dropdown-search-target="button"
+    class="w-full rounded-t-xl rounded-b-xl border border-white/10 bg-[#262626] px-4 py-3 focus:border-branding-blue focus:ring-2 focus:ring-brandingborder-branding-blue/30 flex justify-between"
+  >
+    <span data-stat-search-target="label">Select a stat</span>
+    <span>▾</span>
+  </button>
 
-<script>
-  $(document).ready(function() { 
-    $("#statistic_choice").select2({
-      theme: "custom"
-    });
-  });
+  <div
+    data-dropdown-search-target="menu"
+    class="absolute left-0 w-full bg-dark-light border border-branding-blue/40 rounded shadow-lg hidden"
+  >
+    <input
+      type="text"
+      placeholder="Search..."
+      data-action="input->dropdown-search#filter"
+      data-dropdown-search-target="input"
+      class="w-full px-3 py-2 bg-[#262626] text-white border-b border-gray-700 outline-none"
+    />
 
-  $('#statistic_choice').on('select2:select', function (e) {
-    const grouping = $("#statistic_choice").find(":selected").data("grouping")
-
-    let route
-    if (grouping) {
-      route = `${e.target.value}?grouping=${grouping}`
-    } else {
-      route = e.target.value
-    }
-
-    window.location.href = `/leaderboards/${route}`
-  });
-
-  $(document).on('select2:open', () => {
-    document.querySelector('.select2-search__field').focus();
-  });
-</script>
+    <ul class="max-h-48 overflow-y-auto bg-branding-blue/10">
+      <% @options.each do |item| %>
+        <li
+          data-dropdown-search-target="item"
+          data-value="<%= item[1] %>"
+          data-grouping="<%= item[2] %>"
+          data-action="click->dropdown-search#toggle click->stat-search#select"
+          class="px-4 py-2 cursor-pointer hover:bg-gray-700"
+        >
+          <%= item[0] %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
