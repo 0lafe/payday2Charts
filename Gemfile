@@ -84,7 +84,6 @@ gem "httparty"
 gem "view_component"
 gem "pagy"
 gem "nokogiri"
-gem "select2-rails"
 gem "simple_form"
 gem "rmagick"
 gem "aws-sdk-s3", require: false
