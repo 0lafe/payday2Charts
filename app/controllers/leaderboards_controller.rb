@@ -20,6 +20,11 @@ class LeaderboardsController < ApplicationController
   end
 
   def top_100
+    unless Leaderboard.up?
+      render :top_100_maintenance
+      return
+    end
+
     steam_id = params[:id].gsub(/\D/, '')
     @leaderboard_user = User.find_by(steam_id:)
 

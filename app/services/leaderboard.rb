@@ -41,6 +41,10 @@ class Leaderboard
     }
   end
 
+  def self.up?
+    REDIS_CLIENT.exists?("lb")
+  end
+
   def self.read
     JSON.parse(REDIS_CLIENT.get('lb'))
   end
