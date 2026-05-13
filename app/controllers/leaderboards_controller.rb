@@ -39,8 +39,6 @@ class LeaderboardsController < ApplicationController
     @weapon_stats = WeaponStat.find_by(user_id: @leaderboard_user.id)
     @player_stats = PlayerStat.find_by(user_id: @leaderboard_user.id)
     @misc_stats = MiscStat.find_by(user_id: @leaderboard_user.id)
-
-    @stats = []
   end
 
   private
