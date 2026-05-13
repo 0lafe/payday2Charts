@@ -1,7 +1,18 @@
 <div data-controller="chart-page" class="m-4">
     <%= render TileComponent.new do %>
         <div class="flex justify-between flex-col md:flex-row gap-2">
-            <div class="flex gap-4 items-center">
+            <div class="lg:w-80 flex gap-2 items-center">
+                <span>Stats</span>
+                <%= render ChartSearchComponent.new %>
+            </div>
+
+            <div class="flex gap-2 justify-end items-center">
+                <span>Search</span>
+                <input data-action="input->chart-page#search"
+                    class="flex-1 rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30"/>
+            </div>
+
+            <div class="flex gap-4 items-center justify-between">
                 <button data-action="click->chart-page#navigateStart" class="pagination-arrow paginate-back">
                     &lt;&lt;&lt;
                 </button>
@@ -17,16 +28,6 @@
                 <button data-action="click->chart-page#navigateEnd" class="pagination-arrow paginate-forward">
                     &gt;&gt;&gt;
                 </button>
-            </div>
-
-            <div class="w-80">
-                <%= render ChartSearchComponent.new %>
-            </div>
-
-            <div>
-                <span>Search</span>
-                <input data-action="input->chart-page#search"
-                    class="flex-1 rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30"/>
             </div>
         </div>
     <% end %>
