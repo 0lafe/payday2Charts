@@ -25,7 +25,8 @@
 
             <div>
                 <span>Search</span>
-                <input data-chart-page-target="search" class="flex-1 rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30"/>
+                <input data-action="input->chart-page#search"
+                    class="flex-1 rounded-xl border border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30"/>
             </div>
         </div>
     <% end %>
@@ -40,7 +41,7 @@
                         <span class="total"></span>
                         <span class="rank"></span>
                     </div>
-                    <img class="image max-h-32 w-auto 3xl:max-h-64" />
+                    <div class="image h-32"></div>
                 </div>
                 <canvas class="max-h-32 3xl:max-h-64"></canvas>
             </div>

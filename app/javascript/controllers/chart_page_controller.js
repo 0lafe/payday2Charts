@@ -104,7 +104,12 @@ export default class extends Controller {
       parent.querySelector('.total').innerText = `Total: ${total}`
 
       parent.querySelector('.rank').innerText = `#${data.position} Overall`
-      parent.querySelector('.image').setAttribute('src', data.img_url)
+      
+      parent.querySelector('.image').replaceChildren()
+      const imgElement = document.createElement('img')
+      imgElement.src = data.img_url
+      imgElement.classList = "max-h-32 w-auto 3xl:max-h-64"
+      parent.querySelector('.image').appendChild(imgElement)
 
       const chartCanvas = parent.querySelector('canvas')
 
@@ -153,6 +158,8 @@ export default class extends Controller {
       Array.from(this.containerTarget.children).forEach((el, index) => {
         if (index >= dataSlice.length) {
           el.classList.add('hidden')
+        } else {
+          el.classList.remove('hidden')
         }
       })
     } else {
@@ -191,18 +198,26 @@ export default class extends Controller {
 
     for (let i = 0; i < this.totalPagesValue && i < this.pageDisplayValue; i++) {
       const range = (this.pageDisplayValue - 1)/2
+
       let val = this.currentPageValue - range + i
+
       let shift = 0
 
       if (this.currentPageValue <= range) {
-        shift += (range - this.currentPageValue) + 1
+        shift += range - this.currentPageValue
       } else if (this.totalPagesValue - this.currentPageValue <= range && this.totalPagesValue > this.pageDisplayValue) {
-        shift -= (this.currentPageValue - this.totalPagesValue + range)
+        shift -= (this.currentPageValue - this.totalPagesValue + range) + 1
       }
       if (val + shift <= this.totalPagesValue) {
         this.addPaginationButton(val + shift)
       }
     }
+
+    Array.from(this.paginationNumbersTarget.children).forEach(el => {
+      el.addEventListener('click', e => {
+        this.handleNavigatePage(e.currentTarget.dataset.value)
+      })
+    })
 
     if (this.currentPageValue === 0) {
       document.querySelectorAll('.paginate-back').forEach(el => {
@@ -227,13 +242,12 @@ export default class extends Controller {
 
   addPaginationButton(page) {
     const element = document.createElement('button')
-    element.innerText = page
+    element.innerText = page + 1
 
-    const pageIndex = page - 1
-    element.dataset.value = pageIndex
+    element.dataset.value = page
 
     element.classList = "pagination-number"
-    if (pageIndex === this.currentPageValue) {
+    if (page === this.currentPageValue) {
       element.setAttribute('disabled', true)
     }
 
@@ -245,5 +259,15 @@ export default class extends Controller {
     this.statValue = e.currentTarget.dataset.value
 
     this.handleStatChange()
+  }
+
+  search(e) {
+    const searchString = e.currentTarget.value.toLowerCase()
+
+    this.currentDataValue = this.apiDataValue[this.statValue].filter(item => {
+      return item.localized_name.toLowerCase().includes(searchString)
+    })
+
+    this.handleNavigatePage(0)
   }
 }
