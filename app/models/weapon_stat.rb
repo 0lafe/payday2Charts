@@ -2,6 +2,8 @@ class WeaponStat < ApplicationRecord
   belongs_to :user
 
   def self.get_top_100(record_name, filter = nil)
+    return [] unless MiscStat.column_names.include?(name)
+
     if filter
       top_100_filter(record_name, filter)
     else
