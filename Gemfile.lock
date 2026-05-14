@@ -373,7 +373,6 @@ GEM
       version_gem (~> 1.1, >= 1.1.4)
     rubyzip (3.3.0)
     securerandom (0.4.1)
-    select2-rails (4.0.13)
     selenium-webdriver (4.43.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -492,7 +491,6 @@ DEPENDENCIES
   rspec
   rspec-rails
   ruby-openid2
-  select2-rails
   selenium-webdriver
   sentry-rails
   sentry-ruby
@@ -645,7 +643,6 @@ CHECKSUMS
   ruby-openid2 (3.1.0) sha256=716c7e101162654380d5520fd377a71bc67d85c8f8ccc8f9cf53dca001c896c6
   rubyzip (3.3.0) sha256=a372fc67892a4f8c0bc8ec906b720353d8e48807a64b2e63adf99b1e3583a034
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
-  select2-rails (4.0.13) sha256=52e39a9bef669f98a9454303ed8ea51f5e31c80a2d39ff1aa1dced36a858e70c
   selenium-webdriver (4.43.0) sha256=a634377b964b701c6ac0a009ce3a08fa34ec1e1e7fe9a6d57e3088d14529a65c
   sentry-rails (6.5.0) sha256=ebf9d4d82c740c3e0e4a0840f11f7bbd0cf648a30afd9c67e5b50bb07018a0e4
   sentry-ruby (6.5.0) sha256=3c57ae0d6a017aafcd9ac37114e38149a58534679dec5d4e9e8fc010b85f3a6b
