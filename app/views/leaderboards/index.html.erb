@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center p-6">
+<div class="flex items-center justify-center p-6" data-controller="leaderboard-index">
   <div class="w-full max-w-2xl space-y-6">
 
     <div class="text-center space-y-4">
@@ -34,12 +34,15 @@
               View how many leaderboards a user is on
             </div>
 
-            <%= simple_form_for :user do |f| %>
+            <%= simple_form_for :user, html: { 'data-action': 'submit->leaderboard-index#top100Navigate' } do |f| %>
               <div class="lg:flex lg:justify-between gap-4">
                 <div class="flex-1">
                   <%= f.input :steam_id,
                     label: "Steam 64 ID (found <a href='https://steamid.xyz/' target='_blank' class='text-blue-500'>here</a>)".html_safe,
-                    placeholder: "Search..." %>
+                    placeholder: "Search...",
+                    input_html: {
+                      "data-leaderboard-index-target": "steamId"
+                    } %>
                 </div>
                 <div class="flex flex-col justify-end">
                   <%= f.button :submit, 'Check Stats', class: 'btn btn-primary mb-2', id: 'submit-button' %>
@@ -72,18 +75,8 @@
               <% end %>
             <% end %>
           </div>
-
         </div>
       <% end %>
     </div>
   </div>
 </div>
-
-<script>
-  $('#submit-button').on('click', (e) => {
-    e.preventDefault()
-    if ($('#user_steam_id').val().length) {
-      window.location.href = `/leaderboards/${$('#user_steam_id').val()}/top_100`
-    }
-  })
-</script>
