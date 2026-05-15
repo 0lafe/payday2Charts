@@ -1,4 +1,4 @@
-<% unless params[:controller] == 'jeopardy_games' %>
+<% if ['leaderboards', 'charts'].include?(params[:controller]) %>
   <% notification_banners.each do |banner| %>
     <div class="<%= banner.notification_type %> flash-notification">
       <%= banner.content %>

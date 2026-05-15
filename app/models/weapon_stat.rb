@@ -2,11 +2,11 @@ class WeaponStat < ApplicationRecord
   belongs_to :user
 
   def self.get_top_100(record_name, filter = nil)
-    return [] unless MiscStat.column_names.include?(name)
-
     if filter
       top_100_filter(record_name, filter)
     else
+      return [] unless column_names.include?(record_name)
+
       users = WeaponStat.where.not({record_name => nil}).order("#{record_name} DESC").includes(:user).limit(100)
       names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
       users.map.with_index do |a, index|
@@ -94,6 +94,15 @@ class WeaponStat < ApplicationRecord
       type = "grenade_"
       record = name.gsub("bm_throwable", "grenade_#{filter}")
     end
+
+    p record
+    p record
+    p record
+    p record
+    p record
+    p record
+
+    return [] unless column_names.include?(record)
 
     kill_stat = record.gsub("#{type}#{filter}", "#{type}kills")
     uses_stat = record.gsub("#{type}#{filter}", "#{type}used")

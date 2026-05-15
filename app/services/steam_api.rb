@@ -39,10 +39,15 @@ class SteamApi
       "#{@base_url}#{resource}?key=#{SteamApiKey.current_key}",
       query: params
     )
+
     if response.code == 429
       SteamApiKey.increment_key
     end
-    ApiLog.create(resource:, params:, code: response.code)
+
+    if response.code != 200
+      ApiLog.create(resource:, params:, code: response.code)
+    end
+
     response
   end
 

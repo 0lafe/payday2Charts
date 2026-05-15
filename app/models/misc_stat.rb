@@ -2,7 +2,7 @@ class MiscStat < ApplicationRecord
   belongs_to :user
 
   def self.get_top_100(name)
-    return [] unless MiscStat.column_names.include?(name)
+    return [] unless column_names.include?(name)
 
     users = MiscStat.includes(:user)
       .where.not(user: { banned: true })

@@ -52,3 +52,7 @@ accessories:
     port: 6379
     volumes:
       - /var/lib/redis:/data
+
+aliases:
+  console: app exec -i --reuse "bin/rails console"
+  ssh: app exec -i --reuse "bash"
