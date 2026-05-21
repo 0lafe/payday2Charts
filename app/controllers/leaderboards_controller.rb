@@ -4,19 +4,32 @@ class LeaderboardsController < ApplicationController
 
   def show
     @name_id = params[:id]
-    @grouping = ["weapon", "melee", "throwable"].include?(params[:grouping]) && params[:grouping] || nil
-    if @grouping
-      handle_grouping
-    else
-      @data = if @name_id.index('weapon_') == 0 || @name_id.index('melee_') == 0 || @name_id.index('grenade_') == 0
-        WeaponStat.get_top_100(@name_id)
-      elsif @name_id.index('mask_') == 0 || @name_id.index('suit_') == 0 || @name_id.index('player_') == 0 || @name_id.index('skill_') == 0
-        PlayerStat.get_top_100(@name_id)
-      else
-        MiscStat.get_top_100(@name_id)
-      end
-      @name = Localizer.localize_from_statistic(@name_id)
-    end
+    # @grouping = ["weapon", "melee", "throwable"].include?(params[:grouping]) && params[:grouping] || nil
+    # if @grouping
+    #   handle_grouping
+    # else
+    #   @data = if @name_id.index('weapon_') == 0 || @name_id.index('melee_') == 0 || @name_id.index('grenade_') == 0
+    #     WeaponStat.get_top_100(@name_id)
+    #   elsif @name_id.index('mask_') == 0 || @name_id.index('suit_') == 0 || @name_id.index('player_') == 0 || @name_id.index('skill_') == 0
+    #     PlayerStat.get_top_100(@name_id)
+    #   else
+    #     MiscStat.get_top_100(@name_id)
+    #   end
+    #   @name = Localizer.localize_from_statistic(@name_id)
+    # end
+    # 
+    
+    @stat = Stat.find_by(name: params[:id])
+
+    @data = UserStat.joins(:user)
+      .where(
+        stat: @stat
+      ).where.not(
+        user: {
+          banned: true
+        }
+      ).order(value: :desc)
+      .limit(100)
   end
 
   def top_100

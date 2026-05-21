@@ -1,23 +1,13 @@
 class WeaponStat < ApplicationRecord
+  include Statable
+  
   belongs_to :user
 
   def self.get_top_100(record_name, filter = nil)
     if filter
       top_100_filter(record_name, filter)
     else
-      return [] unless column_names.include?(record_name)
-
-      users = WeaponStat.where.not({record_name => nil}).order("#{record_name} DESC").includes(:user).limit(100)
-      names = SteamApi.get_multiple_user_data(users.map {|player| player.user.steam_id })
-      users.map.with_index do |a, index|
-        {
-          name: names[index][:name],
-          avatar: names[index][:avatar],
-          steam_id: a.user.steam_id,
-          value: a[record_name],
-          updated_at: a.updated_at
-        }
-      end
+      super
     end
   end
 
@@ -95,13 +85,6 @@ class WeaponStat < ApplicationRecord
       record = name.gsub("bm_throwable", "grenade_#{filter}")
     end
 
-    p record
-    p record
-    p record
-    p record
-    p record
-    p record
-
     return [] unless column_names.include?(record)
 
     kill_stat = record.gsub("#{type}#{filter}", "#{type}kills")
@@ -109,31 +92,33 @@ class WeaponStat < ApplicationRecord
     shots_stat = record.gsub("#{type}#{filter}", "#{type}shots")
     hits_stat = record.gsub("#{type}#{filter}", "#{type}hits")
 
-    select_list = [:user_id, :updated_at]
+    select_list = [:updated_at, 'user.steam_id']
     select_list << kill_stat if WeaponStat.column_names.include?(kill_stat)
     select_list << uses_stat if WeaponStat.column_names.include?(uses_stat)
     select_list << shots_stat if WeaponStat.column_names.include?(shots_stat)
     select_list << hits_stat if WeaponStat.column_names.include?(hits_stat)
 
-    stats = WeaponStat.includes(:user)
+    stats = WeaponStat.joins(:user)
       .where.not(user: { banned: true })
       .where.not({record => nil})
       .order("#{record} DESC")
       .limit(100)
-      .select(select_list)
+      .pluck(select_list)
 
-    names = SteamApi.get_multiple_user_data(stats.map {|stat| stat.user.steam_id })
+    names = SteamApi.get_multiple_user_data(
+      stats.map {|stat| stat[1] }
+    )
 
     stats.map.with_index do |stat, index|
       {
         name: names[index][:name],
         avatar: names[index][:avatar],
-        steam_id: stat.user.steam_id,
-        kills: stat[kill_stat],
-        used: stat[uses_stat],
-        shots: stat[shots_stat],
-        hits: stat[hits_stat],
-        updated_at: stat.updated_at
+        steam_id: stat[1],
+        kills: stat[2],
+        used: stat[3],
+        shots: stat[4],
+        hits: stat[5],
+        updated_at: stat[0]
       }
     end
   end

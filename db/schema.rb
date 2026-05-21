@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_04_210219) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_21_002655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2525,6 +2525,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_04_210219) do
     t.index ["user_id"], name: "index_player_stats_on_user_id"
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", null: false
+    t.string "stat_type", null: false
+    t.index ["name"], name: "index_stats_on_name", unique: true
+  end
+
   create_table "steam_item_data", force: :cascade do |t|
     t.text "icon_url", null: false
     t.string "name", null: false
@@ -2550,6 +2558,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_04_210219) do
     t.bigint "steam_item_data_id", null: false
     t.index ["steam_item_data_id"], name: "index_steam_items_on_steam_item_data_id"
     t.index ["user_id"], name: "index_steam_items_on_user_id"
+  end
+
+  create_table "user_stats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "stat_id", null: false
+    t.integer "value", null: false
+    t.index ["stat_id", "value"], name: "index_user_stats_on_stat_id_and_value"
+    t.index ["stat_id"], name: "index_user_stats_on_stat_id"
+    t.index ["user_id", "stat_id"], name: "index_user_stats_on_user_id_and_stat_id", unique: true
+    t.index ["user_id"], name: "index_user_stats_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -3951,4 +3971,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_04_210219) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "steam_items", "steam_item_data", column: "steam_item_data_id"
+  add_foreign_key "user_stats", "stats"
+  add_foreign_key "user_stats", "users"
 end
