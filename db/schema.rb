@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_21_002655) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_21_154828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -2530,6 +2530,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_21_002655) do
     t.datetime "updated_at", null: false
     t.string "name", null: false
     t.string "stat_type", null: false
+    t.boolean "display", default: true
     t.index ["name"], name: "index_stats_on_name", unique: true
   end
 

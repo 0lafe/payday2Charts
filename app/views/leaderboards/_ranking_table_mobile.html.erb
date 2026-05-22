@@ -9,31 +9,31 @@
         data-action="input->table-search#handleSearch"
         class="flex-1 rounded-xl border-2 border-white/10 bg-dark-inputs px-4 py-3 text-zinc-100 placeholder:text-zinc-500 outline-none transition focus:border-branding-blue focus:ring-2 focus:ring-branding-blue/30">
     </div>
-    <% if @grouping %>
+    <% if @stat.grouping? %>
       <div class="flex justify-between gap-2">
         <% if @filter == "kills" %>
           <button class="btn btn-primary" disabled>Kills</button>
         <% else %>
-          <%= link_to "Kills", leaderboard_path(@name_id, grouping: @grouping, filter: "kills"), class: "btn btn-primary" %>
+          <%= link_to "Kills", leaderboard_path(@stat.base_name, filter: "kills"), class: "btn btn-primary" %>
         <% end %>
 
         <% if @filter == "used" %>
           <button class="btn btn-primary" disabled>Uses</button>
         <% else %>
-          <%= link_to "Uses", leaderboard_path(@name_id, grouping: @grouping, filter: "used"), class: "btn btn-primary" %>
+          <%= link_to "Uses", leaderboard_path(@stat.base_name, filter: "used"), class: "btn btn-primary" %>
         <% end %>
 
-        <% if @grouping == "weapon" %>
+        <% if @stat.weapon? %>
           <% if @filter == "shots" %>
             <button class="btn btn-primary" disabled>Shots</button>
           <% else %>
-            <%= link_to "Shots", leaderboard_path(@name_id, grouping: @grouping, filter: "shots"), class: "btn btn-primary" %>
+            <%= link_to "Shots", leaderboard_path(@stat.base_name, filter: "shots"), class: "btn btn-primary" %>
           <% end %>
 
           <% if @filter == "hits" %>
             <button class="btn btn-primary" disabled>Hits</button>
           <% else %>
-            <%= link_to "Hits", leaderboard_path(@name_id, grouping: @grouping, filter: "hits"), class: "btn btn-primary" %>
+            <%= link_to "Hits", leaderboard_path(@stat.base_name, filter: "hits"), class: "btn btn-primary" %>
           <% end %>
         <% end %>
       </div>
@@ -48,17 +48,17 @@
       </tr>
     </thead>
     <tbody data-table-search-target="body">
-      <% @data.each_with_index do |stat, index| %>
-        <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "bg-green-700" : "" %>">
+      <% @user_stats.each_with_index do |stat, index| %>
+        <tr class="<%= current_user && current_user.steam_id == stat.user.steam_id ? "bg-green-700" : "" %>">
           <td class="border-2 border-dark-inputs p-2">
             <%= index + 1 %>
           </td>
           <td class="border-2 border-dark-inputs p-2" data-controller="modal">
             <button data-action="click->modal#open" class="flex justify-between items-center w-full">
               <div class="flex gap-2 items-center">
-                <%= image_tag(stat[:avatar], class: "inline") if stat[:avatar].present? %>
+                <%= image_tag(stat.user.steam_avatar, class: "inline") if stat.user.steam_avatar.present? %>
                 <span class="break-all">
-                  <%= stat[:name] %>
+                  <%= stat.user.steam_name %>
                 </span>
               </div>
               <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
@@ -71,19 +71,19 @@
               ></div>
               <div class="modal-content">
                 <div class="modal-header">
-                  Profiles for <%= stat[:name] %>
+                  Profiles for <%= stat.user.steam_name %>
                 </div>
                 <div class="modal-body">
                   <div class="flex flex-col gap-4">
-                    <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+                    <a href="https://fbi.paydaythegame.com/suspect/<%= stat.user.steam_id %>" target="_blank">
                       <%= image_tag("fbi-files.ico", class: "inline h-8 w-8") %>
                       FBI Files
                     </a>
-                    <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+                    <a href="https://steamcommunity.com/profiles/<%= stat.user.steam_id %>" target="_blank">
                       <%= image_tag("steam_logo.svg", class: "inline h-8 w-8") %>
                       Steam
                     </a>
-                    <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
+                    <a href="/leaderboards/<%= stat.user.steam_id %>/top_100" target="_blank">
                       <%= image_tag("fbi-logo.png", class: "inline h-8 w-8") %>
                       Top 100s
                     </a>
@@ -99,9 +99,9 @@
           </td>
 
           <td class="border-2 border-dark-inputs p-2" data-controller="modal">
-            <% if @grouping %>
+            <% if @stat.grouping? %>
               <button data-action="click->modal#open" class="flex justify-between items-center w-full">
-                <%= number_with_delimiter(stat[params[:filter]&.to_sym || :kills]) %>
+                <%= number_with_delimiter(stat.value) %>
                 <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
               </button>
 
@@ -117,17 +117,29 @@
                   <div class="modal-body">
                     <div class="flex flex-col gap-4">
                       <div>
-                        Kills: <%= number_with_delimiter(stat[:kills]) %>
+                        Kills:
+                        <%= number_with_delimiter(
+                          stat_value(stat, "kills", @filter, @extra_stats_lookup)
+                        ) %>
                       </div>
                       <div>
-                        Uses: <%= number_with_delimiter(stat[:used]) %>
+                        Uses:
+                        <%= number_with_delimiter(
+                          stat_value(stat, "used", @filter, @extra_stats_lookup)
+                        ) %>
                       </div>
-                      <% if @grouping == "weapon" %>
+                      <% if @stat.weapon? %>
                         <div>
-                          Shots: <%= number_with_delimiter(stat[:shots]) %>
+                          Shots:
+                          <%= number_with_delimiter(
+                            stat_value(stat, "shots", @filter, @extra_stats_lookup)
+                          ) %>
                         </div>
                         <div>
-                          Hits: <%= number_with_delimiter(stat[:hits]) %>
+                          Hits:
+                          <%= number_with_delimiter(
+                            stat_value(stat, "hits", @filter, @extra_stats_lookup)
+                          ) %>
                         </div>
                       <% end %>
                     </div>

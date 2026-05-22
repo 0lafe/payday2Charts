@@ -1,12 +1,12 @@
 <div>
   <div class="p-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <%= render TileComponent.new(title: @name) do %>
-        <%= image_tag(
-          Localizer.generate_image_url(@name_id, "full"),
-          class: "hidden lg:block max-h-32 mx-auto"
-        ) %>
-        <span>Change Statistic</span>
-        <%= render(StatSearchComponent.new) %>
+    <%= render TileComponent.new(title: @stat.localize) do %>
+      <%= image_tag(
+        @stat.image(size: "full"),
+        class: "hidden lg:block max-h-32 mx-auto"
+      ) %>
+      <span>Change Statistic</span>
+      <%= render(StatSearchComponent.new) %>
     <% end %>
 
     <%= render TileComponent.new(title: "Add Player") do %>

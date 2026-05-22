@@ -44,16 +44,16 @@
                 <tr>
                   <td class="border-2 border-dark-inputs p-2">
                     <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                    <% if WeaponStat.has_filtering?(stat[:name]) %>
+                    <% if stat[:stat].grouping? %>
                       <%= link_to(
-                        Localizer.localize_from_statistic(stat[:name]),
-                        WeaponStat.translate_weapon_stat_to_url(stat[:name]),
+                        stat[:stat].localize,
+                        stat[:stat].translate_weapon_stat_to_url,
                         data: { turbo: false }
                       ) %>
                     <% else %>
                       <%= link_to(
-                        Localizer.localize_from_statistic(stat[:name]),
-                        leaderboard_path(stat[:name]),
+                        stat[:stat].localize,
+                        leaderboard_path(stat[:stat].name),
                         data: { turbo: false }
                       ) %>
                     <% end %>
@@ -62,7 +62,7 @@
                     <%= stat[:value] + 1 %>
                   </td>
                   <td class="border-2 border-dark-inputs p-2">
-                    <%= @weapon_stats[stat[:name]] || @player_stats[stat[:name]] || @misc_stats[stat[:name]] %>
+                    <%= @user_stats[stat[:stat].id].first.value %>
                   </td>
                 </tr>
               <% end %>

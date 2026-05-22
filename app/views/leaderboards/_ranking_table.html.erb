@@ -1,30 +1,30 @@
 <div data-controller="table-search" class="w-full hidden lg:block">
   <div class="flex justify-between mb-2">
-    <% if @grouping %>
+    <% if @stat.grouping? %>
       <div class="flex justify-between gap-2">
         <% if @filter == "kills" %>
           <button class="btn btn-primary" disabled>Kills</button>
         <% else %>
-          <%= link_to "Kills", leaderboard_path(@name_id, grouping: @grouping, filter: "kills"), class: "btn btn-primary", data: { turbo: false } %>
+          <%= link_to "Kills", leaderboard_path(@stat.base_name, filter: "kills"), class: "btn btn-primary", data: { turbo: false } %>
         <% end %>
 
         <% if @filter == "used" %>
           <button class="btn btn-primary" disabled>Uses</button>
         <% else %>
-          <%= link_to "Uses", leaderboard_path(@name_id, grouping: @grouping, filter: "used"), class: "btn btn-primary", data: { turbo: false } %>
+          <%= link_to "Uses", leaderboard_path(@stat.base_name, filter: "used"), class: "btn btn-primary", data: { turbo: false } %>
         <% end %>
 
-        <% if @grouping == "weapon" %>
+        <% if @stat.weapon? %>
           <% if @filter == "shots" %>
             <button class="btn btn-primary" disabled>Shots</button>
           <% else %>
-            <%= link_to "Shots", leaderboard_path(@name_id, grouping: @grouping, filter: "shots"), class: "btn btn-primary", data: { turbo: false } %>
+            <%= link_to "Shots", leaderboard_path(@stat.base_name, filter: "shots"), class: "btn btn-primary", data: { turbo: false } %>
           <% end %>
 
           <% if @filter == "hits" %>
             <button class="btn btn-primary" disabled>Shots Hit</button>
           <% else %>
-            <%= link_to "Shots Hit", leaderboard_path(@name_id, grouping: @grouping, filter: "hits"), class: "btn btn-primary", data: { turbo: false } %>
+            <%= link_to "Shots Hit", leaderboard_path(@stat.base_name, filter: "hits"), class: "btn btn-primary", data: { turbo: false } %>
           <% end %>
         <% end %>
       </div>
@@ -47,10 +47,10 @@
         <th class="border-2 border-dark-inputs p-2">FBI Files</th>
         <th class="border-2 border-dark-inputs p-2">Steam Profile</th>
         <th class="border-2 border-dark-inputs p-2">Top 100s</th>
-        <% if @grouping %>
+        <% if @stat.grouping? %>
           <th class="border-2 border-dark-inputs p-2">Kills</th>
           <th class="border-2 border-dark-inputs p-2">Uses</th>
-          <% if @grouping == "weapon" %>
+          <% if @stat.weapon? %>
             <th class="border-2 border-dark-inputs p-2">Shots</th>
             <th class="border-2 border-dark-inputs p-2">Shots Hit</th>
           <% end %>
@@ -61,58 +61,66 @@
       </tr>
     </thead>
     <tbody data-table-search-target="body">
-      <% @data.each_with_index do |stat, index| %>
-        <tr class="<%= current_user && current_user.steam_id == stat[:steam_id] ? "bg-green-700" : "" %>">
+      <% @user_stats.each_with_index do |stat, index| %>
+        <tr class="<%= current_user && current_user.steam_id == stat.user.steam_id ? "bg-green-700" : "" %>">
           <td class="border-2 border-dark-inputs p-2">
             <%= index + 1 %>
           </td>
           <td class="border-2 border-dark-inputs p-2 text-wrap">
-            <%= image_tag(stat[:avatar], class: "inline") if stat[:avatar].present? %>
-            <%= stat[:name] %>
+            <%= image_tag(stat.user.steam_avatar, class: "inline") if stat.user.steam_avatar.present? %>
+            <%= stat.user.steam_name %>
           </td>
           <td class="align-middle border-2 border-dark-inputs p-2">
             <div class="flex items-center justify-center">
-              <a href="https://fbi.paydaythegame.com/suspect/<%= stat[:steam_id] %>" target="_blank">
+              <a href="https://fbi.paydaythegame.com/suspect/<%= stat.user.steam_id %>" target="_blank">
                 <%= image_tag("fbi-files.ico", class: "w-8 transition-transform duration-200 ease-in-out hover:scale-125") %>
               </a>
             </div>
           </td>
           <td class="align-middle border-2 border-dark-inputs p-2">
             <div class="flex items-center justify-center">
-              <a href="https://steamcommunity.com/profiles/<%= stat[:steam_id] %>" target="_blank">
+              <a href="https://steamcommunity.com/profiles/<%= stat.user.steam_id %>" target="_blank">
                 <%= image_tag("steam_logo.svg", class: "w-8 transition-transform duration-200 ease-in-out hover:scale-125") %>
               </a>
             </div>
           </td>
           <td class="align-middle border-2 border-dark-inputs p-2">
             <div class="flex items-center justify-center">
-              <a href="/leaderboards/<%= stat[:steam_id] %>/top_100" target="_blank">
+              <a href="/leaderboards/<%= stat.user.steam_id %>/top_100" target="_blank">
                 <%= image_tag("fbi-logo.png", class: "w-8 transition-transform duration-200 ease-in-out hover:scale-125") %>
               </a>
             </div>
           </td>
-          <% if @grouping %>
+          <% if @stat.grouping? %>
             <td class="border-2 border-dark-inputs p-2">
-              <%= number_with_delimiter(stat[:kills]) %>
+              <%= number_with_delimiter(
+                stat_value(stat, "kills", @filter, @extra_stats_lookup)
+              ) %>
             </td>
             <td class="border-2 border-dark-inputs p-2">
-              <%= number_with_delimiter(stat[:used]) %>
+              <%= number_with_delimiter(
+                stat_value(stat, "used", @filter, @extra_stats_lookup)
+              ) %>
             </td>
-            <% if @grouping == "weapon" %>
+            <% if @stat.weapon? %>
               <td class="border-2 border-dark-inputs p-2">
-                <%= number_with_delimiter(stat[:shots]) %>
+                <%= number_with_delimiter(
+                  stat_value(stat, "shots", @filter, @extra_stats_lookup)
+                ) %>
               </td>
               <td class="border-2 border-dark-inputs p-2">
-                <%= number_with_delimiter(stat[:hits]) %>
+                <%= number_with_delimiter(
+                  stat_value(stat, "hits", @filter, @extra_stats_lookup)
+                ) %>
               </td>
             <% end %>
           <% else %>
             <td class="border-2 border-dark-inputs p-2">
-              <%= number_with_delimiter(stat[:value]) %>
+              <%= number_with_delimiter(stat.value) %>
             </td>
           <% end %>
           <td class="border-2 border-dark-inputs p-2">
-            <%= stat[:updated_at].strftime("%b %d %Y") %>
+            <%= stat.updated_at.strftime("%b %d %Y") %>
           </td>
         </tr>
       <% end %>

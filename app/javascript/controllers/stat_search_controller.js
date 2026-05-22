@@ -7,10 +7,10 @@ export default class extends Controller {
 
   select(e) {
     let route = e.currentTarget.dataset.value
-    const grouping = e.currentTarget.dataset.grouping
+    const filter = e.currentTarget.dataset.filter
 
-    if (grouping) {
-      route += `?grouping=${grouping}`
+    if (filter) {
+      route += `?filter=${filter}`
     }
 
     window.location.href = `/leaderboards/${route}`

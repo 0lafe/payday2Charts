@@ -1,8 +1,12 @@
 class User < ApplicationRecord
+  attr_accessor :steam_name
+  attr_accessor :steam_avatar
+
   has_one :weapon_stat, dependent: :destroy
   has_one :player_stat, dependent: :destroy
   has_one :misc_stat, dependent: :destroy
   has_many :steam_items
+  has_many :user_stats
 
   scope :unbanned, -> { where(banned: false) }
   scope :banned, -> { where(banned: true) }
