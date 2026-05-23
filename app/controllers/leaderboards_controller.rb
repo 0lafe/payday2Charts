@@ -37,7 +37,7 @@ class LeaderboardsController < ApplicationController
 
     if @leaderboard_user.banned?
       redirect_to(
-        top_100_index_leaderboards_path,
+        leaderboards_path,
         alert: "User is currently banned"
       ) && return
     end
@@ -47,7 +47,7 @@ class LeaderboardsController < ApplicationController
 
       unless @leaderboard_user.update_user_stats
         redirect_to(
-          top_100_index_leaderboards_path,
+          leaderboards_path,
           alert: "Error, make sure the ID is correct and the player's stats are public and try again"
         ) && return
       end
