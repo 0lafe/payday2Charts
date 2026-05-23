@@ -2,11 +2,8 @@ class User < ApplicationRecord
   attr_accessor :steam_name
   attr_accessor :steam_avatar
 
-  has_one :weapon_stat, dependent: :destroy
-  has_one :player_stat, dependent: :destroy
-  has_one :misc_stat, dependent: :destroy
   has_many :steam_items
-  has_many :user_stats
+  has_many :user_stats, dependent: :delete_all
 
   scope :unbanned, -> { where(banned: false) }
   scope :banned, -> { where(banned: true) }
@@ -14,6 +11,12 @@ class User < ApplicationRecord
   validates :steam_id, presence: true
   validates :steam_id, uniqueness: true
   validates :banned, inclusion: { in: [true, false] }
+
+  before_create :strip_steam_id
+
+  def strip_steam_id
+    self.steam_id = self.steam_id.gsub(/\D/, '')
+  end
 
   def steam_data
     @steam_user_data = SteamApi.get_user_data(steam_id) unless @steam_user_data
@@ -29,26 +32,34 @@ class User < ApplicationRecord
     steam_data[:avatar]
   end
 
-  def fetch_new_stats
-    weapon_stats, player_stats, misc_stats = PlayerStatGrabber.update_stats_hash(steam_id)
+  def update_user_stats
+    return if banned?
 
-    if weapon_stat.present?
-      weapon_stat.update(weapon_stats)
-    else
-      WeaponStat.create(weapon_stats.merge({user_id: id}))
+    response = SteamApi.get("ISteamUserStats/GetUserStatsForGame/v2/",
+      { appid: "218620", steamid: steam_id }
+    )
+
+    stat_data = response.dig("playerstats", "stats")
+
+    stat_names = stat_data.map do |stat|
+      stat["name"]
     end
 
-    if player_stat.present?
-      player_stat.update(player_stats)
-    else
-      PlayerStat.create(player_stats.merge({user_id: id}))
+    stat_id_lookup = Stat.where(name: stat_names).pluck(:name, :id).to_h
+
+    inserts = stat_data.map do |stat|
+      {
+        user_id: id,
+        stat_id: stat_id_lookup[stat["name"]],
+        value: stat["value"],
+        created_at: Time.current,
+        updated_at: Time.current
+      }
     end
 
-    if misc_stat.present?
-      misc_stat.update(misc_stats)
-    else
-      MiscStat.create(misc_stats.merge({user_id: id}))
-    end
+    UserStat.where(user_id: id).delete_all
+
+    UserStat.insert_all(inserts)
   end
 
   def me?

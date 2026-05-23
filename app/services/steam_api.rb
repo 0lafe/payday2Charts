@@ -48,6 +48,10 @@ class SteamApi
       ApiLog.create(resource:, params:, code: response.code)
     end
 
+    if !response.ok?
+      raise "Steam Api Error #{response.status} #{response.body}"
+    end
+
     response
   end
 
@@ -55,16 +59,21 @@ class SteamApi
     @schema
   end
 
-  def self.update_schema
+  def self.remote_stats
     response = get("ISteamUserStats/GetSchemaForGame/v2/", { appid: "218620" })
+
     if response.ok?
-      File.open("./app/services/steam_stat_schema.json", "w") do |file|
-        file.write(
-          JSON.parse(response.body)['game']['availableGameStats']['stats'].to_json
-        )
-      end
+      response['game']['availableGameStats']['stats']
     else
       raise "Error #{response.status} #{response.body}"
+    end
+  end
+
+  def self.update_schema
+    File.open("./app/services/steam_stat_schema.json", "w") do |file|
+      file.write(
+        remote_stats.to_json
+      )
     end
   end
 
@@ -121,35 +130,13 @@ class SteamApi
   end
 
   def self.get_missing_stats
-    current_stats = WeaponStat.column_names + PlayerStat.column_names + MiscStat.column_names
+    old_stats = Stat.all.pluck(:name)
 
-    remote_stats = @schema.map do |s|
-      s['name']
+    new_stats = remote_stats.map do |stat|
+      stat["name"]
     end
 
-    diff = remote_stats - current_stats
-
-    formatted_diff = diff.map do |stat|
-      {'name' => stat}
-    end
-
-    weapon_stats, player_stats, misc_stats = PlayerStatGrabber.create_hash(formatted_diff)
-
-    weapon_stats.keys.each do |key|
-      p "add_column :weapon_stats, :#{key}, :integer"
-    end
-
-    p ""
-
-    player_stats.keys.each do |key|
-      p "add_column :player_stats, :#{key}, :integer"
-    end
-
-    p ""
-
-    misc_stats.keys.each do |key|
-      p "add_column :misc_stats, :#{key}, :integer"
-    end
+    new_stats - old_stats 
   end
 
   def self.get_multiple_user_data(user_ids)

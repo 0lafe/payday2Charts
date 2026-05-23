@@ -3,6 +3,8 @@ class Stat < ApplicationRecord
   
   has_many :user_stats
 
+  validates :name, uniqueness: true
+
   def self.from_internal_name(name, filter)
     name = if name.starts_with?("bm_w")
       name.gsub("bm_w", "weapon_#{filter}")

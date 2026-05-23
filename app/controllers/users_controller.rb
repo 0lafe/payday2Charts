@@ -1,13 +1,17 @@
 class UsersController < ApplicationController
   def create
-    result = PlayerStatGrabber.store_individual(params[:user][:steam_id].gsub(/\D/, ''))
-    if result == "success"
-      flash[:notice] = "User added successfully"
-    elsif result == "banned"
-      flash[:warning] = "User is currently banned. Reach out if this seems like an error"
+    user = User.find_or_create_by(steam_id: user_params[:steam_id].gsub(/\D/, ''))
+
+    if user.banned?
+      flash[:alert] = "User is currently banned. Reach out if this seems like an error"
     else
-      flash[:alert] = "Error, make sure the ID is correct and the player's stats are public and try again"
+      if user.update_user_stats
+        flash[:notice] = "User added successfully"
+      else
+        flash[:alert] = "Error, make sure the ID is correct and the player's stats are public then try again"
+      end
     end
+
     if params[:return_to]
       redirect_to params[:return_to], fallback_location: "/"
     else
