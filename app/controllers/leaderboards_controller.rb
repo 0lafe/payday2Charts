@@ -35,13 +35,6 @@ class LeaderboardsController < ApplicationController
     steam_id = params[:id].gsub(/\D/, '')
     @leaderboard_user = User.find_by(steam_id:)
 
-    if @leaderboard_user.banned?
-      redirect_to(
-        leaderboards_path,
-        alert: "User is currently banned"
-      ) && return
-    end
-
     if @leaderboard_user.nil?
       @leaderboard_user = User.create(steam_id:)
 
@@ -49,6 +42,13 @@ class LeaderboardsController < ApplicationController
         redirect_to(
           leaderboards_path,
           alert: "Error, make sure the ID is correct and the player's stats are public and try again"
+        ) && return
+      end
+    else
+      if @leaderboard_user.banned?
+        redirect_to(
+          leaderboards_path,
+          alert: "User is currently banned"
         ) && return
       end
     end
