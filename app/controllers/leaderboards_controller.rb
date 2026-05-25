@@ -38,6 +38,13 @@ class LeaderboardsController < ApplicationController
     if @leaderboard_user.nil?
       @leaderboard_user = User.create(steam_id:)
 
+      unless @leaderboard_user.valid?
+        redirect_to(
+          leaderboards_path,
+          alert: @leaderboard_user.errors.full_messages.to_sentence
+        ) && return
+      end
+
       unless @leaderboard_user.update_user_stats
         redirect_to(
           leaderboards_path,

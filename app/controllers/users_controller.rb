@@ -2,15 +2,20 @@ class UsersController < ApplicationController
   def create
     user = User.find_or_create_by(steam_id: user_params[:steam_id].gsub(/\D/, ''))
 
-    if user.banned?
-      flash[:alert] = "User is currently banned. Reach out if this seems like an error"
-    else
-      if user.update_user_stats
-        flash[:notice] = "User added successfully"
+    if user.valid?
+      if user.banned?
+        flash[:alert] = "User is currently banned. Reach out if this seems like an error"
       else
-        flash[:alert] = "Error, make sure the ID is correct and the player's stats are public then try again"
+        if user.update_user_stats
+          flash[:notice] = "User added successfully"
+        else
+          flash[:alert] = "Error, make sure the ID is correct and the player's stats are public then try again"
+        end
       end
+    else
+      flash[:alert] = user.errors.full_messages.to_sentence
     end
+
 
     if params[:return_to]
       redirect_to params[:return_to], fallback_location: "/"

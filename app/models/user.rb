@@ -10,6 +10,11 @@ class User < ApplicationRecord
 
   validates :steam_id, presence: true
   validates :steam_id, uniqueness: true
+  validates :steam_id, format: {
+    with: /\A76561198\d{9}\z/,
+    message: "must be a valid steamID64"
+  }
+
   validates :banned, inclusion: { in: [true, false] }
 
   before_create :strip_steam_id
