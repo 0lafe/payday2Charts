@@ -4,25 +4,29 @@ class LeaderboardsController < ApplicationController
 
   def show
     obtain_stat
-
-    @user_stats = UserStat
+    
+    if @stat.present?
+      @user_stats = UserStat
       .joins(:user)
       .where(stat: @stat, user: { banned: false })
       .includes(:user)
       .order(value: :desc)
       .limit(100)
-
-    obtain_other_user_stats if @stat.grouping?
-
-    names = SteamApi.get_multiple_user_data(
-      @user_stats.map { |stat|
+      
+      obtain_other_user_stats if @stat.grouping?
+      
+      names = SteamApi.get_multiple_user_data(
+        @user_stats.map { |stat|
         stat.user.steam_id
       }
-    )
-
-    @user_stats.each_with_index do |stat, index|
-      stat.user.steam_name = names[index][:name]
-      stat.user.steam_avatar = names[index][:avatar]
+      )
+      
+      @user_stats.each_with_index do |stat, index|
+        stat.user.steam_name = names[index][:name]
+        stat.user.steam_avatar = names[index][:avatar]
+      end
+    else
+      redirect_to "/", alert: "Stat does not exist. Try again"
     end
   end
 

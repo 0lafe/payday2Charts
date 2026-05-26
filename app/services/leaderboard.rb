@@ -35,21 +35,6 @@ class Leaderboard
   end
 
   def self.user_positions(user)
-    # user_id = user.id
-    # out = []
-    # ['weapon_stat', 'player_stat', 'misc_stat'].each do |type|
-    #   filtered = Leaderboard.read['top_100s'][type].filter do |stat|
-    #     stat['values'].include?(user_id)
-    #   end
-    #   filtered.each do |stat|
-    #     out << {
-    #       name: stat['name'],
-    #       value: stat['values'].index(user_id)
-    #     }
-    #   end
-    # end
-    # out
-
     user_id = user.id.to_s
     data = read["top_100s"].filter_map do |stat_id, users|
       [
