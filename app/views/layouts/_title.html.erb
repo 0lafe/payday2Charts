@@ -1,22 +1,13 @@
 <% if params[:controller] == "leaderboards" %>
   <% if params[:action] == "show" %>
-    <% if params[:grouping].present? %>
-      <title>
-        <%= @name %>
-        <% if params[:filter].present? %>
-          <%= params[:filter].titleize %>
-        <% else %>
-          Kills
-        <% end %>
-      </title>
-    <% else %>
-      <title><%= @name %></title>
-    <% end %>
+    <title><%= @stat.localize %></title>
   <% elsif params[:action] == "top_100" %>
     <title>
       Top 100 for <%= @leaderboard_user&.name %>
     </title>
+  <% else %>
+    <title>Payday Charts</title>
   <% end %>
-<% else  %>
+<% else %>
   <title>Payday Charts</title>
 <% end %>

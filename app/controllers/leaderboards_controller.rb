@@ -7,18 +7,18 @@ class LeaderboardsController < ApplicationController
     
     if @stat.present?
       @user_stats = UserStat
-      .joins(:user)
-      .where(stat: @stat, user: { banned: false })
-      .includes(:user)
-      .order(value: :desc)
-      .limit(100)
+        .joins(:user)
+        .where(stat: @stat, user: { banned: false })
+        .includes(:user)
+        .order(value: :desc)
+        .limit(100)
       
       obtain_other_user_stats if @stat.grouping?
       
       names = SteamApi.get_multiple_user_data(
         @user_stats.map { |stat|
-        stat.user.steam_id
-      }
+          stat.user.steam_id
+        }
       )
       
       @user_stats.each_with_index do |stat, index|
