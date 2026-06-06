@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :steam_id, presence: true
   validates :steam_id, uniqueness: true
   validates :steam_id, format: {
-    with: /\A76561198\d{9}\z/,
+    with: /\A765611\d{11}\z/,
     message: "must be a valid steamID64"
   }
 
