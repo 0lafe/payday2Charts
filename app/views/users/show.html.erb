@@ -1,0 +1,9 @@
+<div class="flex justify-center mt-8">
+    <%= render TileComponent.new(title: "User #{@user.id}", classes: "w-1/2") do %>
+        <canvas
+            data-controller="perkdeck-chart"
+            data-perkdeck-chart-labels-value='<%= @usage.map {|user_stat| user_stat.stat.localize }.to_s %>'
+            data-perkdeck-chart-data-value='<%= @usage.map {|user_stat| user_stat.value }.to_s %>'>
+        </canvas>
+    <% end %>
+</div>

@@ -14,7 +14,11 @@ Rails.application.routes.draw do
       get 'top_100'
     end
   end
-  resources :users, only: ['create']
+  resources :users, only: ['create', 'index', 'show'] do
+    collection do
+      get 'search'
+    end
+  end
   resources :crits, only: ['index']
   resources :gifs, only: ['index', 'show']
   resources :oauth, only: ['index']

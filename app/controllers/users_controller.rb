@@ -24,6 +24,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def index; end
+
+  def search
+    return unless current_user&.me?
+
+    redirect_to user_path(params[:search][:id])      
+  end
+
+  def show
+    return unless current_user&.me?
+    
+    @user = User.find_by(steam_id: params[:id])
+
+    usage_stats = Stat.where(stat_type: "deck_usage")
+
+    @usage = @user.user_stats.includes(:stat).where(stat: usage_stats).order(value: :desc)
+  end
+
   private
 
   def user_params

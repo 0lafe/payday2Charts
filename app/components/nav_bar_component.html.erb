@@ -22,6 +22,10 @@
             skins_path,
             data: { turbo: false },
             class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'skins'}" %>
+          <%= link_to "Users",
+            users_path,
+            data: { turbo: false },
+            class: "px-4 h-full flex items-center hover:bg-white hover:text-black #{'bg-branding-blue' if params[:controller] == 'users'}" %>
         <% end %>
         <%= link_to "Guess Who",
           guess_whos_path,
@@ -80,6 +84,10 @@
               skins_path,
               data: { turbo: false },
               class: "p-2 #{'bg-branding-blue' if params[:controller] == 'skins'}" %>
+            <%= link_to "Users",
+              users_path,
+              data: { turbo: false },
+              class: "p-2 #{'bg-branding-blue' if params[:controller] == 'users'}" %>
           <% end %>
         </div>
       </div>

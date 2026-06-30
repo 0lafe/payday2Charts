@@ -1,0 +1,13 @@
+<div class="flex justify-center mt-8">
+    <%= render TileComponent.new(title: "User Search") do %>
+        <div class="space-y-4">
+            <div class="text-sm text-zinc-400 mt-1">
+                Enter a user's steam id
+            </div>
+            <%= simple_form_for :search, method: :get, url: search_users_path do |f| %>
+                <%= f.input :id %>
+                <%= f.submit 'Search', class: 'btn btn-primary' %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
