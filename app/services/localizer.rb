@@ -117,6 +117,11 @@ class Localizer
         end
 
         "heist_"
+      elsif statistic.include?("join_stinger_")
+        statistic = statistic.gsub("join_stinger_used_", "")
+        suffix += " (Join Stinger)"
+
+        "join_stinger_"
       end
 
     name = name || ""
