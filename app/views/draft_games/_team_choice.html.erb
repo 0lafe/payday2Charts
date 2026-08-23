@@ -1,0 +1,25 @@
+<div class="flex flex-col items-center gap-16" id="team_picker">
+    <span class="text-3xl">
+        Pick your team
+    </span>
+
+    <div class="flex gap-8">
+        <%= button_to join_team_draft_game_path(draft_game),
+            method: :post,
+            params: { team: "team_a" },
+            class: "button bg-red-500 active:scale-[0.98] px-5 py-3 font-medium transition rounded-xl hover:opacity-50 disabled:active:scale-none disabled:bg-gray-400" do %>
+
+            <i class="fa-solid fa-arrow-left-long"></i>
+            Team A
+        <% end %>
+
+        <%= button_to join_team_draft_game_path(draft_game),
+            method: :post,
+            params: { team: "team_b" },
+            class: "button bg-blue-500 active:scale-[0.98] px-5 py-3 font-medium transition rounded-xl hover:opacity-50 disabled:active:scale-none disabled:bg-gray-400" do %>
+
+            Team B
+            <i class="fa-solid fa-arrow-right-long"></i>
+        <% end %>
+    </div>
+</div>

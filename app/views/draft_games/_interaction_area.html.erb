@@ -1,0 +1,37 @@
+<div
+  x-data='draftGame({
+    draftGameId: "<%= @draft_game.public_key %>",
+    currentUserId: <%= current_user.id %>,
+    initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>
+  })'
+>
+    <template x-if="state.stage === 'waiting'">
+        <div>
+            <template x-if="!isInGame && !isHost">
+                <div>
+                    <%= render "draft_games/team_choice", draft_game: @draft_game %>
+                </div>
+            </template>
+
+            <template x-if="isInGame || isHost">
+                <div>
+                    Waiting on other players to join
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <template x-if="state.stage === 'heist_bans'">
+        <div>
+            <template x-if="isMyTurn">
+                <%= render "draft_games/heist_ban" %>
+            </template>
+
+            <template x-if="!isMyTurn">
+                <div>
+                    Waiting for a heist to be banned
+                </div>
+            </template>
+        </div>
+    </template>
+</div>

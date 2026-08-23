@@ -99,3 +99,4 @@ gem "net-smtp"
 
 gem "whenever", "~> 1.1"
 gem "tailwindcss-rails"
+gem "sqids"

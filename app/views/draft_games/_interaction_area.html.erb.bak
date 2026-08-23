@@ -1,0 +1,16 @@
+<div id="interaction-area">
+    <% case draft_game.stage %>
+    <% when "waiting" %>
+        <% if draft_game.user == user || draft_game.in_game?(user) %>
+            <%= render "draft_games/waiting" %>
+        <% else %>
+            <%= render "draft_games/team_choice", draft_game: %>
+        <% end %>
+    <% when "heist_bans" %>
+        <% if user == draft_game.current_turn_user %>
+            <%= render "draft_games/map_ban", draft_game: %>
+        <% else %>
+            Waiting for someone to pick a heist
+        <% end %>
+    <% end %>
+</div>

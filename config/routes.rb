@@ -63,5 +63,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :draft_games, only: [:show, :new, :create] do
+    member do
+      get :interaction_area
+      post :join_team
+    end
+  end
+
   root "leaderboards#index"
 end

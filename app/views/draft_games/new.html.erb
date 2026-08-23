@@ -1,0 +1,95 @@
+<div class="mx-16 my-4" data-controller="draft-game-index">
+    <div class="text-2xl w-full flex justify-start my-4">
+        Setup New Game
+    </div>
+
+    <%= simple_form_for DraftGame.new, turbo: false do |f| %>
+        <div class="flex flex-col gap-8">
+            <div class="flex gap-16 justify-center">
+                <%= f.input :heist_ban_count, value: 2 %>
+                <%= f.input :perkdeck_ban_count, value: 2 %>
+                <%= f.input :weapon_ban_count, value: 2 %>
+            </div>
+
+            <%= render TileComponent.new(title: "Map Selection") do %>
+                <div data-checkbox-group-target="group">
+                    <button type="button" class="button btn-primary" data-action="click->draft-game-index#checkAll">
+                        Toggle All
+                    </button>
+
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                        Toggle None
+                    </button>
+
+                    <div class="grid grid-cols-8 gap-4 mt-4">
+                        <% @heists.each do |heist| %>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <%= check_box_tag(
+                                    "draft_game[base_heists][]",
+                                    heist,
+                                    true
+                                ) %>
+                                    
+                                <%= heist.gsub('-', ' ').gsub('.png', '').titleize %>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+
+            <%= render TileComponent.new(title: "Perkdeck Selection") do %>
+                <div data-checkbox-group-target="group">
+                    <button type="button" class="button btn-primary" data-action="click->draft-game-index#checkAll">
+                        Toggle All
+                    </button>
+
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                        Toggle None
+                    </button>
+
+                    <div class="grid grid-cols-8 gap-4 mt-4">
+                        <% @perkdecks.each do |perkdeck| %>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <%= check_box_tag(
+                                    "draft_game[base_perkdecks][]",
+                                    perkdeck,
+                                    true
+                                    ) %>
+                                    
+                                <%= perkdeck.gsub('.png', '') %>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+
+            <%= render TileComponent.new(title: "Weapon Type Selection") do %>
+                <div data-checkbox-group-target="group">
+                    <button type="button" class="button btn-primary" data-action="click->draft-game-index#checkAll">
+                        Toggle All
+                    </button>
+
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                        Toggle None
+                    </button>
+
+                    <div class="grid grid-cols-8 gap-4 mt-4">
+                        <% @weapon_types.each do |weapon_type| %>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <%= check_box_tag(
+                                    "draft_game[base_weapons][]",
+                                    weapon_type,
+                                    true
+                                    ) %>
+                                    
+                                <%= weapon_type.gsub('.png', '').titleize %>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+
+            <%= f.submit 'Create', class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+</div>

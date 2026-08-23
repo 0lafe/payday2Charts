@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_21_154828) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -57,6 +57,49 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_21_154828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+  end
+
+  create_table "draft_bans", force: :cascade do |t|
+    t.bigint "draft_game_id"
+    t.bigint "draft_games_user_id"
+    t.string "draft_type", null: false
+    t.string "name", null: false
+    t.index ["draft_game_id"], name: "index_draft_bans_on_draft_game_id"
+    t.index ["draft_games_user_id"], name: "index_draft_bans_on_draft_games_user_id"
+  end
+
+  create_table "draft_choices", force: :cascade do |t|
+    t.bigint "draft_game_id"
+    t.bigint "draft_games_user_id"
+    t.string "draft_type", null: false
+    t.string "name", null: false
+    t.index ["draft_game_id"], name: "index_draft_choices_on_draft_game_id"
+    t.index ["draft_games_user_id"], name: "index_draft_choices_on_draft_games_user_id"
+  end
+
+  create_table "draft_game_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "draft_game_id", null: false
+    t.integer "team", null: false
+    t.index ["draft_game_id"], name: "index_draft_game_users_on_draft_game_id"
+    t.index ["user_id"], name: "index_draft_game_users_on_user_id"
+  end
+
+  create_table "draft_games", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "public_key"
+    t.integer "stage", default: 0, null: false
+    t.text "base_heists", default: [], null: false, array: true
+    t.integer "heist_ban_count", default: 2, null: false
+    t.string "heist"
+    t.text "base_perkdecks", default: [], null: false, array: true
+    t.integer "perkdeck_ban_count", default: 2, null: false
+    t.text "base_weapons", default: [], null: false, array: true
+    t.integer "weapon_ban_count", default: 2, null: false
+    t.index ["public_key"], name: "index_draft_games_on_public_key", unique: true
+    t.index ["user_id"], name: "index_draft_games_on_user_id"
   end
 
   create_table "guess_whos", force: :cascade do |t|
@@ -2583,6 +2626,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_21_154828) do
     t.boolean "banned", default: false, null: false
     t.boolean "can_host_jeopardy", default: false
     t.boolean "admin"
+    t.index ["banned"], name: "index_users_on_banned"
     t.index ["steam_id"], name: "index_users_on_steam_id", unique: true
   end
 

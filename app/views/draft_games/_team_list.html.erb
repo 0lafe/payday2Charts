@@ -1,0 +1,21 @@
+<% users = draft_game.draft_game_users.where(team:) %>
+
+<div class="flex gap-4" id="<%= team %>">
+    <% 2.times do |player_number| %>
+        <% game_user = users[player_number] %>
+
+        <div class="flex flex-col items-center">
+            <div class="rounded-full border-2 w-16 h-16 flex justify-center items-center overflow-hidden <%= team == 'team_a' ? 'border-red-500' : 'border-blue-500' %>">
+                <% if game_user %>
+                    <img src="<%= game_user.user.avatar %>" class="w-full h-full object-cover" />
+                <% else %>
+                    <i class="fa-regular fa-user text-3xl"></i>
+                <% end %>
+            </div>
+
+            <% if game_user %>
+                <%= game_user.user.name %>
+            <% end %>
+        </div>
+    <% end %>
+</div>
