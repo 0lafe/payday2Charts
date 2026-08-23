@@ -6,6 +6,7 @@ export default function draftGame({ draftGameId, currentUserId, initialState }) 
     currentUserId,
     state: initialState,
     subscription: null,
+    selectedHeist: null,
 
     init() {
       this.subscription = subscribeToDraftGame(

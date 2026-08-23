@@ -1,15 +1,17 @@
 <%= turbo_stream_from @draft_game %>
 <%= turbo_stream_from [@draft_game, current_user] %>
 
-<div class="grid grid-cols-3 gap-4 m-4 mt-12">
+<div class="grid grid-cols-3 gap-4 p-4 pt-12 min-h-screen">
     <div class="flex flex-col">
         <div>
             <%= render "draft_games/team_list", draft_game: @draft_game, team: "team_a" %>
         </div>
     </div>
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center justify-between">
         <%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
+
+        <%= render "draft_games/heist_ban_list", draft_game: @draft_game %>
     </div>
 
     <div class="flex flex-col">

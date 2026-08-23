@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
       User.find_by(steam_id: session[:steam_id])
     end
   end
+
+  def authenticate_user!
+    return if current_user
+
+    redirect_to login_path, alert: "You must be logged in to access this page."
+  end
 end

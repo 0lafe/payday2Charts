@@ -1,41 +1,22 @@
 class DraftGamesController < ApplicationController
-  def show
-    if !current_user
-      return redirect_back alert: "User must be signed in to interact with draft games", fallback_location: '/'
-    end
+  before_action :authenticate_user!
 
+  def show
     @draft_game = DraftGame.find_by(public_key: params[:id])
   end
 
   def new
-    if !current_user
-      return redirect_back alert: "User must be signed in to interact with draft games", fallback_location: '/'
-    end
-
     @heists = JSON.parse(File.read("./app/models/concerns/heists.json"))['data'].sort
     @weapon_types = JSON.parse(File.read("./app/models/concerns/weapon_types.json"))['data'].sort
     @perkdecks = JSON.parse(File.read("./app/models/concerns/perkdecks.json"))['data'].sort
   end
 
   def create
-    if !current_user
-      return redirect_back alert: "User must be signed in to interact with draft games", fallback_location: '/'
-    end
-
     newGame = DraftGame.new(draft_game_params)
     newGame.user = current_user
     newGame.save
 
     redirect_to newGame
-  end
-
-  def interaction_area
-    @draft_game = DraftGame.find_by(public_key: params[:id])
-
-    render partial: "draft_games/interaction_area", locals: {
-      draft_game: @draft_game,
-      user: nil
-    }
   end
 
   def join_team

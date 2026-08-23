@@ -61,20 +61,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
 
   create_table "draft_bans", force: :cascade do |t|
     t.bigint "draft_game_id"
-    t.bigint "draft_games_user_id"
-    t.string "draft_type", null: false
+    t.bigint "draft_game_user_id"
+    t.integer "draft_type", null: false
     t.string "name", null: false
     t.index ["draft_game_id"], name: "index_draft_bans_on_draft_game_id"
-    t.index ["draft_games_user_id"], name: "index_draft_bans_on_draft_games_user_id"
+    t.index ["draft_game_user_id"], name: "index_draft_bans_on_draft_game_user_id"
   end
 
   create_table "draft_choices", force: :cascade do |t|
     t.bigint "draft_game_id"
-    t.bigint "draft_games_user_id"
-    t.string "draft_type", null: false
+    t.bigint "draft_game_user_id"
+    t.integer "draft_type", null: false
     t.string "name", null: false
     t.index ["draft_game_id"], name: "index_draft_choices_on_draft_game_id"
-    t.index ["draft_games_user_id"], name: "index_draft_choices_on_draft_games_user_id"
+    t.index ["draft_game_user_id"], name: "index_draft_choices_on_draft_game_user_id"
   end
 
   create_table "draft_game_users", force: :cascade do |t|

@@ -24,7 +24,7 @@
     <template x-if="state.stage === 'heist_bans'">
         <div>
             <template x-if="isMyTurn">
-                <%= render "draft_games/heist_ban" %>
+                <%= render "draft_games/heist_ban", draft_game: @draft_game %>
             </template>
 
             <template x-if="!isMyTurn">

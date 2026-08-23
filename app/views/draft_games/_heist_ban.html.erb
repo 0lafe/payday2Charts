@@ -1,3 +1,30 @@
 <div>
-    Time to ban a heist
+    <div class="text-center mb-4">
+        Pick a heist to ban
+    </div>
+
+    <%= simple_form_for DraftBan.new do |f| %>
+        <%= f.hidden_field :draft_game_id, value: draft_game.id %>
+
+        <div class="grid grid-cols-4 gap-4">
+            <template x-for="heist in state.available_heists" :key="heist[0]">
+                <label
+                    class="cursor-pointer border rounded-lg p-4"
+                    :class="{ 'ring-2 ring-branding-blue': selectedHeist == heist[0] }"
+                >
+                    <input
+                        type="radio"
+                        name="draft_ban[name]"
+                        :value="heist[0]"
+                        x-model="selectedHeist"
+                        class="hidden"
+                    >
+
+                    <span x-text="heist[1]"></span>
+                </label>
+            </template>
+        </div>
+
+        <%= f.submit 'Submit', class: "btn-primary w-full mt-4 cursor-pointer" %>
+    <% end %>
 </div>
