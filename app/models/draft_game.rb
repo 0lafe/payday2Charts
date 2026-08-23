@@ -86,6 +86,28 @@ class DraftGame < ApplicationRecord
     }
   end
 
+  def set_heist
+    update(heist: available_heists.sample[0])
+
+    self.broadcast_replace_to(
+      self,
+      target: 'showoff-content',
+      partial: "draft_games/showoff_heist",
+      locals: {
+        heist:,
+      }
+    )
+
+    self.broadcast_replace_to(
+      self,
+      target: 'selected-heist',
+      partial: "draft_games/selected_heist",
+      locals: {
+        draft_game: self
+      }
+    )
+  end
+
   def set_stage
     case stage
     when "waiting"
@@ -94,6 +116,8 @@ class DraftGame < ApplicationRecord
       end
     when "heist_bans"
       if draft_bans.heist.count >= heist_ban_count
+        set_heist
+
         update_column("stage", "perk_bans")
       end
     end

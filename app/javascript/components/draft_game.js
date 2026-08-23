@@ -22,7 +22,11 @@ export default function draftGame({ draftGameId, currentUserId, initialState }) 
     },
 
     get isMyTurn() {
-      return this.state.current_turn_user_id === this.currentUserId
+      if (this.state.stage === 'waiting') {
+        return !this.isHost && this.myTeam === null
+      } else {
+        return this.state.current_turn_user_id === this.currentUserId
+      }
     },
 
     get myTeam() {
@@ -37,12 +41,8 @@ export default function draftGame({ draftGameId, currentUserId, initialState }) 
       return null
     },
 
-    get isInGame() {
-      return this.myTeam !== null
-    },
-
     get isHost() {
-        return this.state.host_user_id === this.currentUserId
+      return this.state.host_user_id === this.currentUserId
     },
 
     updateState(state) {

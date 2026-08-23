@@ -8,6 +8,20 @@
     --color-branding-blue: #0085b6;
     --color-branding-blue-alt: #0d6efd;
     --breakpoint-3xl: 121rem;
+
+    --animate-zoom-in: zoom-in 1000ms ease-out;
+
+    @keyframes zoom-in {
+        from {
+            opacity: 0;
+            transform: scale(0.1);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 }
 
 .flash-notification {
@@ -80,3 +94,5 @@ button {
 .pagination-arrow {
     @apply hover:bg-dark-inputs h-8 w-8 rounded-md disabled:text-zinc-400 disabled:hover:bg-none
 }
+
+[x-cloak] { display: none !important; }

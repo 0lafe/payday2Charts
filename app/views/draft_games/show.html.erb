@@ -1,7 +1,8 @@
 <%= turbo_stream_from @draft_game %>
 <%= turbo_stream_from [@draft_game, current_user] %>
 
-<div class="grid grid-cols-3 gap-4 p-4 pt-12 min-h-screen">
+<%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
+<div class="grid grid-cols-3 gap-4 p-4 min-h-screen">
     <div class="flex flex-col">
         <div>
             <%= render "draft_games/team_list", draft_game: @draft_game, team: "team_a" %>
@@ -9,7 +10,9 @@
     </div>
 
     <div class="flex flex-col items-center justify-between">
-        <%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
+        <%= render "draft_games/selected_heist", draft_game: @draft_game %>
+
+        <%= render "draft_games/showoff_area", draft_game: @draft_game %>
 
         <%= render "draft_games/heist_ban_list", draft_game: @draft_game %>
     </div>
