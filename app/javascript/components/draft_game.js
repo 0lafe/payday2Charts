@@ -1,14 +1,20 @@
 import { subscribeToDraftGame } from "channels/draft_game_channel"
 
-export default function draftGame({ draftGameId, currentUserId, initialState }) {
+export default function draftGame({ draftGameId, currentUserId, initialState, heistImages }) {
   return {
     draftGameId,
     currentUserId,
+    heistImages,
     state: initialState,
     subscription: null,
     selectedHeist: null,
 
     init() {
+      this.heistImages.forEach(url => {
+        const image = new Image()
+        image.src = url
+      })
+
       this.subscription = subscribeToDraftGame(
         this.draftGameId,
         (data) => {
