@@ -7,7 +7,7 @@
         <% draft_game.draft_picks.ban.perkdeck.each do |ban| %>
             <% team = ban.draft_game_user.team %>
 
-            <%= image_tag("perkdecks/#{ban.name}.png", class: "h-32 w-auto rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
+            <%= image_tag("perkdecks/#{ban.name}.png", class: "h-24 w-auto rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
         <% end %>
     </div>
 </div>

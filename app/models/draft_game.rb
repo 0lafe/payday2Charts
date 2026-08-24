@@ -42,28 +42,33 @@ class DraftGame < ApplicationRecord
       &.user
   end
 
+  def turn_team(pick_count)
+    if ((pick_count + 1) / 2).even?
+      "team_a"
+    else
+      "team_b"
+    end
+  end
+
   def current_turn_user
     case stage
     when "heist_bans"
       ban_count = draft_picks.ban.heist.count
-
-      team = if ban_count == 0 || ban_count == 3
-        "team_a"
-      else
-        "team_b"
-      end
+      team = turn_team(ban_count)
 
       team_captain(team)
     when "perk_bans"
       ban_count = draft_picks.ban.perkdeck.count
-
-      team = if ban_count == 0 || ban_count == 3
-        "team_a"
-      else
-        "team_b"
-      end
+      team = turn_team(ban_count)
 
       team_captain(team)
+    when "perk_choices"
+      choice_count = draft_picks.choice.perkdeck.count
+      team = turn_team(choice_count)
+
+      player = choice_count / 2
+
+      draft_game_users.where(team:).order(id: :asc)[player]&.user
     end
   end
 
@@ -85,7 +90,7 @@ class DraftGame < ApplicationRecord
   end
 
   def available_perkdecks
-    (base_perkdecks - draft_picks.ban.perkdeck.map(&:name))
+    (base_perkdecks - draft_picks.perkdeck.map(&:name))
       .map do |perkdeck|
         [
           perkdeck,
@@ -95,7 +100,7 @@ class DraftGame < ApplicationRecord
   end
 
   def available_weapons
-    (base_weapons - draft_picks.ban.weapon.map(&:name))
+    (base_weapons - draft_picks.weapon.map(&:name))
       .map do |weapon|
         [
           weapon,
