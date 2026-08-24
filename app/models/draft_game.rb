@@ -157,4 +157,8 @@ class DraftGame < ApplicationRecord
 
     update_interaction_area
   end
+
+  def self.reset_all
+    DraftBan.destroy_all; DraftChoice.destroy_all; DraftGameUser.destroy_all; DraftGame.find(1).update(stage: 0, heist: nil)
+  end
 end

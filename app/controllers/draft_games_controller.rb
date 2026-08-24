@@ -6,9 +6,9 @@ class DraftGamesController < ApplicationController
   end
 
   def new
-    @heists = JSON.parse(File.read("./app/models/concerns/heists.json"))['data'].sort
-    @weapon_types = JSON.parse(File.read("./app/models/concerns/weapon_types.json"))['data'].sort
-    @perkdecks = JSON.parse(File.read("./app/models/concerns/perkdecks.json"))['data'].sort
+    @heists = JSON.parse(File.read("./app/models/concerns/heists.json"))
+    @weapon_types = JSON.parse(File.read("./app/models/concerns/weapon_types.json"))
+    @perkdecks = JSON.parse(File.read("./app/models/concerns/perkdecks.json"))
   end
 
   def create

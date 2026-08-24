@@ -1,5 +1,5 @@
 <div id="selected-heist">
     <% if draft_game.heist && draft_game.stage != 'heist_bans' %>
-        <%= image_tag("heists/named/#{draft_game.heist}", class: "w-32 h-32") if draft_game.heist %>
+        <%= image_tag("heists/named/#{draft_game.heist}.png", class: "w-32 h-32") if draft_game.heist %>
     <% end %>
 </div>

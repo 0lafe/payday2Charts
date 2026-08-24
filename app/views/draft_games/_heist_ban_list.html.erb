@@ -1,4 +1,4 @@
-<div id="heist-bans" class="flex flex-col gap-4 w-full">
+<div id="heist-bans" class="flex flex-col gap-4 w-full ring-2 ring-gray-800 p-4 rounded-md">
     <div class="text-center text-3xl">
         Heist Bans
     </div>
@@ -7,7 +7,7 @@
         <% draft_game.draft_bans.heist.each do |heist_ban| %>
             <% team = heist_ban.draft_game_user.team %>
 
-            <%= image_tag("heists/named/#{heist_ban.name}", class: "w-32 h-32 rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
+            <%= image_tag("heists/named/#{heist_ban.name}.png", class: "w-32 h-32 rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
         <% end %>
     </div>
 </div>

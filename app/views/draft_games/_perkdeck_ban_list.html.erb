@@ -1,0 +1,13 @@
+<div id="perkdeck-bans" class="flex flex-col gap-4 w-full ring-2 ring-gray-800 p-4 rounded-md">
+    <div class="text-center text-3xl">
+        Perkdeck Bans
+    </div>
+
+    <div class="flex justify-between">
+        <% draft_game.draft_bans.perkdeck.each do |ban| %>
+            <% team = ban.draft_game_user.team %>
+
+            <%= image_tag("perkdecks/#{ban.name}.png", class: "h-32 w-auto rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
+        <% end %>
+    </div>
+</div>

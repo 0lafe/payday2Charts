@@ -43,6 +43,24 @@ class DraftBan < ApplicationRecord
           draft_ban: self
         }
       )
+    when "perkdeck"
+      draft_game.broadcast_replace_to(
+        draft_game,
+        target: "perkdeck-bans",
+        partial: "draft_games/perkdeck_ban_list",
+        locals: {
+          draft_game: draft_game
+        }
+      )
+
+      draft_game.broadcast_replace_to(
+        draft_game,
+        target: "showoff-content",
+        partial: "draft_games/showoff/perkdeck_ban",
+        locals: {
+          draft_ban: self
+        }
+      )
     end
   end
 end
