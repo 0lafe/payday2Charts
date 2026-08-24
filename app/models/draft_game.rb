@@ -13,10 +13,11 @@ class DraftGame < ApplicationRecord
   enum :stage, {
     waiting: 0,
     heist_bans: 1,
-    perk_bans: 2,
-    perk_choices: 3,
-    weapon_bans: 4,
-    weapon_choices: 5,
+    heist_select: 2,
+    perk_bans: 3,
+    perk_choices: 4,
+    weapon_bans: 5,
+    weapon_choices: 6,
   }
 
   def generate_public_key
@@ -53,8 +54,17 @@ class DraftGame < ApplicationRecord
         "team_b"
       end
 
-      # team_captain(team)
-      team_captain("team_a")
+      team_captain(team)
+    when "perk_bans"
+      ban_count = draft_bans.perkdeck.count
+
+      team = if ban_count == 0 || ban_count == 3
+        "team_a"
+      else
+        "team_b"
+      end
+
+      team_captain(team)
     end
   end
 
@@ -75,6 +85,26 @@ class DraftGame < ApplicationRecord
       end
   end
 
+  def available_perkdecks
+    (base_perkdecks - draft_bans.perkdeck.map(&:name))
+      .map do |perkdeck|
+        [
+          perkdeck,
+          perkdeck.gsub('.png', '').titleize
+        ]
+      end
+  end
+
+  def available_weapons
+    (base_weapons - draft_bans.weapon.map(&:name))
+      .map do |weapon|
+        [
+          weapon,
+          weapon.gsub('.png', '').titleize
+        ]
+      end
+  end
+
   def client_state
     {
       stage:,
@@ -82,7 +112,9 @@ class DraftGame < ApplicationRecord
       host_user_id: user.id,
       team_a_user_ids: draft_game_users.team_a.pluck(:user_id),
       team_b_user_ids: draft_game_users.team_b.pluck(:user_id),
-      available_heists:
+      available_heists:,
+      available_perkdecks:,
+      available_weapons:
     }
   end
 
@@ -92,18 +124,9 @@ class DraftGame < ApplicationRecord
     self.broadcast_replace_to(
       self,
       target: 'showoff-content',
-      partial: "draft_games/showoff_heist",
+      partial: "draft_games/showoff/heist",
       locals: {
         heist:,
-      }
-    )
-
-    self.broadcast_replace_to(
-      self,
-      target: 'selected-heist',
-      partial: "draft_games/selected_heist",
-      locals: {
-        draft_game: self
       }
     )
   end
@@ -111,14 +134,20 @@ class DraftGame < ApplicationRecord
   def set_stage
     case stage
     when "waiting"
-      if draft_game_users.count >= 1
+      if draft_game_users.count >= 2
         update_column("stage", "heist_bans")
       end
     when "heist_bans"
       if draft_bans.heist.count >= heist_ban_count
-        set_heist
+        update_column("stage", "heist_select")
 
-        update_column("stage", "perk_bans")
+        AdvanceDraftGameHeistSelectJob
+          .set(wait: 5.second)
+          .perform_later(id)
+      end
+    when "perk_bans"
+      if draft_bans.perkdeck.count >= perkdeck_ban_count
+        update_column("stage", "perk_choices")
       end
     end
   end

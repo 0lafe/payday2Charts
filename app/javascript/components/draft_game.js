@@ -8,6 +8,8 @@ export default function draftGame({ draftGameId, currentUserId, initialState, he
     state: initialState,
     subscription: null,
     selectedHeist: null,
+    selectedPerkdeck: null,
+    selectedWeapon: null,
 
     init() {
       this.heistImages.forEach(url => {

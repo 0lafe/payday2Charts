@@ -34,6 +34,15 @@ class DraftBan < ApplicationRecord
           draft_game: draft_game
         }
       )
+
+      draft_game.broadcast_replace_to(
+        draft_game,
+        target: "showoff-content",
+        partial: "draft_games/showoff/heist_ban",
+        locals: {
+          draft_ban: self
+        }
+      )
     end
   end
 end
