@@ -3,10 +3,15 @@
         <span class="font-bold <%= draft_pick.draft_game_user.team == 'team_a' ? 'text-red-500' : 'text-blue-500' %>">
             <%= draft_pick.draft_game_user.user.name %>
         </span>
-        Banned
+
+        <% if draft_pick.ban? %>
+            Banned
+        <% else %>
+            Chose
+        <% end %>
     </div>
 
     <div class="animate-zoom-in">
-        <%= image_tag("heists/named/#{draft_pick.name}.png") %>
+        <%= image_tag("perkdecks/#{draft_pick.name}.png") %>
     </div>
 </div>

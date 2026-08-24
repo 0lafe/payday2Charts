@@ -70,8 +70,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :draft_bans, only: [:create]
-  resources :draft_choices, only: [:create]
+  resources :draft_picks, only: [:create]
 
   root "leaderboards#index"
 end

@@ -1,8 +1,7 @@
 class DraftGame < ApplicationRecord
   has_many :draft_game_users
   has_many :users, through: :draft_game_users
-  has_many :draft_bans
-  has_many :draft_choices
+  has_many :draft_picks
 
   belongs_to :user
 
@@ -46,7 +45,7 @@ class DraftGame < ApplicationRecord
   def current_turn_user
     case stage
     when "heist_bans"
-      ban_count = draft_bans.heist.count
+      ban_count = draft_picks.ban.heist.count
 
       team = if ban_count == 0 || ban_count == 3
         "team_a"
@@ -56,7 +55,7 @@ class DraftGame < ApplicationRecord
 
       team_captain(team)
     when "perk_bans"
-      ban_count = draft_bans.perkdeck.count
+      ban_count = draft_picks.ban.perkdeck.count
 
       team = if ban_count == 0 || ban_count == 3
         "team_a"
@@ -76,7 +75,7 @@ class DraftGame < ApplicationRecord
   end
 
   def available_heists
-    (base_heists - draft_bans.heist.map(&:name))
+    (base_heists - draft_picks.ban.heist.map(&:name))
       .map do |heist_path|
         [
           heist_path,
@@ -86,7 +85,7 @@ class DraftGame < ApplicationRecord
   end
 
   def available_perkdecks
-    (base_perkdecks - draft_bans.perkdeck.map(&:name))
+    (base_perkdecks - draft_picks.ban.perkdeck.map(&:name))
       .map do |perkdeck|
         [
           perkdeck,
@@ -96,7 +95,7 @@ class DraftGame < ApplicationRecord
   end
 
   def available_weapons
-    (base_weapons - draft_bans.weapon.map(&:name))
+    (base_weapons - draft_picks.ban.weapon.map(&:name))
       .map do |weapon|
         [
           weapon,
@@ -138,7 +137,7 @@ class DraftGame < ApplicationRecord
         update_column("stage", "heist_bans")
       end
     when "heist_bans"
-      if draft_bans.heist.count >= heist_ban_count
+      if draft_picks.ban.heist.count >= heist_ban_count
         update_column("stage", "heist_select")
 
         AdvanceDraftGameHeistSelectJob
@@ -146,7 +145,7 @@ class DraftGame < ApplicationRecord
           .perform_later(id)
       end
     when "perk_bans"
-      if draft_bans.perkdeck.count >= perkdeck_ban_count
+      if draft_picks.ban.perkdeck.count >= perkdeck_ban_count
         update_column("stage", "perk_choices")
       end
     end
@@ -159,6 +158,6 @@ class DraftGame < ApplicationRecord
   end
 
   def self.reset_all
-    DraftBan.destroy_all; DraftChoice.destroy_all; DraftGameUser.destroy_all; DraftGame.find(1).update(stage: 0, heist: nil)
+    DraftPick.destroy_all; DraftGameUser.destroy_all; DraftGame.find(1).update(stage: 0, heist: nil)
   end
 end

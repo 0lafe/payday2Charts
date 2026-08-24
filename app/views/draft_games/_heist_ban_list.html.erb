@@ -4,7 +4,7 @@
     </div>
 
     <div class="flex justify-between">
-        <% draft_game.draft_bans.heist.each do |heist_ban| %>
+        <% draft_game.draft_picks.ban.heist.each do |heist_ban| %>
             <% team = heist_ban.draft_game_user.team %>
 
             <%= image_tag("heists/named/#{heist_ban.name}.png", class: "w-32 h-32 rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>

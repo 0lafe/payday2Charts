@@ -59,24 +59,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
     t.string "name", null: false
   end
 
-  create_table "draft_bans", force: :cascade do |t|
-    t.bigint "draft_game_id"
-    t.bigint "draft_game_user_id"
-    t.integer "draft_type", null: false
-    t.string "name", null: false
-    t.index ["draft_game_id"], name: "index_draft_bans_on_draft_game_id"
-    t.index ["draft_game_user_id"], name: "index_draft_bans_on_draft_game_user_id"
-  end
-
-  create_table "draft_choices", force: :cascade do |t|
-    t.bigint "draft_game_id"
-    t.bigint "draft_game_user_id"
-    t.integer "draft_type", null: false
-    t.string "name", null: false
-    t.index ["draft_game_id"], name: "index_draft_choices_on_draft_game_id"
-    t.index ["draft_game_user_id"], name: "index_draft_choices_on_draft_game_user_id"
-  end
-
   create_table "draft_game_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "draft_game_id", null: false
@@ -100,6 +82,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
     t.integer "weapon_ban_count", default: 2, null: false
     t.index ["public_key"], name: "index_draft_games_on_public_key", unique: true
     t.index ["user_id"], name: "index_draft_games_on_user_id"
+  end
+
+  create_table "draft_picks", force: :cascade do |t|
+    t.bigint "draft_game_id"
+    t.bigint "draft_game_user_id"
+    t.integer "draft_type", null: false
+    t.integer "draft_target", null: false
+    t.string "name", null: false
+    t.index ["draft_game_id"], name: "index_draft_picks_on_draft_game_id"
+    t.index ["draft_game_user_id"], name: "index_draft_picks_on_draft_game_user_id"
   end
 
   create_table "guess_whos", force: :cascade do |t|

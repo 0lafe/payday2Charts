@@ -25,18 +25,11 @@ class CreateDraftGames < ActiveRecord::Migration[8.0]
       t.integer :team, null: false
     end
 
-    create_table :draft_bans do |t|
+    create_table :draft_picks do |t|
       t.belongs_to :draft_game
       t.belongs_to :draft_game_user
       t.integer :draft_type, null: false
-
-      t.string :name, null: false
-    end
-
-    create_table :draft_choices do |t|
-      t.belongs_to :draft_game
-      t.belongs_to :draft_game_user
-      t.integer :draft_type, null: false
+      t.integer :draft_target, null: false
 
       t.string :name, null: false
     end

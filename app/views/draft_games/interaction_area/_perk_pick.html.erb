@@ -1,29 +1,32 @@
-<%= simple_form_for DraftBan.new do |f| %>
+<%= simple_form_for DraftPick.new do |f| %>
     <%= f.hidden_field :draft_game_id, value: draft_game.id %>
 
     <%= render DraftGameModalComponent.new do |modal| %>
         <% modal.with_header do %>
-            Pick a heist to ban
+            Pick a Perkdeck
+            <% if type == "ban" %>
+                to ban
+            <% end %>
         <% end %>
 
         <div class="grid grid-cols-4 gap-4">
-            <template x-for="heist in state.available_heists" :key="heist[0]">
+            <template x-for="perkdeck in state.available_perkdecks" :key="perkdeck[0]">
                 <label
                     class="cursor-pointer border rounded-lg p-4"
-                    :class="{ 'ring-2': selectedHeist == heist[0],
+                    :class="{ 'ring-2': selectedPerkdeck == perkdeck[0],
                         'ring-red-500': myTeam === 'team_a',
                         'ring-blue-500': myTeam === 'team_b'
                     }"
                 >
                     <input
                         type="radio"
-                        name="draft_ban[name]"
-                        :value="heist[0]"
-                        x-model="selectedHeist"
+                        name="draft_pick[name]"
+                        :value="perkdeck[0]"
+                        x-model="selectedPerkdeck"
                         class="hidden"
                     >
 
-                    <span x-text="heist[1]"></span>
+                    <span x-text="perkdeck[1]"></span>
                 </label>
             </template>
         </div>
