@@ -14,24 +14,26 @@
     <div class="grid grid-cols-3 gap-4 p-4 min-h-screen">
         <div class="flex flex-col justify-between">
             <div>
-                <%= render "draft_games/team_list", draft_game: @draft_game, team: "team_a" %>
+                <%= render "draft_games/team_list", team: "team_a" %>
             </div>
 
-            <%= render "draft_games/perkdeck_ban_list", draft_game: @draft_game %>
+            <%= render "draft_games/heist_ban_list" %>
         </div>
 
         <div class="flex flex-col items-center justify-between">
-            <%= render "draft_games/selected_heist", draft_game: @draft_game %>
+            <%= render "draft_games/selected_heist" %>
 
-            <%= render "draft_games/showoff_area", draft_game: @draft_game %>
+            <%= render "draft_games/showoff_area" %>
 
-            <%= render "draft_games/heist_ban_list", draft_game: @draft_game %>
+            <%= render "draft_games/perkdeck_ban_list" %>
         </div>
 
-        <div class="flex flex-col">
+        <div class="flex flex-col justify-between">
             <div class="flex justify-end">
-                <%= render "draft_games/team_list", draft_game: @draft_game, team: "team_b" %>
+                <%= render "draft_games/team_list", team: "team_b" %>
             </div>
+
+            <%= render "draft_games/weapon_ban_list" %>
         </div>
     </div>
 </div>

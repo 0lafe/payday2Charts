@@ -20,6 +20,10 @@
                 x-show="teamUsers('<%= team %>')[playerNumber - 1]"
                 x-text="teamUsers('<%= team %>')[playerNumber - 1]?.name"
             ></span>
+
+            <template x-if="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id)">
+                <img :src="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id).image" class="w-8 h-8" />
+            </template>
         </div>
     </template>
 </div>

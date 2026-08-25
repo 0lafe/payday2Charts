@@ -16,7 +16,7 @@ class DraftGame < ApplicationRecord
     perk_bans: 3,
     perk_choices: 4,
     weapon_bans: 5,
-    weapon_choices: 6,
+    finish: 6,
   }
 
   def generate_public_key
@@ -50,25 +50,41 @@ class DraftGame < ApplicationRecord
     end
   end
 
+  def pick_count(type, target)
+    draft_picks
+      .select { |pick|
+        pick.draft_type == type && pick.draft_target == target
+      }
+      .count
+  end
+
   def current_turn_user
     case stage
     when "heist_bans"
-      ban_count = draft_picks.select {|pick| pick.draft_type == "ban" && pick.draft_target == "heist" }.count
-      team = turn_team(ban_count)
+      team = turn_team(
+        pick_count("ban", "heist")
+      )
 
       team_captain(team)
     when "perk_bans"
-      ban_count = draft_picks.select {|pick| pick.draft_type == "ban" && pick.draft_target == "perkdeck" }.count
-      team = turn_team(ban_count)
+      team = turn_team(
+        pick_count("ban", "perkdeck")
+      )
 
       team_captain(team)
     when "perk_choices"
-      choice_count = draft_picks.select {|pick| pick.draft_type == "choice" && pick.draft_target == "perkdeck" }.count
+      choice_count = pick_count("choice", "perkdeck")
       team = turn_team(choice_count)
 
       player = choice_count / 2
 
       draft_game_users.select {|user| user.team == team }.sort_by(&:id)[player]&.user
+    when "weapon_bans"
+      team = turn_team(
+        pick_count("ban", "weapon")
+      )
+
+      team_captain(team)
     end
   end
 
@@ -127,6 +143,7 @@ class DraftGame < ApplicationRecord
   def client_state
     {
       stage:,
+      players_per_team:,
       current_turn_user_id: current_turn_user&.id,
       host_user_id: user.id,
       users: {
@@ -147,21 +164,26 @@ class DraftGame < ApplicationRecord
     self.broadcast_replace_to(
       self,
       target: 'showoff-content',
-      partial: "draft_games/showoff/heist",
+      partial: "draft_games/showoff/heist_select",
       locals: {
         heist:,
       }
     )
   end
 
+  def total_players_max
+    players_per_team * 2
+  end
+
   def set_stage
     case stage
     when "waiting"
+      # if draft_game_users.count >= total_players_max
       if draft_game_users.count >= 2
         update_column("stage", "heist_bans")
       end
     when "heist_bans"
-      if draft_picks.ban.heist.count >= heist_ban_count
+      if draft_picks.ban.heist.count >= heist_ban_count * 2
         update_column("stage", "heist_select")
 
         AdvanceDraftGameHeistSelectJob
@@ -169,8 +191,17 @@ class DraftGame < ApplicationRecord
           .perform_later(id)
       end
     when "perk_bans"
-      if draft_picks.ban.perkdeck.count >= perkdeck_ban_count
+      if draft_picks.ban.perkdeck.count >= perkdeck_ban_count * 2
         update_column("stage", "perk_choices")
+      end
+    when "perk_choices"
+      # if draft_picks.choice.perkdeck.count >= total_players_max
+      if draft_picks.choice.perkdeck.count >= 2
+        update_column("stage", "weapon_bans")
+      end
+    when "weapon_bans"
+      if draft_picks.ban.weapon.count >= weapon_ban_count * 2
+        update_column("stage", "finish")
       end
     end
   end

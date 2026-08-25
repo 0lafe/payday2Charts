@@ -7,8 +7,9 @@
         <div class="flex flex-col gap-8">
             <div class="flex gap-16 justify-center">
                 <%= f.input :heist_ban_count, input_html: { value: 2 } %>
-                <%= f.input :perkdeck_ban_count, input_html: { value: 4 } %>
+                <%= f.input :perkdeck_ban_count, input_html: { value: 3 } %>
                 <%= f.input :weapon_ban_count, input_html: { value: 2 } %>
+                <%= f.input :players_per_team, input_html: { value: 2 } %>
             </div>
 
             <%= render TileComponent.new(title: "Map Selection") do %>
@@ -17,7 +18,7 @@
                         Toggle All
                     </button>
 
-                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-branding-blue/40 bg-branding-blue/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
                         Toggle None
                     </button>
 

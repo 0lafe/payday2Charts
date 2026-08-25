@@ -73,6 +73,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
     t.datetime "updated_at", null: false
     t.string "public_key"
     t.integer "stage", default: 0, null: false
+    t.integer "players_per_team", default: 2, null: false
     t.text "base_heists", default: [], null: false, array: true
     t.integer "heist_ban_count", default: 2, null: false
     t.string "heist"

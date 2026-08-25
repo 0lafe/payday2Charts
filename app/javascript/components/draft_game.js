@@ -65,12 +65,24 @@ export default function draftGame({ draftGameId, currentUserId, initialState, he
       })
     },
 
+    weaponBans(team) {
+      return (this.state.draft_picks?.weapon?.ban || []).filter((item) => {
+        return item.team === team
+      })
+    },
+
     teamUsers(team) {
       return this.state.users[team]
     },
 
     updateState(state) {
       this.state = state
+    },
+
+    perkdeckForUser(id) {
+      return (this.state.draft_picks?.perkdeck?.choice || []).find(item => {
+        return item.user_id === id
+      })
     },
 
     titleize(value) {

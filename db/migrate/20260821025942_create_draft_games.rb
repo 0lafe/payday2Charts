@@ -5,6 +5,7 @@ class CreateDraftGames < ActiveRecord::Migration[8.0]
       t.timestamps
       t.string :public_key
       t.integer :stage, null: false, default: 0
+      t.integer :players_per_team, null: false, default: 2
 
       t.text :base_heists, array: true, null: false, default: []
       t.integer :heist_ban_count, null: false, default: 2

@@ -42,6 +42,7 @@ class DraftGamesController < ApplicationController
       :heist_ban_count,
       :perkdeck_ban_count,
       :weapon_ban_count,
+      :players_per_team,
       base_heists: [],
       base_perkdecks: [],
       base_weapons: []

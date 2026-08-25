@@ -44,30 +44,18 @@ class DraftPick < ApplicationRecord
     when "perkdeck"
       ActionController::Base.helpers.asset_path("perkdecks/#{name}.png")
     when "weapon"
-      ActionController::Base.helpers.asset_path("heists/named/#{name}.png")
+      ActionController::Base.helpers.asset_path("weapon_types/#{name}.png")
     end
   end
 
   def broadcast_updates
-    case draft_target
-    when "heist"
-      draft_game.broadcast_replace_to(
-        draft_game,
-        target: "showoff-content",
-        partial: "draft_games/showoff/heist_ban",
-        locals: {
-          draft_pick: self
-        }
-      )
-    when "perkdeck"
-      draft_game.broadcast_replace_to(
-        draft_game,
-        target: "showoff-content",
-        partial: "draft_games/showoff/perkdeck_pick",
-        locals: {
-          draft_pick: self
-        }
-      )
-    end
+    draft_game.broadcast_replace_to(
+      draft_game,
+      target: "showoff-content",
+      partial: "draft_games/showoff/#{draft_target}",
+      locals: {
+        draft_pick: self
+      }
+    )
   end
 end

@@ -1,12 +1,12 @@
 [
-    "assault_rifle.png",
-    "shotgun.png",
-    "lmg.png",
-    "sniper.png",
-    "akimbo_pistol.png",
-    "akimbo_smg.png",
-    "akimbo_shotgun.png",
-    "special.png",
-    "pistol.png",
-    "smg.png"
+    "assault_rifle",
+    "shotgun",
+    "lmg",
+    "sniper",
+    "akimbo_pistol",
+    "akimbo_smg",
+    "akimbo_shotgun",
+    "special",
+    "pistol",
+    "smg"
 ]
