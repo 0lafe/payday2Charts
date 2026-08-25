@@ -6,15 +6,8 @@ export function subscribeToDraftGame(draftGameId, received) {
       channel: "DraftGameChannel",
       id: draftGameId
     },
+    
     {
-      connected() {
-        console.log("Connected to draft game", draftGameId)
-      },
-
-      disconnected() {
-        console.log("Disconnected from draft game", draftGameId)
-      },
-
       received(data) {
         received(data)
       }

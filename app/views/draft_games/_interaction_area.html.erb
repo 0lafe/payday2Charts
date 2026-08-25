@@ -1,12 +1,4 @@
 <div
-    x-data='draftGame({
-        draftGameId: "<%= @draft_game.public_key %>",
-        currentUserId: <%= current_user.id %>,
-        initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>,
-        heistImages: <%= raw json_escape(
-            @draft_game.base_heists.map { |heist| asset_path("heists/named/#{heist}.png") }.to_json
-        ) %>
-    })'
     x-show="isMyTurn"
     x-cloak
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8"

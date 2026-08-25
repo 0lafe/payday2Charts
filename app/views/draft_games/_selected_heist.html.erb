@@ -1,5 +1,5 @@
-<div id="selected-heist">
-    <% if draft_game.heist && draft_game.stage != 'heist_bans' %>
-        <%= image_tag("heists/named/#{draft_game.heist}.png", class: "w-32 h-32") if draft_game.heist %>
-    <% end %>
+<div>
+    <template x-if="state.heist && state.stage != 'heist_select'">
+        <img :src="state.heist" class="w-32 h-32" />
+    </template>
 </div>

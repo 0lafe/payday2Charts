@@ -6,18 +6,4 @@ class DraftGameUser < ApplicationRecord
     team_a: 0,
     team_b: 1
   }
-
-  after_commit :broadcast_updates, on: [:create, :update, :destroy]
-
-  def broadcast_updates
-    draft_game.broadcast_replace_to(
-      draft_game,
-      target: team,
-      partial: "draft_games/team_list",
-      locals: {
-        draft_game: draft_game,
-        team: team
-      }
-    )
-  end
 end

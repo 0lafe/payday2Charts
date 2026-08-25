@@ -1,13 +1,15 @@
-<div id="heist-bans" class="flex flex-col gap-4 w-full ring-2 ring-gray-800 p-4 rounded-md">
+<div class="flex flex-col gap-4 w-full ring-2 ring-gray-800 p-4 rounded-md">
     <div class="text-center text-3xl">
         Heist Bans
     </div>
 
     <div class="flex justify-between">
-        <% draft_game.draft_picks.ban.heist.each do |heist_ban| %>
-            <% team = heist_ban.draft_game_user.team %>
+        <template x-for="ban in heistBans('team_a')">
+            <img :src="ban.image", class="w-24 h-24 rounded-md ring-2 ring-red-500" />
+        </template>
 
-            <%= image_tag("heists/named/#{heist_ban.name}.png", class: "w-24 h-24 rounded-md ring-2 #{team == 'team_a' ? 'ring-red-500' : 'ring-blue-500'}") %>
-        <% end %>
+        <template x-for="ban in heistBans('team_b')">
+            <img :src="ban.image", class="w-24 h-24 rounded-md ring-2 ring-blue-500" />
+        </template>
     </div>
 </div>

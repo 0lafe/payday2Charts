@@ -38,11 +38,11 @@ export default function draftGame({ draftGameId, currentUserId, initialState, he
     },
 
     get myTeam() {
-      if (this.state.team_a_user_ids.includes(this.currentUserId)) {
+      if (this.state.users.team_a.some(user => user.id === this.currentUserId)) {
         return "team_a"
       }
 
-      if (this.state.team_b_user_ids.includes(this.currentUserId)) {
+      if (this.state.users.team_b.some(user => user.id === this.currentUserId)) {
         return "team_b"
       }
 
@@ -53,8 +53,30 @@ export default function draftGame({ draftGameId, currentUserId, initialState, he
       return this.state.host_user_id === this.currentUserId
     },
 
+    heistBans(team) {
+      return (this.state.draft_picks?.heist?.ban || []).filter((item) => {
+        return item.team === team
+      })
+    },
+
+    perkdeckBans(team) {
+      return (this.state.draft_picks?.perkdeck?.ban || []).filter((item) => {
+        return item.team === team
+      })
+    },
+
+    teamUsers(team) {
+      return this.state.users[team]
+    },
+
     updateState(state) {
       this.state = state
+    },
+
+    titleize(value) {
+      return value
+        .replace(/[_-]+/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase())
     }
   }
 }

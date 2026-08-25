@@ -7,10 +7,10 @@
         <% end %>
 
         <div class="grid grid-cols-4 gap-4">
-            <template x-for="heist in state.available_heists" :key="heist[0]">
+            <template x-for="heist in state.available_heists" :key="heist">
                 <label
                     class="cursor-pointer border rounded-lg p-4"
-                    :class="{ 'ring-2': selectedHeist == heist[0],
+                    :class="{ 'ring-2': selectedHeist == heist,
                         'ring-red-500': myTeam === 'team_a',
                         'ring-blue-500': myTeam === 'team_b'
                     }"
@@ -18,12 +18,12 @@
                     <input
                         type="radio"
                         name="draft_pick[name]"
-                        :value="heist[0]"
+                        :value="heist"
                         x-model="selectedHeist"
                         class="hidden"
                     >
 
-                    <span x-text="heist[1]"></span>
+                    <span x-text="titleize(heist)"></span>
                 </label>
             </template>
         </div>

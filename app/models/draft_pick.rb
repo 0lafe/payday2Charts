@@ -37,18 +37,20 @@ class DraftPick < ApplicationRecord
     end
   end
 
+  def image
+    case draft_target
+    when "heist"
+      ActionController::Base.helpers.asset_path("heists/named/#{name}.png")
+    when "perkdeck"
+      ActionController::Base.helpers.asset_path("perkdecks/#{name}.png")
+    when "weapon"
+      ActionController::Base.helpers.asset_path("heists/named/#{name}.png")
+    end
+  end
+
   def broadcast_updates
     case draft_target
     when "heist"
-      draft_game.broadcast_replace_to(
-        draft_game,
-        target: "heist-bans",
-        partial: "draft_games/heist_ban_list",
-        locals: {
-          draft_game: draft_game
-        }
-      )
-
       draft_game.broadcast_replace_to(
         draft_game,
         target: "showoff-content",
@@ -58,19 +60,6 @@ class DraftPick < ApplicationRecord
         }
       )
     when "perkdeck"
-      if ban?
-        draft_game.broadcast_replace_to(
-          draft_game,
-          target: "perkdeck-bans",
-          partial: "draft_games/perkdeck_ban_list",
-          locals: {
-            draft_game: draft_game
-          }
-        )
-      else
-        
-      end
-
       draft_game.broadcast_replace_to(
         draft_game,
         target: "showoff-content",

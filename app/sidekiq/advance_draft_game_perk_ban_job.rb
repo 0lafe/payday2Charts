@@ -7,15 +7,6 @@ class AdvanceDraftGamePerkBanJob < ApplicationJob
 
     draft_game.broadcast_replace_to(
       draft_game,
-      target: 'selected-heist',
-      partial: "draft_games/selected_heist",
-      locals: {
-        draft_game: draft_game
-      }
-    )
-
-    draft_game.broadcast_replace_to(
-      draft_game,
       target: 'showoff-content',
       html: '<div id="showoff-content"></div>'
     )

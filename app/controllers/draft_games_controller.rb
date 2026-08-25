@@ -12,11 +12,11 @@ class DraftGamesController < ApplicationController
   end
 
   def create
-    newGame = DraftGame.new(draft_game_params)
-    newGame.user = current_user
-    newGame.save
+    new_game = DraftGame.new(draft_game_params)
+    new_game.user = current_user
+    new_game.save
 
-    redirect_to newGame
+    redirect_to new_game
   end
 
   def join_team
@@ -33,17 +33,6 @@ class DraftGamesController < ApplicationController
       draft_game: @draft_game,
       team:
     )
-
-    if @new_user.valid?
-      render turbo_stream: turbo_stream.replace(
-        "interaction-area",
-        partial: "draft_games/interaction_area",
-        locals: {
-          draft_game: @draft_game,
-          user: current_user
-        }
-      )
-    end
   end
 
   private
