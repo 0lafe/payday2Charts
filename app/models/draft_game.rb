@@ -23,8 +23,8 @@ class DraftGame < ApplicationRecord
   }
 
   def restrict_heists
-    if base_heists.count > 7
-      self.base_heists = base_heists.sample(7)
+    if base_heists.count > 10
+      self.base_heists = base_heists.sample(10)
     end
   end
 

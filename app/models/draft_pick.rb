@@ -53,6 +53,14 @@ class DraftPick < ApplicationRecord
     end
   end
 
+  def sound
+    if ban?
+      ActionController::Base.helpers.asset_path("Ban.mp3")
+    else
+      ActionController::Base.helpers.asset_path("Selection.mp3")
+    end
+  end
+
   def broadcast_updates
     draft_game.broadcast_update_to(
       draft_game,
