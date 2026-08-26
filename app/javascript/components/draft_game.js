@@ -11,6 +11,7 @@ export default function draftGame({ draftGameId, currentUserId, initialState, as
     selectedPerkdeck: null,
     selectedWeapon: null,
     selectedSkill: null,
+    heistSearch: '',
 
     init() {
       this.assetImages.forEach(url => {

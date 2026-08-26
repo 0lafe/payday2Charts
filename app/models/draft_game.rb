@@ -22,12 +22,6 @@ class DraftGame < ApplicationRecord
     finish: 7,
   }
 
-  def restrict_heists
-    if base_heists.count > 10
-      self.base_heists = base_heists.sample(10)
-    end
-  end
-
   def generate_public_key
     update_column(
       'public_key',
@@ -213,8 +207,7 @@ class DraftGame < ApplicationRecord
   def set_stage
     case stage
     when "waiting"
-      # if draft_game_users.count >= total_players_max
-      if draft_game_users.count >= 2
+      if draft_game_users.count >= total_players_max
         update_column("stage", "heist_bans")
       end
     when "heist_bans"
@@ -230,8 +223,7 @@ class DraftGame < ApplicationRecord
         update_column("stage", "perk_choices")
       end
     when "perk_choices"
-      # if draft_picks.choice.perkdeck.count >= total_players_max
-      if draft_picks.choice.perkdeck.count >= 2
+      if draft_picks.choice.perkdeck.count >= total_players_max
         update_column("stage", "weapon_bans")
       end
     when "weapon_bans"
