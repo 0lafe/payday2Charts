@@ -54,9 +54,9 @@ class DraftPick < ApplicationRecord
   end
 
   def broadcast_updates
-    draft_game.broadcast_replace_to(
+    draft_game.broadcast_update_to(
       draft_game,
-      target: "showoff-content",
+      target: "showoff-area",
       partial: "draft_games/showoff/#{draft_target}",
       locals: {
         draft_pick: self

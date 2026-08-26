@@ -1,5 +1,7 @@
 <div>
     <template x-if="state.heist && state.stage != 'heist_select'">
-        <img :src="state.heist" class="w-32 h-32 rounded-md ring-2 ring-[#c59531]" />
+        <div class="rounded-md ring-2 ring-[#c59531]">
+            <img :src="state.heist" class="w-32 h-32" />
+        </div>
     </template>
 </div>

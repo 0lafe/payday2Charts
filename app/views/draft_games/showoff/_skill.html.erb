@@ -1,4 +1,4 @@
-<div id="showoff-content" class="flex flex-col items-center gap-4">
+<div id="showoff-content" class="flex flex-col items-center gap-4" x-data='showoffContent({})' x-show="show" x-cloak x-transition.opacity.duration.300ms>
     <div class="text-3xl">
         <span class="font-bold <%= draft_pick.draft_game_user.team == 'team_a' ? 'text-red-500' : 'text-blue-500' %>">
             <%= draft_pick.draft_game_user.user.name %>

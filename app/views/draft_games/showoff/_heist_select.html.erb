@@ -1,4 +1,4 @@
-<div id="showoff-content" class="flex flex-col items-center gap-4 w-full min-w-0">
+<div id="showoff-content" class="flex flex-col items-center gap-4 w-full min-w-0" x-data='showoffContent({ timeout: 12000 })' x-show="show" x-cloak x-transition.opacity.duration.300ms>
     <div x-data='itemRoller({ images: <%= raw json_escape(heists.to_json) %>, winningIndex: <%= winning_index %> })' class="w-full min-w-0">
         <template x-if="!finished">
             <div class="text-3xl">

@@ -5,6 +5,8 @@ class DraftGame < ApplicationRecord
 
   belongs_to :user
 
+  before_create :restrict_heists
+
   after_create :generate_public_key
 
   after_touch :association_updated
@@ -19,6 +21,12 @@ class DraftGame < ApplicationRecord
     skill_bans: 6,
     finish: 7,
   }
+
+  def restrict_heists
+    if base_heists.count > 7
+      self.base_heists = base_heists.sample(7)
+    end
+  end
 
   def generate_public_key
     update_column(
@@ -186,9 +194,9 @@ class DraftGame < ApplicationRecord
       ActionController::Base.helpers.asset_path("heists/named/#{heist}.png")
     end
 
-    self.broadcast_replace_to(
+    self.broadcast_update_to(
       self,
-      target: 'showoff-content',
+      target: 'showoff-area',
       partial: "draft_games/showoff/heist_select",
       locals: {
         heists:,
@@ -244,6 +252,6 @@ class DraftGame < ApplicationRecord
   end
 
   def self.reset_all
-    DraftPick.destroy_all; DraftGameUser.destroy_all; DraftGame.find(1).update(stage: 0, heist: nil)
+    DraftPick.destroy_all; DraftGameUser.destroy_all; DraftGame.update_all(stage: 0, heist: nil)
   end
 end
