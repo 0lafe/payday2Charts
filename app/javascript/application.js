@@ -7,9 +7,11 @@ import "channels"
 import Alpine from "alpinejs"
 import draftGame from "components/draft_game"
 import itemRoller from "components/item_roller"
+import showoffContent from "components/showoff_content"
 
 Alpine.data("draftGame", draftGame)
 Alpine.data("itemRoller", itemRoller)
+Alpine.data("showoffContent", showoffContent)
 
 window.Alpine = Alpine
 

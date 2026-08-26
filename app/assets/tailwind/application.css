@@ -54,6 +54,41 @@
             background-size: 1000%;
         }
     }
+
+    @keyframes hourglass-waiting {
+        0%,
+        15% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        22% {
+            transform: translateY(-6px) rotate(0deg);
+        }
+
+        28% {
+            transform: translateY(2px) rotate(20deg);
+        }
+
+        42% {
+            transform: translateY(-3px) rotate(180deg);
+        }
+
+        50% {
+            transform: translateY(1px) rotate(180deg);
+        }
+
+        56% {
+            transform: translateY(0) rotate(180deg);
+        }
+
+        100% {
+            transform: translateY(0) rotate(180deg);
+        }
+    }
+}
+
+.hourglass-waiting {
+    animation: hourglass-waiting 2s ease-in-out infinite alternate;
 }
 
 .flash-notification {

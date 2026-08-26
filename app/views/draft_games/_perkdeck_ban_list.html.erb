@@ -5,11 +5,19 @@
 
     <div class="flex justify-between">
         <template x-for="ban in perkdeckBans('team_a')">
-            <img :src="ban.image", class="h-24 w-auto rounded-md ring-2 ring-red-500" />
+            <div class="flex flex-col items-center">
+                <img :src="ban.image", class="h-16 w-auto rounded-md ring-2 ring-red-500" />
+
+                <span x-text="titleize(ban.name)"></span>
+            </div>
         </template>
 
         <template x-for="ban in perkdeckBans('team_b')">
-            <img :src="ban.image", class="h-24 w-auto rounded-md ring-2 ring-blue-500" />
+            <div class="flex flex-col items-center">
+                <img :src="ban.image", class="h-16 w-auto rounded-md ring-2 ring-blue-500" />
+
+                <span x-text="titleize(ban.name)"></span>
+            </div>
         </template>
     </div>
 </div>

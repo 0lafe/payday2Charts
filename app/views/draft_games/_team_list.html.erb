@@ -20,6 +20,10 @@
                         <img :src="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id).image"
                             class="w-8 h-8 absolute left-10 bottom-10 bg-black rounded-full border-2 border-[#c59531]" />
                     </template>
+
+                    <template x-if="teamUsers('<%= team %>')[playerNumber - 1]?.id === state.current_turn_user_id">
+                        <i class="fa-solid fa-hourglass absolute right-12 bottom-12 hourglass-waiting"></i>
+                    </template>
                 </div>
             </div>
 
