@@ -173,12 +173,27 @@ class DraftGame < ApplicationRecord
   def set_heist
     update(heist: available_heists.sample)
 
+    winning_index = 30 + rand(20)
+
+    heists = available_heists
+    heists = Array.new(winning_index + 10) do |i|
+      heists.sample
+    end
+
+    heists[winning_index] = heist
+
+    heists.map! do |heist|
+      ActionController::Base.helpers.asset_path("heists/named/#{heist}.png")
+    end
+
     self.broadcast_replace_to(
       self,
       target: 'showoff-content',
       partial: "draft_games/showoff/heist_select",
       locals: {
-        heist:,
+        heists:,
+        winning_index:,
+        heist: heist.titleize
       }
     )
   end

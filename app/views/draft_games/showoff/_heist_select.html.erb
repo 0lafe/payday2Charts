@@ -1,9 +1,48 @@
-<div id="showoff-content" class="flex flex-col items-center gap-4">
-    <div class="text-3xl">
-        Rolled heist is
-    </div>
+<div id="showoff-content" class="flex flex-col items-center gap-4 w-full min-w-0">
+    <div x-data='itemRoller({ images: <%= raw json_escape(heists.to_json) %>, winningIndex: <%= winning_index %> })' class="w-full min-w-0">
+        <template x-if="!finished">
+            <div class="text-3xl">
+                Rolling Heist ...
+            </div>
+        </template>
 
-    <div class="animate-zoom-in">
-        <%= image_tag("heists/named/#{heist}.png") %>
+        <template x-if="finished">
+            <div class="text-3xl">
+                <%= heist %> Selected
+            </div>
+        </template>
+        
+        <div
+            x-ref="viewport"
+            class="relative w-full overflow-hidden"
+        >
+            <div
+                class="
+                    absolute left-1/2 top-0 bottom-0 z-20
+                    -translate-x-1/2
+                    border-l-2 border-[#c59531]
+                "
+            ></div>
+
+            <div
+                x-ref="track"
+                class="flex w-max items-center"
+            >
+                <template
+                    x-for="(image, index) in images"
+                    :key="index"
+                >
+                    <div
+                        class="w-32 shrink-0 p-2"
+                        :data-index="index"
+                    >
+                        <img
+                            :src="image"
+                            class="w-full aspect-square object-cover rounded-md"
+                        >
+                    </div>
+                </template>
+            </div>
+        </div>
     </div>
 </div>

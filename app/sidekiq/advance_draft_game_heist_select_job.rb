@@ -6,7 +6,7 @@ class AdvanceDraftGameHeistSelectJob < ApplicationJob
     draft_game.set_heist
 
     AdvanceDraftGamePerkBanJob
-      .set(wait: 5.second)
+      .set(wait: 15.second)
       .perform_later(id)
   end
 end
