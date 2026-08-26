@@ -5,8 +5,6 @@ class DraftGame < ApplicationRecord
 
   belongs_to :user
 
-  before_create :restrict_heists
-
   after_create :generate_public_key
 
   after_touch :association_updated
