@@ -1,14 +1,14 @@
 <div class="min-h-32 flex flex-col gap-4 w-full ring-2 ring-gray-800 bg-gray-700 p-4 rounded-md">
     <div class="text-center text-3xl">
-        Perkdeck Bans
+        Skill Tree Bans
     </div>
 
     <div class="flex justify-between">
-        <template x-for="ban in perkdeckBans('team_a')">
+        <template x-for="ban in skillBans('team_a')">
             <img :src="ban.image", class="h-24 w-auto rounded-md ring-2 ring-red-500" />
         </template>
 
-        <template x-for="ban in perkdeckBans('team_b')">
+        <template x-for="ban in skillBans('team_b')">
             <img :src="ban.image", class="h-24 w-auto rounded-md ring-2 ring-blue-500" />
         </template>
     </div>

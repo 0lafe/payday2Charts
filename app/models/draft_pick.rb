@@ -15,13 +15,14 @@ class DraftPick < ApplicationRecord
     heist: 0,
     perkdeck: 1,
     weapon: 2,
+    skill: 3,
   }
 
   def set_draft_type
     self.draft_type = case draft_game.stage
     when "perk_choices", "weapon_choices"
       "choice"
-    when "perk_bans", "weapon_bans", "heist_bans"
+    when "perk_bans", "weapon_bans", "heist_bans", "skill_bans"
       "ban"
     end
   end
@@ -34,6 +35,8 @@ class DraftPick < ApplicationRecord
       "perkdeck"
     when "weapon_bans", "weapon_choices"
       "weapon"
+    when "skill_bans"
+      "skill"
     end
   end
 
@@ -45,6 +48,8 @@ class DraftPick < ApplicationRecord
       ActionController::Base.helpers.asset_path("perkdecks/#{name}.png")
     when "weapon"
       ActionController::Base.helpers.asset_path("weapon_types/#{name}.png")
+    when "skill"
+      ActionController::Base.helpers.asset_path("skill_trees/#{name}.png")
     end
   end
 

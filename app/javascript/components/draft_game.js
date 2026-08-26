@@ -1,18 +1,19 @@
 import { subscribeToDraftGame } from "channels/draft_game_channel"
 
-export default function draftGame({ draftGameId, currentUserId, initialState, heistImages }) {
+export default function draftGame({ draftGameId, currentUserId, initialState, assetImages }) {
   return {
     draftGameId,
     currentUserId,
-    heistImages,
+    assetImages,
     state: initialState,
     subscription: null,
     selectedHeist: null,
     selectedPerkdeck: null,
     selectedWeapon: null,
+    selectedSkill: null,
 
     init() {
-      this.heistImages.forEach(url => {
+      this.assetImages.forEach(url => {
         const image = new Image()
         image.src = url
       })
@@ -67,6 +68,12 @@ export default function draftGame({ draftGameId, currentUserId, initialState, he
 
     weaponBans(team) {
       return (this.state.draft_picks?.weapon?.ban || []).filter((item) => {
+        return item.team === team
+      })
+    },
+
+    skillBans(team) {
+      return (this.state.draft_picks?.skill?.ban || []).filter((item) => {
         return item.team === team
       })
     },

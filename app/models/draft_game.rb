@@ -16,7 +16,8 @@ class DraftGame < ApplicationRecord
     perk_bans: 3,
     perk_choices: 4,
     weapon_bans: 5,
-    finish: 6,
+    skill_bans: 6,
+    finish: 7,
   }
 
   def generate_public_key
@@ -85,6 +86,12 @@ class DraftGame < ApplicationRecord
       )
 
       team_captain(team)
+    when "skill_bans"
+      team = turn_team(
+        pick_count("ban", "skill")
+      )
+
+      team_captain(team)
     end
   end
 
@@ -105,6 +112,10 @@ class DraftGame < ApplicationRecord
 
   def available_weapons
     base_weapons - draft_picks.weapon.map(&:name)
+  end
+
+  def available_skills
+    base_skills - draft_picks.skill.map(&:name)
   end
 
   def team_user_data(team)
@@ -153,6 +164,7 @@ class DraftGame < ApplicationRecord
       available_heists:,
       available_perkdecks:,
       available_weapons:,
+      available_skills:,
       heist: heist_url,
       draft_picks: draft_pick_data
     }
@@ -201,6 +213,10 @@ class DraftGame < ApplicationRecord
       end
     when "weapon_bans"
       if draft_picks.ban.weapon.count >= weapon_ban_count * 2
+        update_column("stage", "skill_bans")
+      end
+    when "skill_bans"
+      if draft_picks.ban.skill.count >= skill_ban_count * 2
         update_column("stage", "finish")
       end
     end

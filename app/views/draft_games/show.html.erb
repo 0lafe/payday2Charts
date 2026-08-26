@@ -5,27 +5,39 @@
     draftGameId: "<%= @draft_game.public_key %>",
     currentUserId: <%= current_user.id %>,
     initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>,
-    heistImages: <%= raw json_escape(
-        @draft_game.base_heists.map { |heist| asset_path("heists/named/#{heist}.png") }.to_json
+    assetImages: <%= raw json_escape(
+        (
+            @draft_game.base_heists.map { |file| asset_path("heists/named/#{file}.png") } + 
+            @draft_game.base_perkdecks.map { |file| asset_path("perkdecks/#{file}.png") } + 
+            @draft_game.base_weapons.map { |file| asset_path("weapon_types/#{file}.png") } + 
+            @draft_game.base_skills.map { |file| asset_path("skill_trees/#{file}.png") }
+        ).to_json
     ) %>
 })'>
-    <%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
+    <div
+        class="absolute inset-0 bg-center bg-cover bg-no-repeat animate-warehouse-zoom-in"
+        style="background-image: url('<%= image_url("warehouse.jpg") %>');"
+    ></div>
 
-    <div class="grid grid-cols-3 gap-4 p-4 min-h-screen">
+    <div class="grid grid-cols-3 gap-4 p-4 min-h-screen bg-[#596d75] animate-content-zoom-in">
+        <%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
         <div class="flex flex-col justify-between">
-            <div>
+            <div class="flex justify-start">
                 <%= render "draft_games/team_list", team: "team_a" %>
             </div>
 
-            <%= render "draft_games/heist_ban_list" %>
+            <div class="flex flex-col gap-4">
+                <%= render "draft_games/skill_ban_list" %>
+                <%= render "draft_games/perkdeck_ban_list" %>
+            </div>
         </div>
 
-        <div class="flex flex-col items-center justify-between">
+        <div class="flex flex-col items-center justify-between gap-4">
             <%= render "draft_games/selected_heist" %>
 
             <%= render "draft_games/showoff_area" %>
 
-            <%= render "draft_games/perkdeck_ban_list" %>
+            <%= render "draft_games/heist_ban_list" %>
         </div>
 
         <div class="flex flex-col justify-between">

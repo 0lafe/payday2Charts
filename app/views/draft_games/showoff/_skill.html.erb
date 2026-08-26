@@ -1,0 +1,17 @@
+<div id="showoff-content" class="flex flex-col items-center gap-4">
+    <div class="text-3xl">
+        <span class="font-bold <%= draft_pick.draft_game_user.team == 'team_a' ? 'text-red-500' : 'text-blue-500' %>">
+            <%= draft_pick.draft_game_user.user.name %>
+        </span>
+
+        <% if draft_pick.ban? %>
+            Banned
+        <% else %>
+            Chose
+        <% end %>
+    </div>
+
+    <div class="animate-zoom-in">
+        <%= image_tag("skill_trees/#{draft_pick.name}.png") %>
+    </div>
+</div>

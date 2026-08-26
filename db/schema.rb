@@ -78,9 +78,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
     t.integer "heist_ban_count", default: 2, null: false
     t.string "heist"
     t.text "base_perkdecks", default: [], null: false, array: true
-    t.integer "perkdeck_ban_count", default: 2, null: false
+    t.integer "perkdeck_ban_count", default: 3, null: false
     t.text "base_weapons", default: [], null: false, array: true
     t.integer "weapon_ban_count", default: 2, null: false
+    t.text "base_skills", default: [], null: false, array: true
+    t.integer "skill_ban_count", default: 2, null: false
     t.index ["public_key"], name: "index_draft_games_on_public_key", unique: true
     t.index ["user_id"], name: "index_draft_games_on_user_id"
   end

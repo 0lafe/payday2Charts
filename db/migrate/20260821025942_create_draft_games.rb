@@ -12,10 +12,13 @@ class CreateDraftGames < ActiveRecord::Migration[8.0]
       t.string :heist
 
       t.text :base_perkdecks, array: true, null: false, default: []
-      t.integer :perkdeck_ban_count, null: false, default: 2
+      t.integer :perkdeck_ban_count, null: false, default: 3
 
       t.text :base_weapons, array: true, null: false, default: []
       t.integer :weapon_ban_count, null: false, default: 2
+
+      t.text :base_skills, array: true, null: false, default: []
+      t.integer :skill_ban_count, null: false, default: 2
     end
 
     add_index :draft_games, :public_key, unique: true

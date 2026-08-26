@@ -9,6 +9,7 @@ class DraftGamesController < ApplicationController
     @heists = JSON.parse(File.read("./app/models/concerns/heists.json"))
     @weapon_types = JSON.parse(File.read("./app/models/concerns/weapon_types.json"))
     @perkdecks = JSON.parse(File.read("./app/models/concerns/perkdecks.json"))
+    @skill_trees = JSON.parse(File.read("./app/models/concerns/skill_trees.json"))
   end
 
   def create
@@ -42,10 +43,12 @@ class DraftGamesController < ApplicationController
       :heist_ban_count,
       :perkdeck_ban_count,
       :weapon_ban_count,
+      :skill_ban_count,
       :players_per_team,
       base_heists: [],
       base_perkdecks: [],
-      base_weapons: []
+      base_weapons: [],
+      base_skills: [],
     )
   end
 end

@@ -1,29 +1,32 @@
-<div class="flex gap-4">
+<div class="flex gap-4 ring-2 ring-gray-800 bg-gray-700 p-4 rounded-md">
     <template x-for="playerNumber in 2" :key="playerNumber">
         <div class="flex flex-col items-center">
-            <div class="rounded-full border-2 w-16 h-16 flex justify-center items-center overflow-hidden
-                <%= team == 'team_a' ? 'border-red-500' : 'border-blue-500' %>">
+            <div class="relative">
+                <div class="rounded-full border-2 w-16 h-16 flex justify-center items-center overflow-hidden
+                    <%= team == 'team_a' ? 'border-red-500' : 'border-blue-500' %>">
 
-                <template x-if="teamUsers('<%= team %>')[playerNumber - 1]">
-                    <img
-                        :src="teamUsers('<%= team %>')[playerNumber - 1].avatar"
-                        class="w-full h-full object-cover"
-                    />
-                </template>
+                    <template x-if="teamUsers('<%= team %>')[playerNumber - 1]">
+                        <img
+                            :src="teamUsers('<%= team %>')[playerNumber - 1].avatar"
+                            class="w-full h-full object-cover"
+                        />
+                    </template>
 
-                <template x-if="!teamUsers('<%= team %>')[playerNumber - 1]">
-                    <i class="fa-regular fa-user text-3xl"></i>
-                </template>
+                    <template x-if="!teamUsers('<%= team %>')[playerNumber - 1]">
+                        <i class="fa-regular fa-user text-3xl"></i>
+                    </template>
+
+                    <template x-if="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id)">
+                        <img :src="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id).image"
+                            class="w-8 h-8 absolute left-10 bottom-10 bg-black rounded-full border-2 border-[#c59531]" />
+                    </template>
+                </div>
             </div>
 
             <span
                 x-show="teamUsers('<%= team %>')[playerNumber - 1]"
                 x-text="teamUsers('<%= team %>')[playerNumber - 1]?.name"
             ></span>
-
-            <template x-if="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id)">
-                <img :src="perkdeckForUser(teamUsers('<%= team %>')[playerNumber - 1]?.id).image" class="w-8 h-8" />
-            </template>
         </div>
     </template>
 </div>

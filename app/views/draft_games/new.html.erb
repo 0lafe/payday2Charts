@@ -9,6 +9,7 @@
                 <%= f.input :heist_ban_count, input_html: { value: 2 } %>
                 <%= f.input :perkdeck_ban_count, input_html: { value: 3 } %>
                 <%= f.input :weapon_ban_count, input_html: { value: 2 } %>
+                <%= f.input :skill_ban_count, input_html: { value: 2 } %>
                 <%= f.input :players_per_team, input_html: { value: 2 } %>
             </div>
 
@@ -44,7 +45,7 @@
                         Toggle All
                     </button>
 
-                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-branding-blue/40 bg-branding-blue/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
                         Toggle None
                     </button>
 
@@ -70,7 +71,7 @@
                         Toggle All
                     </button>
 
-                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-[#0085b6]/40 bg-[#0085b6]/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-branding-blue/40 bg-branding-blue/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
                         Toggle None
                     </button>
 
@@ -84,6 +85,32 @@
                                     ) %>
                                     
                                 <%= weapon_type.gsub('.png', '').titleize %>
+                            </label>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+
+            <%= render TileComponent.new(title: "Skill Tree Selection") do %>
+                <div data-checkbox-group-target="group">
+                    <button type="button" class="button btn-primary" data-action="click->draft-game-index#checkAll">
+                        Toggle All
+                    </button>
+
+                    <button type="button" class="sm:w-auto inline-block rounded-xl border border-branding-blue/40 bg-branding-blue/10 px-5 py-3 text-[#4fc3f7] font-medium transition hover:bg-[#0085b6]/20 hover:border-[#0085b6]/70" data-action="click->draft-game-index#checkNone">
+                        Toggle None
+                    </button>
+
+                    <div class="grid grid-cols-8 gap-4 mt-4">
+                        <% @skill_trees.each do |skill_tree| %>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <%= check_box_tag(
+                                    "draft_game[base_skills][]",
+                                    skill_tree,
+                                    true
+                                    ) %>
+                                    
+                                <%= skill_tree.titleize %>
                             </label>
                         <% end %>
                     </div>

@@ -22,6 +22,38 @@
             transform: scale(1);
         }
     }
+
+    --animate-content-zoom-in: content-zoom-in 4000ms ease-out forwards;
+
+    @keyframes content-zoom-in {
+        0% {
+            transform: scale(0.1);
+        }
+
+        25% {
+            transform: scale(0.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    --animate-warehouse-zoom-in: warehouse-zoom-in 4000ms ease-out forwards;
+
+    @keyframes warehouse-zoom-in {
+        0% {
+            background-size: 100%;
+        }
+
+        25% {
+            background-size: 100%;
+        }
+
+        100% {
+            background-size: 1000%;
+        }
+    }
 }
 
 .flash-notification {
