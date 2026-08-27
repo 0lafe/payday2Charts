@@ -1,5 +1,5 @@
 class DraftGamesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:stream_header, :stream_footer]
 
   def show
     @draft_game = DraftGame.find_by(public_key: params[:id])
