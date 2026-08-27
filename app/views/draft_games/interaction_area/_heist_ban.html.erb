@@ -36,7 +36,7 @@
         </div>
 
         <% modal.with_footer do %>
-            <%= f.submit 'Submit', class: "btn-primary w-full mt-4 cursor-pointer" %>
+            <%= f.submit 'Submit', class: "btn-primary w-full mt-4 cursor-pointer", "x-bind:disabled": "!selectedHeist" %>
         <% end %>
     <% end %>
 <% end %>

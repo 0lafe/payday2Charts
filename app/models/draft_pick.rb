@@ -6,6 +6,8 @@ class DraftPick < ApplicationRecord
 
   validate :is_their_turn
 
+  validates :name, :draft_type, :draft_target, presence: true
+
   after_commit :broadcast_updates, on: [:create, :update, :destroy]
 
   enum :draft_type, {

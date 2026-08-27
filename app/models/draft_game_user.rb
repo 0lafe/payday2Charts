@@ -4,6 +4,8 @@ class DraftGameUser < ApplicationRecord
 
   validate :team_is_not_full
 
+  validates :team, presence: true
+
   enum :team, {
     team_a: 0,
     team_b: 1
