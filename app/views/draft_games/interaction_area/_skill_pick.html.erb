@@ -15,9 +15,9 @@
             <template x-for="skill in state.available_skills" :key="skill">
                 <label
                     class="cursor-pointer border rounded-lg p-4 text-center"
-                    :class="{ 'ring-2': selectedSkill == skill,
-                        'ring-red-500': myTeam === 'team_a',
-                        'ring-blue-500': myTeam === 'team_b'
+                    :class="{ 'ring-2 border-transparent': selectedSkill == skill,
+                        'ring-team-a': myTeam === 'team_a',
+                        'ring-team-b': myTeam === 'team_b'
                     }"
                 >
                     <input

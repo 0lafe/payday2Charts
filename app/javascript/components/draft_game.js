@@ -55,6 +55,10 @@ export default function draftGame({ draftGameId, currentUserId, initialState, as
       return this.state.host_user_id === this.currentUserId
     },
 
+    get isWaitingToStart() {
+      return this.state.stage === 'waiting' && !this.isMyTurn
+    },
+
     heistBans(team) {
       return (this.state.draft_picks?.heist?.ban || []).filter((item) => {
         return item.team === team

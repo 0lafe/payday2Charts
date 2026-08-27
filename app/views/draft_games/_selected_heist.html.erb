@@ -1,7 +1,9 @@
 <div>
     <template x-if="state.heist && state.stage != 'heist_select'">
-        <div class="rounded-md ring-2 ring-[#c59531]">
-            <img :src="state.heist" class="w-32 h-32" />
+        <div class="flex flex-col items-center">
+            <img :src="state.heist" class="w-32 h-32 rounded-md ring-2 ring-[#c59531]" />
+
+            Selected heist
         </div>
     </template>
 </div>

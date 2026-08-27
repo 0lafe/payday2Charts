@@ -1,10 +1,10 @@
-<div class="flex flex-col items-center gap-4"
+<div class="flex flex-col items-center gap-4 corner-border p-4"
     x-data='showoffContent({audio: "<%= draft_pick.sound %>"})'
     x-show="show"
     x-cloak
     x-transition.opacity.duration.300ms>
     <div class="text-3xl text-center">
-        <span class="font-bold <%= draft_pick.draft_game_user.team == 'team_a' ? 'text-red-500' : 'text-blue-500' %>">
+        <span class="font-bold <%= draft_pick.draft_game_user.team == 'team_a' ? 'text-team-a' : 'text-team-b' %>">
             <%= draft_pick.draft_game_user.user.name %>
         </span>
 

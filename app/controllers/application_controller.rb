@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     return if current_user
 
-    redirect_to login_path, alert: "You must be logged in to access this page."
+    redirect_to new_session_path, alert: "You must be logged in to access this page."
   end
 end

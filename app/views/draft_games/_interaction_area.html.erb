@@ -1,8 +1,7 @@
 <div
     x-show="isMyTurn"
     x-cloak
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8"
->
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8">
     <template x-if="state.stage === 'waiting'">
         <%= render "draft_games/interaction_area/team_choice", draft_game: @draft_game %>
     </template>

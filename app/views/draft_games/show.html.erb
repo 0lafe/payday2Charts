@@ -15,12 +15,21 @@
     ) %>
 })'>
     <div
-        class="absolute inset-0 bg-center bg-cover bg-no-repeat animate-warehouse-zoom-in"
+        class="absolute inset-0 bg-center bg-cover bg-no-repeat <%= @draft_game.waiting? ? "animate-warehouse-zoom-in" : "" %>"
         style="background-image: url('<%= image_url("warehouse.jpg") %>');"
     ></div>
 
-    <div class="grid grid-cols-3 gap-4 p-4 min-h-screen bg-[#596d75] animate-content-zoom-in">
+    <div class="grid grid-cols-3 gap-4 p-4 min-h-screen bg-black bg-center bg-cover bg-no-repeat draft-game-container tracking-wide <%= @draft_game.waiting? ? "animate-content-zoom-in" : "" %>">
         <%= render "draft_games/interaction_area", draft_game: @draft_game, user: current_user %>
+        <div
+            x-show="isWaitingToStart"
+            x-cloak
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-8">
+            <div class="flex justify-center items-center">
+                Waiting for players to join game
+            </div>
+        </div>
+
         <div class="flex flex-col justify-between">
             <div class="flex justify-start">
                 <%= render "draft_games/team_list", team: "team_a" %>

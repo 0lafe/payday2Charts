@@ -1,9 +1,9 @@
-<div class="flex gap-4 ring-2 ring-gray-800 bg-gray-700 p-4 rounded-md">
-    <template x-for="playerNumber in 2" :key="playerNumber">
+<div class="flex gap-4 ring-2 <%= team == 'team_a' ? "bg-team-a/30 ring-team-a" : "bg-team-b/30 ring-team-b" %> p-4 rounded-md">
+    <template x-for="playerNumber in state.players_per_team" :key="playerNumber">
         <div class="flex flex-col items-center">
             <div class="relative">
-                <div class="rounded-full border-2 w-16 h-16 flex justify-center items-center overflow-hidden
-                    <%= team == 'team_a' ? 'border-red-500' : 'border-blue-500' %>">
+                <div class="rounded-full border-2 w-16 h-16 flex justify-center items-center overflow-hidden bg-black
+                    <%= team == 'team_a' ? 'border-team-a' : 'border-team-b' %>">
 
                     <template x-if="teamUsers('<%= team %>')[playerNumber - 1]">
                         <img
