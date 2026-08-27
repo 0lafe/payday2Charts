@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_27_190159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -83,6 +83,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_21_025942) do
     t.integer "weapon_ban_count", default: 2, null: false
     t.text "base_skills", default: [], null: false, array: true
     t.integer "skill_ban_count", default: 2, null: false
+    t.jsonb "rng_state", default: {}, null: false
+    t.integer "round_count", default: 3, null: false
     t.index ["public_key"], name: "index_draft_games_on_public_key", unique: true
     t.index ["user_id"], name: "index_draft_games_on_user_id"
   end

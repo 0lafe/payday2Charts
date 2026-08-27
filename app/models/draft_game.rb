@@ -9,6 +9,8 @@ class DraftGame < ApplicationRecord
 
   after_touch :association_updated
 
+  before_update :set_rng_state, if: :will_save_change_to_stage?
+
   enum :stage, {
     waiting: 0,
     heist_bans: 1,
@@ -44,10 +46,16 @@ class DraftGame < ApplicationRecord
   end
 
   def turn_team(pick_count)
+    starter = rng_state[stage]
+
     if ((pick_count + 1) / 2).even?
-      "team_a"
+      starter
     else
-      "team_b"
+      if starter == "team_a"
+        "team_b"
+      else
+        "team_a"
+      end
     end
   end
 
@@ -202,15 +210,19 @@ class DraftGame < ApplicationRecord
     players_per_team * 2
   end
 
+  def set_rng_state
+    self.rng_state[stage] = ["team_a", "team_b"].sample
+  end
+
   def set_stage
     case stage
     when "waiting"
       if draft_game_users.count >= total_players_max
-        update_column("stage", "heist_bans")
+        update(stage: "heist_bans")
       end
     when "heist_bans"
       if draft_picks.ban.heist.count >= heist_ban_count * 2
-        update_column("stage", "heist_select")
+        update(stage: "heist_select")
 
         AdvanceDraftGameHeistSelectJob
           .set(wait: 5.second)
@@ -218,19 +230,19 @@ class DraftGame < ApplicationRecord
       end
     when "perk_bans"
       if draft_picks.ban.perkdeck.count >= perkdeck_ban_count * 2
-        update_column("stage", "perk_choices")
+        update(stage: "perk_choices")
       end
     when "perk_choices"
       if draft_picks.choice.perkdeck.count >= total_players_max
-        update_column("stage", "weapon_bans")
+        update(stage: "weapon_bans")
       end
     when "weapon_bans"
       if draft_picks.ban.weapon.count >= weapon_ban_count * 2
-        update_column("stage", "skill_bans")
+        update(stage: "skill_bans")
       end
     when "skill_bans"
       if draft_picks.ban.skill.count >= skill_ban_count * 2
-        update_column("stage", "finish")
+        update(stage: "finish")
       end
     end
   end
