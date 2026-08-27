@@ -37,7 +37,7 @@ class DraftGame < ApplicationRecord
 
   def team_captain(team)
     draft_game_users
-      .select {|user| user.team == team }
+      .where(team:)
       .sort_by(&:id)
       .first
       &.user
@@ -51,11 +51,9 @@ class DraftGame < ApplicationRecord
     end
   end
 
-  def pick_count(type, target)
+  def pick_count(draft_type, draft_target)
     draft_picks
-      .select { |pick|
-        pick.draft_type == type && pick.draft_target == target
-      }
+      .where(draft_type:, draft_target:)
       .count
   end
 
@@ -79,7 +77,9 @@ class DraftGame < ApplicationRecord
 
       player = choice_count / 2
 
-      draft_game_users.select {|user| user.team == team }.sort_by(&:id)[player]&.user
+      draft_game_users
+        .where(team:)
+        .sort_by(&:id)[player]&.user
     when "weapon_bans"
       team = turn_team(
         pick_count("ban", "weapon")
@@ -120,7 +120,7 @@ class DraftGame < ApplicationRecord
 
   def team_user_data(team)
     draft_game_users
-      .select {|game_user| game_user.team == team }
+      .where(team:)
       .map {|game_user| {
         id: game_user.user.id,
         avatar: game_user.user.avatar,

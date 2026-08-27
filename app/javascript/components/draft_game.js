@@ -97,6 +97,10 @@ export default function draftGame({ draftGameId, currentUserId, initialState, as
       })
     },
 
+    teamFull(team) {
+      return this.teamUsers(team).length >= this.state.players_per_team
+    },
+
     titleize(value) {
       return value
         .replace(/[_-]+/g, ' ')

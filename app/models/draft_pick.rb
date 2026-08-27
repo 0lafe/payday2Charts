@@ -4,6 +4,8 @@ class DraftPick < ApplicationRecord
 
   before_validation :set_draft_type, :set_draft_target, on: :create
 
+  validate :is_their_turn
+
   after_commit :broadcast_updates, on: [:create, :update, :destroy]
 
   enum :draft_type, {
@@ -70,5 +72,13 @@ class DraftPick < ApplicationRecord
         draft_pick: self
       }
     )
+  end
+
+  private
+
+  def is_their_turn
+    unless draft_game_user.user == draft_game.current_turn_user
+      errors.add(:draft_game, "is not your turn")
+    end
   end
 end
