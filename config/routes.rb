@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   resources :draft_games, only: [:show, :new, :create] do
     member do
       get :interaction_area
+      get :stream_header
+      get :stream_footer
       post :join_team
     end
   end

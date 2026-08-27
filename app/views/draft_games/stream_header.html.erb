@@ -1,0 +1,63 @@
+<div x-data='draftGameStreamer({
+    draftGameId: "<%= @draft_game.public_key %>",
+    initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>,
+})'
+    class="min-h-16 grid grid-cols-3 w-full ring-2 ring-[#186d98] bg-[#186d98]/40 p-2">
+    <div class="flex justify-start items-center gap-4">
+        <template x-for="playerNumber in state.players_per_team" :key="playerNumber">
+            <div class="flex flex-col items-center">
+                <div class="relative">
+                    <div class="rounded-full border-2 w-12 h-12 flex justify-center items-center overflow-hidden bg-black
+                        <% team = "team_a" %>
+                        <%= team == 'team_a' ? 'border-team-a' : 'border-team-b' %>">
+
+                        <template x-if="teamUsers('<%= team %>')[playerNumber - 1]">
+                            <img
+                                :src="teamUsers('<%= team %>')[playerNumber - 1].avatar"
+                                class="w-full h-full object-cover"
+                            />
+                        </template>
+
+                        <template x-if="!teamUsers('<%= team %>')[playerNumber - 1]">
+                            <i class="fa-regular fa-user text-3xl"></i>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        Wins:
+        <span x-text="state.team_a_wins"></span>
+    </div>
+
+    <div class="text-[#c59531] flex items-center justify-center font-bold">
+        Payday 2 Draft Showmatch
+    </div>
+
+    <div class="flex justify-end gap-4 items-center">
+        Wins:
+        <span x-text="state.team_a_wins"></span>
+
+        <template x-for="playerNumber in state.players_per_team" :key="playerNumber">
+            <div class="flex flex-col items-center">
+                <div class="relative">
+                    <div class="rounded-full border-2 w-12 h-12 flex justify-center items-center overflow-hidden bg-black
+                        <% team = "team_b" %>
+                        <%= team == 'team_a' ? 'border-team-a' : 'border-team-b' %>">
+
+                        <template x-if="teamUsers('<%= team %>')[playerNumber - 1]">
+                            <img
+                                :src="teamUsers('<%= team %>')[playerNumber - 1].avatar"
+                                class="w-full h-full object-cover"
+                            />
+                        </template>
+
+                        <template x-if="!teamUsers('<%= team %>')[playerNumber - 1]">
+                            <i class="fa-regular fa-user text-3xl"></i>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>

@@ -85,6 +85,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_27_190159) do
     t.integer "skill_ban_count", default: 2, null: false
     t.jsonb "rng_state", default: {}, null: false
     t.integer "round_count", default: 3, null: false
+    t.integer "team_a_wins", default: 0, null: false
+    t.integer "team_b_wins", default: 0, null: false
     t.index ["public_key"], name: "index_draft_games_on_public_key", unique: true
     t.index ["user_id"], name: "index_draft_games_on_user_id"
   end

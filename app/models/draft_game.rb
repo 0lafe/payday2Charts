@@ -163,6 +163,8 @@ class DraftGame < ApplicationRecord
     {
       stage:,
       players_per_team:,
+      team_a_wins:,
+      team_b_wins:,
       current_turn_user_id: current_turn_user&.id,
       host_user_id: user.id,
       users: {

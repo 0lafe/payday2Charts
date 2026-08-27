@@ -12,6 +12,6 @@ class NavBarComponent < ViewComponent::Base
   end
 
   def draft_game?
-    (params[:controller] == 'draft_games') && (params[:action] == 'show')
+    (params[:controller] == 'draft_games') && (["show", "stream_header", "stream_footer"].include?(params[:action]))
   end
 end

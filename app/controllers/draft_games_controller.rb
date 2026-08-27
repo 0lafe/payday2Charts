@@ -36,6 +36,14 @@ class DraftGamesController < ApplicationController
     )
   end
 
+  def stream_header
+    @draft_game = DraftGame.find_by(public_key: params[:id])
+  end
+
+  def stream_footer
+    @draft_game = DraftGame.find_by(public_key: params[:id])
+  end
+
   private
 
   def draft_game_params

@@ -87,10 +87,6 @@ export default function draftGame({ draftGameId, currentUserId, initialState, as
       return this.state.users[team]
     },
 
-    updateState(state) {
-      this.state = state
-    },
-
     perkdeckForUser(id) {
       return (this.state.draft_picks?.perkdeck?.choice || []).find(item => {
         return item.user_id === id
