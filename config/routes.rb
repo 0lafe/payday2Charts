@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       get :stream_header
       get :stream_footer
       post :join_team
+      post :team_win
     end
   end
 

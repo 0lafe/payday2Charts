@@ -1,9 +1,9 @@
 class DraftGamesController < ApplicationController
   before_action :authenticate_user!, except: [:stream_header, :stream_footer]
 
-  def show
-    @draft_game = DraftGame.find_by(public_key: params[:id])
-  end
+  before_action :set_draft_game, only: [:show, :join_team, :stream_header, :stream_footer, :team_win]
+
+  def show; end
 
   def new
     @heists = JSON.parse(File.read("./app/models/concerns/heists.json"))
@@ -21,8 +21,6 @@ class DraftGamesController < ApplicationController
   end
 
   def join_team
-    @draft_game = DraftGame.find_by(public_key: params[:id])
-
     team = params[:team]
 
     unless %w[team_a team_b].include?(team)
@@ -36,12 +34,22 @@ class DraftGamesController < ApplicationController
     )
   end
 
-  def stream_header
-    @draft_game = DraftGame.find_by(public_key: params[:id])
-  end
+  def stream_header; end
 
-  def stream_footer
-    @draft_game = DraftGame.find_by(public_key: params[:id])
+  def stream_footer; end
+
+  def team_win
+    unless current_user == @draft_game.user
+      return redirect_back alert: "Only the host can select a winner", fallback_location: root_url
+    end
+
+    team = params[:team]
+
+    unless %w[team_a team_b].include?(team)
+      return head :unprocessable_entity
+    end
+
+    @draft_game.add_win(team)
   end
 
   private
@@ -59,5 +67,9 @@ class DraftGamesController < ApplicationController
       base_weapons: [],
       base_skills: [],
     )
+  end
+
+  def set_draft_game
+    @draft_game = DraftGame.find_by!(public_key: params[:id])
   end
 end

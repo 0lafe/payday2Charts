@@ -25,4 +25,8 @@
     <template x-if="state.stage === 'skill_bans'">
         <%= render "draft_games/interaction_area/skill_pick", draft_game: @draft_game, type: 'ban' %>
     </template>
+
+    <template x-if="state.stage === 'finish'">
+        <%= render "draft_games/interaction_area/pick_winner", draft_game: @draft_game %>
+    </template>
 </div>

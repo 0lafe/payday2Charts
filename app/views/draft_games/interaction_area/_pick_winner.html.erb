@@ -1,0 +1,26 @@
+<%= render DraftGameModalComponent.new do |modal| %>
+    <% modal.with_header do %>
+        <span class="text-3xl">
+            Pick Winner
+        </span>
+    <% end %>
+
+
+    <div class="flex justify-center gap-8 w-full">
+        <%= button_to team_win_draft_game_path(draft_game),
+            method: :post,
+            params: { team: "team_a" },
+            class: "button bg-team-a/30 ring-2 ring-team-a active:scale-[0.98] px-5 py-3 font-medium transition rounded-xl hover:opacity-50 disabled:active:scale-none disabled:bg-gray-400" do %>
+
+            Team A Won
+        <% end %>
+
+        <%= button_to team_win_draft_game_path(draft_game),
+            method: :post,
+            params: { team: "team_b" },
+            class: "button bg-team-b/30 ring-2 ring-team-b active:scale-[0.98] px-5 py-3 font-medium transition rounded-xl hover:opacity-50 disabled:active:scale-none disabled:bg-gray-400" do %>
+
+            Team B Won
+        <% end %>
+    </div>
+<% end %>

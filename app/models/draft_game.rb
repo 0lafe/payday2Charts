@@ -100,6 +100,8 @@ class DraftGame < ApplicationRecord
       )
 
       team_captain(team)
+    when "finish"
+      user
     end
   end
 
@@ -255,7 +257,33 @@ class DraftGame < ApplicationRecord
     update_interaction_area
   end
 
+  def add_win(team)
+    if team == "team_a"
+      increment(:team_a_wins)
+    else
+      increment(:team_b_wins)
+    end
+
+    exclude_heist = heist
+    exclude_perkdecks = draft_picks.choice.perkdeck.map(&:name)
+
+    draft_picks.delete_all
+    self.heist = nil
+    self.stage = "heist_bans"
+
+    self.base_heists.filter! do |heist|
+      heist != exclude_heist
+    end
+
+    self.base_perkdecks.filter! do |perkdeck|
+      !exclude_perkdecks.include?(perkdeck)
+    end
+
+    save
+    update_interaction_area
+  end
+
   def self.reset_all
-    DraftPick.destroy_all; DraftGameUser.destroy_all; DraftGame.update_all(stage: 0, heist: nil)
+    DraftPick.destroy_all; DraftGameUser.destroy_all; DraftGame.update_all(stage: 0, heist: nil); DraftGame.all.map(&:update_interaction_area)
   end
 end

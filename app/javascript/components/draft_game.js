@@ -22,6 +22,11 @@ export default function draftGame({ draftGameId, currentUserId, initialState, as
       this.subscription = subscribeToDraftGame(
         this.draftGameId,
         (data) => {
+          this.selectedHeist = null
+          this.selectedPerkdeck = null
+          this.selectedWeapon = null
+          this.selectedSkill = null
+
           this.state = data
         }
       )
