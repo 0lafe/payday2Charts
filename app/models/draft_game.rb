@@ -19,7 +19,8 @@ class DraftGame < ApplicationRecord
     perk_choices: 4,
     weapon_bans: 5,
     skill_bans: 6,
-    finish: 7,
+    draft_done: 7,
+    finish: 8,
   }
 
   def generate_public_key
@@ -100,7 +101,7 @@ class DraftGame < ApplicationRecord
       )
 
       team_captain(team)
-    when "finish"
+    when "draft_done"
       user
     end
   end
@@ -246,7 +247,7 @@ class DraftGame < ApplicationRecord
       end
     when "skill_bans"
       if draft_picks.ban.skill.count >= skill_ban_count * 2
-        update(stage: "finish")
+        update(stage: "draft_done")
       end
     end
   end
@@ -269,7 +270,6 @@ class DraftGame < ApplicationRecord
 
     draft_picks.delete_all
     self.heist = nil
-    self.stage = "heist_bans"
 
     self.base_heists.filter! do |heist|
       heist != exclude_heist
@@ -279,7 +279,14 @@ class DraftGame < ApplicationRecord
       !exclude_perkdecks.include?(perkdeck)
     end
 
+    if team_a_wins + team_b_wins >= round_count
+      self.stage = "finish"      
+    else
+      self.stage = "heist_bans"      
+    end
+
     save
+
     update_interaction_area
   end
 

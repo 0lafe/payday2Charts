@@ -3,11 +3,11 @@
     initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>,
 })'
     class="min-h-16 w-full items-center border-t-2 border-[#186d98] bg-[#186d98]/40 p-2">
-    <div class="flex justify-center text-2xl" x-cloak x-show="state.stage !== 'finish'">
+    <div class="flex justify-center text-2xl" x-cloak x-show="state.stage !== 'draft_done'">
         Pick/Ban in progress ...
     </div>
 
-    <div class="flex justify-between gap-4" x-cloak x-show="state.stage === 'finish'">
+    <div class="flex justify-between gap-4" x-cloak x-show="state.stage === 'draft_done'">
         <div class="flex justify-between gap-4">
             <template x-for="ban in heistBans('team_a')">
                 <img :src="ban.image", class="w-12 h-12 rounded-md ring-2 ring-team-a" />
