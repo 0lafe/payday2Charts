@@ -2,7 +2,7 @@
     draftGameId: "<%= @draft_game.public_key %>",
     initialState: <%= raw json_escape(@draft_game.client_state.to_json) %>,
 })'
-    class="min-h-16 grid grid-cols-3 w-full border-b-2 border-[#186d98] bg-[#186d98]/40 p-2">
+    class="min-h-16 grid grid-cols-3 w-full border-b-2 border-[#186d98] bg-[#186d98]/40 p-2 font-[PaydayFont] tracking-wider">
     <div class="flex justify-start items-center gap-4">
         <template x-for="playerNumber in state.players_per_team" :key="playerNumber">
             <div class="flex flex-col items-center">
@@ -26,17 +26,21 @@
             </div>
         </template>
 
-        Wins:
-        <span x-text="state.team_a_wins"></span>
+        <div class="text-shadow-lg text-shadow-black text-2xl">
+            Wins:
+            <span x-text="state.team_a_wins"></span>
+        </div>
     </div>
 
-    <div class="text-[#c59531] flex items-center justify-center font-bold text-2xl">
+    <div class="text-[#c59531] flex items-center justify-center font-bold text-2xl text-shadow-lg text-shadow-black/30">
         Payday 2 Draft Showmatch
     </div>
 
     <div class="flex justify-end gap-4 items-center">
-        Wins:
-        <span x-text="state.team_b_wins"></span>
+        <div class="text-shadow-lg text-shadow-black text-2xl">
+            Wins:
+            <span x-text="state.team_b_wins"></span>
+        </div>
 
         <template x-for="playerNumber in state.players_per_team" :key="playerNumber">
             <div class="flex flex-col items-center">
