@@ -1,5 +1,5 @@
 <% if @guess_who.game_type == "heist" %>
-    <%= image_tag("guess_who/heists/#{item}",
+    <%= image_tag("heists/named/#{item}.png",
         class: "w-64 select-none pointer-events-none m-auto") %>
 <% elsif @guess_who.game_type == "skins" %>
     <%= image_tag("https://www.overkillsoftware.com/ovk-media/economy42gF2Y/#{item}.png",
@@ -7,8 +7,7 @@
         class: "guess_who_card rarity-background #{GuessWho.skin_data(item)["rarity"]}") %>
 <% elsif @guess_who.game_type == "content_creators" %>
     <%= image_tag("guess_who/content_creators/#{item}",
-        style: "width:120px;height:140px;padding: 1rem 0;",
-        class: "guess_who_card") %>
+        class: "guess_who_card w-30 h-30 p-1 m-auto") %>
 <% elsif @guess_who.game_type == "characters" %>
     <%= image_tag("guess_who/characters/#{item}.png",
     style: "width:120px;height:140px;padding: 1rem 0;",

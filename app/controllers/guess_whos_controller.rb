@@ -12,8 +12,9 @@ class GuessWhosController < ApplicationController
 
   def show
     @guess_who = GuessWho.find_by_id(params[:id])
+    
     unless @guess_who
-      redirect_back alert: "Game does not exist", fallback_location: root_url
+      return redirect_back alert: "Game does not exist", fallback_location: root_url
     end
   end
 

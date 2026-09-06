@@ -198,6 +198,10 @@ button {
     @apply p-2
 }
 
+.copy-link {
+    @apply hover:scale-110 cursor-pointer
+}
+
 .loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid var(--color-branding-blue);

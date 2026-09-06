@@ -1,9 +1,9 @@
-<div data-controller="guess-who-show">
+<div data-controller="guess-who-show" data-guess-who-show-game-type-value="<%= @guess_who.game_type %>">
   <div class="m-4 h-2/3">
     <div class="gap-4" style="display:grid;grid-template-columns: <%= ["weapon", "melee"].include?(@guess_who.game_type) ? "repeat(6, 1fr)" : "repeat(8, 1fr)" %>;">
       <% @guess_who.items.each do |item| %>
         <div>
-          <div class="bg-dark-highlight border border-dark-light cursor-pointer rounded-md hover:scale-105" data-action="click->guess-who-show#flip">
+          <div class="bg-dark-highlight border border-dark-light cursor-pointer rounded-md hover:scale-105 gameplay-item" data-action="click->guess-who-show#flip">
             <%= render "guess_whos/card", item: %>
           </div>
           <% if @guess_who.game_type == "content_creators" || @guess_who.game_type == "characters" %>
@@ -18,62 +18,28 @@
 
   <div class="h-px bg-white/10"></div>
 
-  <div style="display:flex;justify-content:space-between;padding: 2rem 4rem;width:60%;margin:auto;color:white;">
+  <div class="flex justify-between items-center m-auto w-2/3 mt-4">
     <h2>
       Your lobby code is <%= params[:id] %>
-      <i style="margin-left:1rem;" class="fa-solid fa-clipboard copy-link" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top" data-link="<%= "https://payday-charts.com/guess_whos/#{@guess_who.id}" %>"></i>
+      <i data-action="click->guess-who-show#copyLink" class="fa-solid fa-clipboard copy-link" data-bs-toggle="tooltip" title="Copy" data-bs-placement="top" data-link="<%= "https://payday-charts.com/guess_whos/#{@guess_who.id}" %>"></i>
     </h2>
-    <button class="btn btn-primary" style="padding:0.5rem 1rem;height:20%;" id="reset-button">Reset</button>
-    <h2>Your Card:</h2>
-    <div style="background:white;border-radius:0.5rem;">
-      <% if ["heist", "content_creators"].include?(@guess_who.game_type) %>
-        <img id="your-pick" style="width:120px;padding:1rem" class="guess_who_card"/>
-      <% elsif @guess_who.game_type == "skins" %>
-        <img id="your-pick" style="width:160px;" class="guess_who_card rarity-background"/>
-      <% else %>
-        <img id="your-pick" style="width:160px;" class="guess_who_card"/>
-      <% end %>
+
+    <button class="btn btn-primary" data-action="click->guess-who-show#reset">
+      Reset
+    </button>
+
+    <div class="flex justify-center flex-col items-center">
+      <h2>Your Card:</h2>
+      <div style="background:white;border-radius:0.5rem;">
+        <% if ["heist", "content_creators"].include?(@guess_who.game_type) %>
+          <img data-guess-who-show-target="yourCard" class="w-30 guess_who_card p-4" />
+        <% elsif @guess_who.game_type == "skins" %>
+          <img data-guess-who-show-target="yourCard" class="w-32 guess_who_card rarity-background"/>
+        <% else %>
+          <img data-guess-who-show-target="yourCard" class="w-32 guess_who_card"/>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
-<script>
-  const setChosenImage = () => {
-    const chosenImage = document.getElementsByClassName("gameplay-item")[Math.floor(Math.random() * $(".gameplay-item").length)].children[0]
-    const imageSource = chosenImage.src
-    $("#your-pick").attr("src", imageSource)
-    <% if @guess_who.game_type == "skins" %>
-      document.getElementById("your-pick").classList = chosenImage.classList
-    <% end %>
-  }
-
-  $(document).ready(() => {
-    setChosenImage()
-
-    $(".gameplay-item").on("click", (e) => {
-      if (e.currentTarget.classList.contains("turned")) {
-        e.currentTarget.classList.remove("turned")
-        e.currentTarget.classList.add("unturned")
-      } else {
-        e.currentTarget.classList.remove("unturned")
-        e.currentTarget.classList.add("turned")
-      }
-    })
-
-    $("#reset-button").on("click", () => {
-      setChosenImage()
-      $(".gameplay-item").removeClass("turned")
-      $(".gameplay-item").addClass("unturned")
-    })
-
-    // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    // tooltipTriggerList.map(function (tooltipTriggerEl) {
-    //   return new bootstrap.Tooltip(tooltipTriggerEl)
-    // })
-  
-    $('.copy-link').on('click', (e) => {
-      const link = e.currentTarget.dataset.link
-      navigator.clipboard.writeText(link)
-    })
-  })
-</script>

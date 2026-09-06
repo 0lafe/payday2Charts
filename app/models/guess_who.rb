@@ -3,7 +3,8 @@ class GuessWho < ApplicationRecord
 
   validates :game_type, presence: true
 
-  @lists ||= JSON.parse(File.read("./app/models/guess_who_lists.json"))
+  ALL_LISTS = JSON.parse(File.read(Rails.root.join("app/models/concerns/guess_who_lists.json")))
+  HEIST_LIST = JSON.parse(File.read(Rails.root.join("app/models/concerns/heists.json")))
 
   def self.game_types
     [
@@ -18,7 +19,7 @@ class GuessWho < ApplicationRecord
   end
 
   def get_stat_names(stat_type)
-    black_list = @lists["black_list"]
+    black_list = ALL_LISTS["black_list"]
 
     stats = SteamApi.schema.filter do |stat|
       stat["name"].starts_with?(stat_type) && !black_list.include?(stat["name"])
@@ -30,16 +31,14 @@ class GuessWho < ApplicationRecord
   end
 
   def set_items
-    @lists ||= JSON.parse(File.read("./app/models/guess_who_lists.json"))
-
     if game_type == "heist"
-      self.items = @lists["heist_list"].sample(24)
+      self.items = HEIST_LIST.sample(24)
     elsif game_type == "content_creators"
-      self.items = @lists["content_creators_list_bak"].sample(24)
+      self.items = ALL_LISTS["content_creators_list_bak"].sample(24)
     elsif game_type == "characters"
-      self.items = @lists["characters_list"].sample(24)
+      self.items = ALL_LISTS["characters_list"].sample(24)
     elsif game_type == "skins"
-      self.items = @lists["skins"].keys.sample(24)
+      self.items = ALL_LISTS["skins"].keys.sample(24)
     else
       item_stats = []
       if game_type == "mask"
@@ -54,7 +53,7 @@ class GuessWho < ApplicationRecord
   end
 
   def self.skin_data(skin_id)
-    @lists["skins"][skin_id]
+    ALL_LISTS["skins"][skin_id]
   end
 
   def self.skin_background(skin_id)
@@ -74,7 +73,7 @@ class GuessWho < ApplicationRecord
   end
 
   def self.update_avatars
-    @creator_list = @lists["content_creators_list"]
+    @creator_list = ALL_LISTS["content_creators_list"]
 
     @youtube = @creator_list.filter {|creator| creator["platform"] == "yt" }
     @twitch = @creator_list - @youtube
