@@ -11,3 +11,4 @@ pin "alpinejs" # @3.16.1
 pin_all_from "app/javascript/components", under: "components"
 pin "@rails/actioncable", to: "actioncable.esm.js"
 pin_all_from "app/javascript/channels", under: "channels"
+pin "fuse.js" # @7.5.0
