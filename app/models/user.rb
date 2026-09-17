@@ -62,9 +62,11 @@ class User < ApplicationRecord
       }
     end
 
-    UserStat.where(user_id: id).delete_all
-
-    UserStat.insert_all(inserts)
+    UserStat.transaction do
+      UserStat.where(user_id: id).delete_all
+  
+      UserStat.insert_all(inserts)
+    end
   end
 
   def me?
