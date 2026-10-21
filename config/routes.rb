@@ -29,6 +29,8 @@ Rails.application.routes.draw do
         get 'build'
       end
     end
+
+    resources :leaderboards, only: [:index]
   end
 
   resources :jeopardy_games do
