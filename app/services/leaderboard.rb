@@ -2,18 +2,16 @@ class Leaderboard
   attr_accessor :updated_at, :top_100s
 
   def self.create
+    banned_ids = User.where(banned: true).pluck(:id)
+
     top_100s = Stat.where(display: true).to_h do |stat|
       [
         stat.id,
         stat.user_stats
+          .where.not(user_id: banned_ids)
           .order(value: :desc)
           .limit(100)
-          .map do |user_stat|
-            [
-              user_stat.user_id,
-              user_stat.value
-            ]
-          end
+          .pluck(:user_id, :value)
       ]
     end
 
@@ -59,4 +57,3 @@ class Leaderboard
     end
   end
 end
-
